@@ -1,184 +1,246 @@
-// mod send_message;
+// // mod send_message;
+// // use axum::{
+// //     routing::{get, post},
+// //     Router
+// // };
+// // use send_message::{
+// //     echo,
+// //     create_user,
+// //     socket_handler, ws_handler
+// // };
+
+// // #[tokio::main]
+// // async fn main() {
+// //     let app = Router::new()
+// //                         .route("/", get(|| async { "Hello, World!" }))
+// //                         .route("/echo", get(echo))
+// //                         .route("/hello_world", post(create_user))
+// //                         .route("/web_socket_test", get(ws_handler));
+
+// //     let listener = tokio::net::TcpListener::bind("0.0.0.0:3000").await.unwrap();
+// //     axum::serve(listener, app).await.unwrap();
+// // }
+
+// //! Run with
+// //!
+// //! ```not_rust
+// //! cargo test -p example-testing-websockets
+// //! ```
+
 // use axum::{
-//     routing::{get, post},
-//     Router
+//     extract::{
+//         ws::{Message, WebSocket},
+//         WebSocketUpgrade,
+//     },
+//     response::Response,
+//     routing::get,
+//     Router,
 // };
-// use send_message::{
-//     echo,
-//     create_user,
-//     socket_handler, ws_handler
-// };
+// use futures::{Sink, SinkExt, Stream, StreamExt};
 
 // #[tokio::main]
 // async fn main() {
-//     let app = Router::new()
-//                         .route("/", get(|| async { "Hello, World!" }))
-//                         .route("/echo", get(echo))
-//                         .route("/hello_world", post(create_user))
-//                         .route("/web_socket_test", get(ws_handler));
-
-//     let listener = tokio::net::TcpListener::bind("0.0.0.0:3000").await.unwrap();
-//     axum::serve(listener, app).await.unwrap();
+//     let listener = tokio::net::TcpListener::bind("127.0.0.1:3000")
+//         .await
+//         .unwrap();
+//     println!("listening on {}", listener.local_addr().unwrap());
+//     axum::serve(listener, app()).await.unwrap();
 // }
 
+// fn app() -> Router {
+//     Router::new()
+//         .route("/messages", get(message_handler))
+// }
+
+
+
+// async fn message_handler(ws: WebSocketUpgrade) -> Response {
+//     ws.on_upgrade(integration_testable_handle_socket)
+// }
+
+// async fn integration_testable_handle_socket(mut socket: WebSocket) {
+//     while let Some(Ok(msg)) = socket.recv().await {
+//         if let Message::Text(msg) = msg {
+//             if socket
+//                 .send(Message::Text(format!("You said: {msg}")))
+//                 .await
+//                 .is_err()
+//             {
+//                 break;
+//             }
+//         }
+        
+//     }
+// }
+
+
+
+
+
+
+
+
+
+
+
+
+
+//! Example chat application.
+//!
 //! Run with
 //!
 //! ```not_rust
-//! cargo test -p example-testing-websockets
+//! cargo run -p example-chat
 //! ```
 
 use axum::{
     extract::{
-        ws::{Message, WebSocket},
-        WebSocketUpgrade,
+        ws::{Message, WebSocket, WebSocketUpgrade},
+        State,
     },
-    response::Response,
+    response::{Html, IntoResponse},
     routing::get,
     Router,
 };
-use futures::{Sink, SinkExt, Stream, StreamExt};
+use futures::{sink::SinkExt, stream::StreamExt};
+use std::{
+    collections::HashSet,
+    sync::{Arc, Mutex},
+};
+use tokio::sync::broadcast;
+use tracing_subscriber::{layer::SubscriberExt, util::SubscriberInitExt};
+
+// Our shared state
+struct AppState {
+    // We require unique usernames. This tracks which usernames have been taken.
+    user_set: Mutex<HashSet<String>>,
+    // Channel used to send messages to all connected clients.
+    tx: broadcast::Sender<String>,
+}
 
 #[tokio::main]
 async fn main() {
+    tracing_subscriber::registry()
+        .with(
+            tracing_subscriber::EnvFilter::try_from_default_env()
+                .unwrap_or_else(|_| "example_chat=trace".into()),
+        )
+        .with(tracing_subscriber::fmt::layer())
+        .init();
+
+    // Set up application state for use with with_state().
+    let user_set = Mutex::new(HashSet::new());
+    let (tx, _rx) = broadcast::channel(100);
+
+    let app_state = Arc::new(AppState { user_set, tx });
+
+    let app = Router::new()
+        .route("/", get(index))
+        .route("/websocket", get(websocket_handler))
+        .with_state(app_state);
+
     let listener = tokio::net::TcpListener::bind("127.0.0.1:3000")
         .await
         .unwrap();
-    println!("listening on {}", listener.local_addr().unwrap());
-    axum::serve(listener, app()).await.unwrap();
+    tracing::debug!("listening on {}", listener.local_addr().unwrap());
+    axum::serve(listener, app).await.unwrap();
 }
 
-fn app() -> Router {
-    // WebSocket routes can generally be tested in two ways:
-    //
-    // - Integration tests where you run the server and connect with a real WebSocket client.
-    // - Unit tests where you mock the socket as some generic send/receive type
-    //
-    // Which version you pick is up to you. Generally we recommend the integration test version
-    // unless your app has a lot of setup that makes it hard to run in a test.
-    Router::new()
-        .route("/integration-testable", get(integration_testable_handler))
-        .route("/unit-testable", get(unit_testable_handler))
+async fn websocket_handler(
+    ws: WebSocketUpgrade,
+    State(state): State<Arc<AppState>>,
+) -> impl IntoResponse {
+    ws.on_upgrade(|socket| websocket(socket, state))
 }
 
-// A WebSocket handler that echos any message it receives.
-//
-// This one we'll be integration testing so it can be written in the regular way.
-async fn integration_testable_handler(ws: WebSocketUpgrade) -> Response {
-    ws.on_upgrade(integration_testable_handle_socket)
-}
+// This function deals with a single websocket connection, i.e., a single
+// connected client / user, for which we will spawn two independent tasks (for
+// receiving / sending chat messages).
+async fn websocket(stream: WebSocket, state: Arc<AppState>) {
+    // By splitting, we can send and receive at the same time.
+    let (mut sender, mut receiver) = stream.split();
 
-async fn integration_testable_handle_socket(mut socket: WebSocket) {
-    let mut i: u16 = 0;
-    while (true) {
-        socket.send(Message::Text(format!("{}", i))).await;
-        if i > 255 {
-            i = 0;
-        }
-        i += 1;
-    }
-    while let Some(Ok(msg)) = socket.recv().await {
-        if let Message::Text(msg) = msg {
-            if socket
-                .send(Message::Text(format!("You said: {msg}")))
-                .await
-                .is_err()
-            {
+    // Username gets set in the receive loop, if it's valid.
+    let mut username = String::new();
+    // Loop until a text message is found.
+    while let Some(Ok(message)) = receiver.next().await {
+        if let Message::Text(name) = message {
+            // If username that is sent by client is not taken, fill username string.
+            check_username(&state, &mut username, &name);
+
+            // If not empty we want to quit the loop else we want to quit function.
+            if !username.is_empty() {
                 break;
-            }
-        }
+            } else {
+                // Only send our client that username is taken.
+                let _ = sender
+                    .send(Message::Text(String::from("Username already taken.")))
+                    .await;
 
-
-    }
-}
-
-// The unit testable version requires some changes.
-//
-// By splitting the socket into an `impl Sink` and `impl Stream` we can test without providing a
-// real socket and instead using channels, which also implement `Sink` and `Stream`.
-async fn unit_testable_handler(ws: WebSocketUpgrade) -> Response {
-    ws.on_upgrade(|socket| {
-        let (write, read) = socket.split();
-        unit_testable_handle_socket(write, read)
-    })
-}
-
-// The implementation is largely the same as `integration_testable_handle_socket` expect we call
-// methods from `SinkExt` and `StreamExt`.
-async fn unit_testable_handle_socket<W, R>(mut write: W, mut read: R)
-where
-    W: Sink<Message> + Unpin,
-    R: Stream<Item = Result<Message, axum::Error>> + Unpin,
-{
-    while let Some(Ok(msg)) = read.next().await {
-        if let Message::Text(msg) = msg {
-            if write
-                .send(Message::Text(format!("You said: {msg}")))
-                .await
-                .is_err()
-            {
-                break;
+                return;
             }
         }
     }
-}
 
-#[cfg(test)]
-mod tests {
-    use super::*;
-    use std::{
-        future::IntoFuture,
-        net::{Ipv4Addr, SocketAddr},
+    // We subscribe *before* sending the "joined" message, so that we will also
+    // display it to our client.
+    let mut rx = state.tx.subscribe();
+
+    // Now send the "joined" message to all subscribers.
+    let msg = format!("{username} joined.");
+    tracing::debug!("{msg}");
+    let _ = state.tx.send(msg);
+
+    // Spawn the first task that will receive broadcast messages and send text
+    // messages over the websocket to our client.
+    let mut send_task = tokio::spawn(async move {
+        while let Ok(msg) = rx.recv().await {
+            // In any websocket error, break loop.
+            if sender.send(Message::Text(msg)).await.is_err() {
+                break;
+            }
+        }
+    });
+
+    // Clone things we want to pass (move) to the receiving task.
+    let tx = state.tx.clone();
+    let name = username.clone();
+
+    // Spawn a task that takes messages from the websocket, prepends the user
+    // name, and sends them to all broadcast subscribers.
+    let mut recv_task = tokio::spawn(async move {
+        while let Some(Ok(Message::Text(text))) = receiver.next().await {
+            // Add username before message.
+            let _ = tx.send(format!("{name}: {text}"));
+        }
+    });
+
+    // If any one of the tasks run to completion, we abort the other.
+    tokio::select! {
+        _ = (&mut send_task) => recv_task.abort(),
+        _ = (&mut recv_task) => send_task.abort(),
     };
-    use tokio_tungstenite::tungstenite;
 
-    // We can integration test one handler by running the server in a background task and
-    // connecting to it like any other client would.
-    #[tokio::test]
-    async fn integration_test() {
-        let listener = tokio::net::TcpListener::bind(SocketAddr::from((Ipv4Addr::UNSPECIFIED, 0)))
-            .await
-            .unwrap();
-        let addr = listener.local_addr().unwrap();
-        tokio::spawn(axum::serve(listener, app()).into_future());
+    // Send "user left" message (similar to "joined" above).
+    let msg = format!("{username} left.");
+    tracing::debug!("{msg}");
+    let _ = state.tx.send(msg);
 
-        let (mut socket, _response) =
-            tokio_tungstenite::connect_async(format!("ws://{addr}/integration-testable"))
-                .await
-                .unwrap();
+    // Remove username from map so new clients can take it again.
+    state.user_set.lock().unwrap().remove(&username);
+}
 
-        socket
-            .send(tungstenite::Message::text("foo"))
-            .await
-            .unwrap();
+fn check_username(state: &AppState, string: &mut String, name: &str) {
+    let mut user_set = state.user_set.lock().unwrap();
 
-        let msg = match socket.next().await.unwrap().unwrap() {
-            tungstenite::Message::Text(msg) => msg,
-            other => panic!("expected a text message but got {other:?}"),
-        };
+    if !user_set.contains(name) {
+        user_set.insert(name.to_owned());
 
-        assert_eq!(msg, "You said: foo");
+        string.push_str(name);
     }
+}
 
-    // We can unit test the other handler by creating channels to read and write from.
-    #[tokio::test]
-    async fn unit_test() {
-        // Need to use "futures" channels rather than "tokio" channels as they implement `Sink` and
-        // `Stream`
-        let (socket_write, mut test_rx) = futures::channel::mpsc::channel(1024);
-        let (mut test_tx, socket_read) = futures::channel::mpsc::channel(1024);
-
-        tokio::spawn(unit_testable_handle_socket(socket_write, socket_read));
-
-        test_tx
-            .send(Ok(Message::Text("foo".to_owned())))
-            .await
-            .unwrap();
-
-        let msg = match test_rx.next().await.unwrap() {
-            Message::Text(msg) => msg,
-            other => panic!("expected a text message but got {other:?}"),
-        };
-
-        assert_eq!(msg, "You said: foo");
-    }
+// Include utf-8 file at **compile** time.
+async fn index() -> Html<&'static str> {
+    Html(std::include_str!("../chat.html"))
 }
