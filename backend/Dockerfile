@@ -5,7 +5,7 @@ FROM rust
 ADD ./ ./
 
 # Build the program for release
-RUN cargo build --release
+RUN cargo build
 
 # Run the binary
 CMD ["./target/release/backend"]

@@ -25,7 +25,7 @@ struct AppState {
 
 #[tokio::main]
 async fn main() {
-    let listener = tokio::net::TcpListener::bind("127.0.0.1:3000")
+    let listener = tokio::net::TcpListener::bind("127.0.0.1:8080")
         .await
         .unwrap();
     println!("listening on {}", listener.local_addr().unwrap());
@@ -63,13 +63,9 @@ async fn message_socket_handler(mut socket: WebSocket, state: Arc<AppState>) {
                 let _ = sender
                             .send(Message::Text(String::from("Username is already taken.")))
                             .await;
-                
                 return;
             }
-
-
         }
-        
     }
 
 
