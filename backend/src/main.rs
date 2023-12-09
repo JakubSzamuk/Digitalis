@@ -21,7 +21,7 @@ use diesel::MysqlConnection;
 use futures::{SinkExt, StreamExt};
 use tokio::sync::broadcast;
 
-use crate::helpers::create_user;
+use crate::{helpers::create_user, models::SentMessage};
 
 #[tokio::main]
 async fn main() {
@@ -55,18 +55,17 @@ async fn message_handler(
 
 async fn message_socket_handler(mut socket: WebSocket, state: Arc<models::AppState>) {
     let (mut sender, mut reciever) = socket.split();
-    let mut auth_object: models::InitialMessage;
 
     while let Some(Ok(msg)) = reciever.next().await {
         if let Message::Text(unparseAuthObj) = msg {
-            auth_object = serde_json::from_str(&unparseAuthObj).unwrap();
+            let auth_object: models::InitialMessage =
+                serde_json::from_str(&unparseAuthObj).unwrap();
             if helpers::verify_auth(auth_object) {
                 break;
             } else {
                 let _ = sender
                     .send(Message::Text(String::from("Incorrect Credentials")))
                     .await;
-                // delete app key logic
                 return;
             }
         }
@@ -74,9 +73,9 @@ async fn message_socket_handler(mut socket: WebSocket, state: Arc<models::AppSta
 
     let mut rx = state.tx.subscribe();
 
-    let msg = format!("joined.");
-    tracing::debug!("{msg}");
-    let _ = state.tx.send(msg);
+    // let msg = format!("");
+    // tracing::debug!("{msg}");
+    // let _ = state.tx.send(msg);
 
     let mut send_task = tokio::spawn(async move {
         while let Ok(msg) = rx.recv().await {
@@ -90,8 +89,9 @@ async fn message_socket_handler(mut socket: WebSocket, state: Arc<models::AppSta
     // let name = username.clone();
 
     let mut recv_task = tokio::spawn(async move {
-        while let Some(Ok(Message::Text(text))) = reciever.next().await {
-            // let _ = tx.send(format!("{name} $$  {text}"));
+        while let Some(Ok(Message::Text(unparseMessage))) = reciever.next().await {
+            let serialised_message: SentMessage = serde_json::from_str(&unparseMessage).unwrap();
+            let _ = tx.send(format!("{name} $$  {text}"));
         }
     });
 

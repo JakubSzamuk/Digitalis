@@ -23,6 +23,26 @@ pub struct InitialMessage {
     pub password: String,
     pub app_key: String,
 }
+#[derive(Deserialize)]
+pub struct SentMessage {
+    message_body: String,
+    sender_id: String,
+}
+impl SentMessage {
+    pub fn new(message_body: String, sender_id: String) -> SentMessage {
+        SentMessage {
+            message_body,
+            sender_id,
+        }
+    }
+
+    pub fn contents(&self) -> &String {
+        &self.message_body
+    }
+    pub fn sender(&self) -> &String {
+        &self.sender_id
+    }
+}
 
 #[derive(Queryable, Selectable, Insertable)]
 #[diesel(table_name = crate::schema::users)]

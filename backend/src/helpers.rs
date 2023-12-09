@@ -1,4 +1,4 @@
-use crate::models::AppKey;
+use crate::models::{AppKey, SentMessage};
 
 use super::models::{InitialMessage, User};
 use diesel::mysql::MysqlConnection;
@@ -44,6 +44,8 @@ pub fn verify_auth(auth_obj: InitialMessage) -> bool {
     }
 }
 
+pub fn message_processor(message_object: SentMessage) {}
+
 pub fn establish_db() -> MysqlConnection {
     dotenv().ok();
 
@@ -51,20 +53,4 @@ pub fn establish_db() -> MysqlConnection {
 
     MysqlConnection::establish(&database_url)
         .unwrap_or_else(|_| panic!("Error Connecting to {}", database_url))
-}
-
-pub fn create_user() {
-    use crate::schema::users::dsl::*;
-
-    let mut connection = establish_db();
-
-    let new_user = User {
-        id: 34,
-        email: String::from("Hello"),
-        password: String::from("World"),
-    };
-    diesel::insert_into(users)
-        .values(&new_user)
-        .execute(&mut connection)
-        .expect("Error creating user");
 }
