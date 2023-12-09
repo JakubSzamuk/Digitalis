@@ -1,15 +1,5 @@
 version: '3.8'
 services:
-  backend:
-    container_name: axum_server
-    build:
-      context: ./backend/
-    ports:
-      - 8080:3000
-    depends_on:
-      - db
-    volumes:
-      - ./backend:/usr/src/
   db:
     image: mysql
     restart: unless-stopped
@@ -21,5 +11,15 @@ services:
       MYSQL_DATABASE: users
     volumes:
       - db-data:/data:/var/lib/mysql
+  backend:
+    container_name: axum_server
+    build:
+      context: ./backend/
+    ports:
+      - 5000:5000
+    depends_on:
+      - db
+    volumes:
+      - ./backend:/usr/src/
 volumes:
   db-data:

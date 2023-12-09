@@ -1,11 +1,13 @@
-# 1. This tells docker to use the Rust official image
+# Use rust base
 FROM rust
 
-# 2. Copy the files in the machine to the Docker image
-ADD ./ ./
+ADD . .
 
-# Build the program for release
-RUN cargo build
+# Build the program for release and install diesel_cli
+WORKDIR usr/src/
+RUN cargo build --release
+RUN cargo install diesel_cli --no-default-features --features mysql
 
-# Run the binary
-CMD ["./target/release/backend"]
+# Run the entry point script
+EXPOSE 5000
+ENTRYPOINT ./entry.sh
