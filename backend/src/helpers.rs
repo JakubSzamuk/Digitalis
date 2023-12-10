@@ -1,4 +1,4 @@
-use crate::models::{AppKey, SentMessage};
+use crate::models::{AppKey, SentMessage, StoredMessage};
 
 use super::models::{InitialMessage, User};
 use argon2::{Argon2, PasswordHash, PasswordVerifier};
@@ -6,6 +6,7 @@ use diesel::mysql::MysqlConnection;
 use diesel::prelude::*;
 use dotenvy::dotenv;
 use std::env;
+use std::time::SystemTime;
 
 pub fn verify_auth(auth_obj: InitialMessage) -> bool {
     use crate::schema::app_keys::dsl::*;
@@ -44,6 +45,10 @@ pub fn verify_auth(auth_obj: InitialMessage) -> bool {
                     {
                         return true;
                     } else {
+                        diesel::delete(app_keys)
+                            .filter(app_key.eq(auth_obj.app_key))
+                            .execute(&mut connection)
+                            .expect("Failed to delete key after failed auth, Keys COMPROMISED");
                         return false;
                     }
                 }
@@ -62,7 +67,23 @@ pub fn verify_auth(auth_obj: InitialMessage) -> bool {
     }
 }
 
-pub fn message_processor(message_object: SentMessage) {}
+pub fn message_processor(message_object: SentMessage) -> StoredMessage {
+    use crate::schema::sent_messages::dsl::*;
+    let mut connection = establish_db();
+
+    let new_message = StoredMessage {
+        id: 5,
+        message_body: message_object.message_body,
+        sender_id: message_object.sender_id,
+        time: chrono::NaiveDateTime::UNIX_EPOCH,
+    };
+
+    let _ = diesel::insert_into(sent_messages)
+        .values(&new_message)
+        .execute(&mut connection)
+        .expect("Message NOT saved");
+    new_message
+}
 
 pub fn establish_db() -> MysqlConnection {
     dotenv().ok();

@@ -1,5 +1,5 @@
-use diesel::prelude::*;
-use serde::Deserialize;
+use diesel::{prelude::*, sql_types::Datetime};
+use serde::{Deserialize, Serialize, Serializer};
 use std::{collections::HashSet, sync::Mutex};
 use tokio::sync::broadcast;
 
@@ -25,8 +25,8 @@ pub struct InitialMessage {
 }
 #[derive(Deserialize)]
 pub struct SentMessage {
-    message_body: String,
-    sender_id: String,
+    pub message_body: String,
+    pub sender_id: String,
 }
 impl SentMessage {
     pub fn new(message_body: String, sender_id: String) -> SentMessage {
@@ -44,6 +44,15 @@ impl SentMessage {
     }
 }
 
+pub fn serialize_dt<S>(dt: &chrono::NaiveDateTime, serializer: S) -> Result<S::Ok, S::Error>
+where
+    S: Serializer,
+{
+    dt.format("%m/%d/%Y %H:%M")
+        .to_string()
+        .serialize(serializer)
+}
+
 #[derive(Queryable, Selectable, Insertable)]
 #[diesel(table_name = crate::schema::users)]
 #[diesel(check_for_backend(diesel::mysql::Mysql))]
@@ -59,4 +68,15 @@ pub struct User {
 pub struct AppKey {
     pub id: i32,
     pub app_key: String,
+}
+
+#[derive(Serialize, Queryable, Selectable, Insertable)]
+#[diesel(table_name = crate::schema::sent_messages)]
+#[diesel(check_for_backend(diesel::mysql::Mysql))]
+pub struct StoredMessage {
+    pub id: Option<i32>,
+    pub message_body: String,
+    pub sender_id: String,
+    #[serde(serialize_with = "serialize_dt")]
+    pub time: chrono::NaiveDateTime,
 }

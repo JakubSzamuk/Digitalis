@@ -20,7 +20,10 @@ use axum::{
 use futures::{SinkExt, StreamExt};
 use tokio::sync::broadcast;
 
-use crate::models::SentMessage;
+use crate::{
+    helpers::message_processor,
+    models::{SentMessage, StoredMessage},
+};
 
 #[tokio::main]
 async fn main() {
@@ -92,7 +95,8 @@ async fn message_socket_handler(mut socket: WebSocket, state: Arc<models::AppSta
     let mut recv_task = tokio::spawn(async move {
         while let Some(Ok(Message::Text(unparsed_message))) = reciever.next().await {
             let serialised_message: SentMessage = serde_json::from_str(&unparsed_message).unwrap();
-            let _ = tx.send(format!("Testing message"));
+            let saved_message: StoredMessage = message_processor(serialised_message);
+            let _ = tx.send(serde_json::to_string(&saved_message).unwrap());
         }
     });
 
