@@ -17,11 +17,10 @@ use axum::{
     Router,
 };
 
-use diesel::MysqlConnection;
 use futures::{SinkExt, StreamExt};
 use tokio::sync::broadcast;
 
-use crate::{helpers::create_user, models::SentMessage};
+use crate::models::SentMessage;
 
 #[tokio::main]
 async fn main() {
@@ -41,11 +40,6 @@ fn app() -> Router {
         .with_state(app_state)
 }
 
-const APP_KEYS: [&str; 2] = [
-    "1f6f284bb1732cc92fa1a7ebccf1b13b387a41aee7adc71265892e57b7111b8a",
-    "32f56366c7b932a2ff948a7fbc2a680dcb88ed29cdfbc6ff2ddeb749070a7af2",
-];
-
 async fn message_handler(
     ws: WebSocketUpgrade,
     State(state): State<Arc<models::AppState>>,
@@ -57,25 +51,32 @@ async fn message_socket_handler(mut socket: WebSocket, state: Arc<models::AppSta
     let (mut sender, mut reciever) = socket.split();
 
     while let Some(Ok(msg)) = reciever.next().await {
-        if let Message::Text(unparseAuthObj) = msg {
-            let auth_object: models::InitialMessage =
-                serde_json::from_str(&unparseAuthObj).unwrap();
-            if helpers::verify_auth(auth_object) {
-                break;
-            } else {
-                let _ = sender
-                    .send(Message::Text(String::from("Incorrect Credentials")))
-                    .await;
-                return;
+        if let Message::Text(unparse_auth_obj) = msg {
+            let auth_object: Result<models::InitialMessage, serde_json::Error> =
+                serde_json::from_str(&unparse_auth_obj);
+
+            match auth_object {
+                Ok(result) => {
+                    if helpers::verify_auth(result) {
+                        break;
+                    } else {
+                        let _ = sender
+                            .send(Message::Text(String::from("Incorrect Credentials")))
+                            .await;
+                        return;
+                    }
+                }
+                Err(_) => {
+                    let _ = sender
+                        .send(Message::Text(String::from("Invalid Request format")))
+                        .await;
+                    return;
+                }
             }
         }
     }
 
     let mut rx = state.tx.subscribe();
-
-    // let msg = format!("");
-    // tracing::debug!("{msg}");
-    // let _ = state.tx.send(msg);
 
     let mut send_task = tokio::spawn(async move {
         while let Ok(msg) = rx.recv().await {
@@ -89,9 +90,9 @@ async fn message_socket_handler(mut socket: WebSocket, state: Arc<models::AppSta
     // let name = username.clone();
 
     let mut recv_task = tokio::spawn(async move {
-        while let Some(Ok(Message::Text(unparseMessage))) = reciever.next().await {
-            let serialised_message: SentMessage = serde_json::from_str(&unparseMessage).unwrap();
-            let _ = tx.send(format!("{name} $$  {text}"));
+        while let Some(Ok(Message::Text(unparsed_message))) = reciever.next().await {
+            let serialised_message: SentMessage = serde_json::from_str(&unparsed_message).unwrap();
+            let _ = tx.send(format!("Testing message"));
         }
     });
 

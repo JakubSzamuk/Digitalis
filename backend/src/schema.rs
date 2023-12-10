@@ -17,3 +17,8 @@ diesel::table! {
         password -> Varchar,
     }
 }
+
+diesel::allow_tables_to_appear_in_same_query!(
+    app_keys,
+    users,
+);

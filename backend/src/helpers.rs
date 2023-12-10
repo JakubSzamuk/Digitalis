@@ -1,6 +1,7 @@
 use crate::models::{AppKey, SentMessage};
 
 use super::models::{InitialMessage, User};
+use argon2::{Argon2, PasswordHash, PasswordVerifier};
 use diesel::mysql::MysqlConnection;
 use diesel::prelude::*;
 use dotenvy::dotenv;
@@ -25,14 +26,31 @@ pub fn verify_auth(auth_obj: InitialMessage) -> bool {
         }
     }
 
-    let matching_obj = users
+    let matching_obj: Result<User, diesel::result::Error> = users
         .filter(email.eq(auth_obj.email))
-        .filter(password.eq(auth_obj.password))
         .first::<User>(&mut connection);
 
     match matching_obj {
-        Ok(_) => {
-            return true;
+        Ok(resulting_user_object) => {
+            let password_hash: Result<PasswordHash, _> =
+                PasswordHash::new(&resulting_user_object.password);
+
+            match password_hash {
+                Ok(hashed_password_success) => {
+                    let algs: &[&dyn PasswordVerifier] = &[&Argon2::default()];
+                    if hashed_password_success
+                        .verify_password(algs, auth_obj.password)
+                        .is_ok()
+                    {
+                        return true;
+                    } else {
+                        return false;
+                    }
+                }
+                Err(_) => {
+                    return false;
+                }
+            }
         }
         Err(_) => {
             diesel::delete(app_keys)
