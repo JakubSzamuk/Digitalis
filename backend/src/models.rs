@@ -74,7 +74,6 @@ pub struct AppKey {
 #[diesel(table_name = crate::schema::sent_messages)]
 #[diesel(check_for_backend(diesel::mysql::Mysql))]
 pub struct StoredMessage {
-    pub id: Option<i32>,
     pub message_body: String,
     pub sender_id: String,
     #[serde(serialize_with = "serialize_dt")]

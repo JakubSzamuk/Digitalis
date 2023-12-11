@@ -38,10 +38,12 @@ fn app() -> Router {
 
     let app_state = Arc::new(models::AppState::new(users, tx));
     Router::new()
-        .route("/Hello", get(|| async { "Hello world" }))
+        .route("/fetch-messages", get())
         .route("/messages", get(message_handler))
         .with_state(app_state)
 }
+
+async fn message_fetch_handler() -> Vec<SentMessage> {}
 
 async fn message_handler(
     ws: WebSocketUpgrade,

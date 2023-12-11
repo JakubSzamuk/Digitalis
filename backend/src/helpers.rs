@@ -1,7 +1,10 @@
 use crate::models::{AppKey, SentMessage, StoredMessage};
+use crate::schema::users::dsl;
 
 use super::models::{InitialMessage, User};
 use argon2::{Argon2, PasswordHash, PasswordVerifier};
+use chrono::Utc;
+use diesel::dsl::now;
 use diesel::mysql::MysqlConnection;
 use diesel::prelude::*;
 use dotenvy::dotenv;
@@ -72,10 +75,9 @@ pub fn message_processor(message_object: SentMessage) -> StoredMessage {
     let mut connection = establish_db();
 
     let new_message = StoredMessage {
-        id: 5,
         message_body: message_object.message_body,
         sender_id: message_object.sender_id,
-        time: chrono::NaiveDateTime::UNIX_EPOCH,
+        time: Utc::now().naive_utc(),
     };
 
     let _ = diesel::insert_into(sent_messages)
