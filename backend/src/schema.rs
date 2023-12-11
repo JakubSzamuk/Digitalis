@@ -14,6 +14,8 @@ diesel::table! {
         message_body -> Text,
         #[max_length = 255]
         sender_id -> Varchar,
+        #[max_length = 255]
+        recipient_id -> Varchar,
         time -> Datetime,
     }
 }

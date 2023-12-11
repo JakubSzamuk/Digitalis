@@ -23,16 +23,27 @@ pub struct InitialMessage {
     pub password: String,
     pub app_key: String,
 }
+
+#[derive(Deserialize)]
+pub struct MessageFetchPayload {
+    pub auth_object: InitialMessage,
+    pub up_to: i8,
+    pub sender_id: String,
+    pub recipient_id: String,
+}
+
 #[derive(Deserialize)]
 pub struct SentMessage {
     pub message_body: String,
     pub sender_id: String,
+    pub recipient_id: String,
 }
 impl SentMessage {
-    pub fn new(message_body: String, sender_id: String) -> SentMessage {
+    pub fn new(message_body: String, sender_id: String, recipient_id: String) -> SentMessage {
         SentMessage {
             message_body,
             sender_id,
+            recipient_id,
         }
     }
 
@@ -76,6 +87,7 @@ pub struct AppKey {
 pub struct StoredMessage {
     pub message_body: String,
     pub sender_id: String,
+    pub recipient_id: String,
     #[serde(serialize_with = "serialize_dt")]
     pub time: chrono::NaiveDateTime,
 }

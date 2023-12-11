@@ -1,4 +1,4 @@
-use crate::models::{AppKey, SentMessage, StoredMessage};
+use crate::models::{self, AppKey, SentMessage, StoredMessage};
 use crate::schema::users::dsl;
 
 use super::models::{InitialMessage, User};
@@ -11,7 +11,7 @@ use dotenvy::dotenv;
 use std::env;
 use std::time::SystemTime;
 
-pub fn verify_auth(auth_obj: InitialMessage) -> bool {
+pub fn verify_auth(auth_obj: InitialMessage) -> Result<User, diesel::result::Error> {
     use crate::schema::app_keys::dsl::*;
     use crate::schema::users::dsl::*;
     let mut connection = establish_db();
@@ -26,7 +26,7 @@ pub fn verify_auth(auth_obj: InitialMessage) -> bool {
             diesel::delete(users)
                 .execute(&mut connection)
                 .expect("Failed to disable login, Keys COMPROMISED");
-            return false;
+            return Err(diesel::result::Error::NotFound);
         }
     }
 
@@ -46,17 +46,17 @@ pub fn verify_auth(auth_obj: InitialMessage) -> bool {
                         .verify_password(algs, auth_obj.password)
                         .is_ok()
                     {
-                        return true;
+                        return Ok(resulting_user_object);
                     } else {
                         diesel::delete(app_keys)
                             .filter(app_key.eq(auth_obj.app_key))
                             .execute(&mut connection)
                             .expect("Failed to delete key after failed auth, Keys COMPROMISED");
-                        return false;
+                        return Err(diesel::result::Error::NotFound);
                     }
                 }
                 Err(_) => {
-                    return false;
+                    return Err(diesel::result::Error::NotFound);
                 }
             }
         }
@@ -65,18 +65,38 @@ pub fn verify_auth(auth_obj: InitialMessage) -> bool {
                 .filter(app_key.eq(auth_obj.app_key))
                 .execute(&mut connection)
                 .expect("Failed to delete key after failed auth, Keys COMPROMISED");
-            return false;
+            return Err(diesel::result::Error::NotFound);
         }
     }
 }
 
-pub fn message_processor(message_object: SentMessage) -> StoredMessage {
+pub fn fetch_message_vec(
+    range: i8,
+    auth_obj: User,
+) -> Result<Vec<models::StoredMessage>, diesel::result::Error> {
+    use crate::schema::sent_messages::dsl::*;
+    let mut connection = establish_db();
+
+    let message_list: Result<Vec<StoredMessage>, diesel::result::Error> = sent_messages
+        .filter(
+            recipient_id
+                .eq(auth_obj.id.to_string())
+                .or(sender_id.eq(auth_obj.id.to_string())),
+        )
+        .limit(range.into())
+        .load::<StoredMessage>(&mut connection);
+
+    message_list
+}
+
+pub fn message_processor(message_object: SentMessage, signed_in_user: &User) -> StoredMessage {
     use crate::schema::sent_messages::dsl::*;
     let mut connection = establish_db();
 
     let new_message = StoredMessage {
         message_body: message_object.message_body,
-        sender_id: message_object.sender_id,
+        sender_id: signed_in_user.id.to_string(),
+        recipient_id: message_object.recipient_id,
         time: Utc::now().naive_utc(),
     };
 

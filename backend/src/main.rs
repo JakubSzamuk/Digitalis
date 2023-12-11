@@ -14,7 +14,7 @@ use axum::{
     },
     response::Response,
     routing::get,
-    Router,
+    Json, Router,
 };
 
 use futures::{SinkExt, StreamExt};
@@ -38,12 +38,18 @@ fn app() -> Router {
 
     let app_state = Arc::new(models::AppState::new(users, tx));
     Router::new()
-        .route("/fetch-messages", get())
+        // .route("/fetch-messages", get(message_fetch_handler))
         .route("/messages", get(message_handler))
         .with_state(app_state)
 }
-
-async fn message_fetch_handler() -> Vec<SentMessage> {}
+//  -> Vec<SentMessage>
+async fn message_fetch_handler(Json(payload): Json<models::MessageFetchPayload>) {
+    let serialised_payload: models::MessageFetchPayload = payload;
+    if let Ok(user_object) = helpers::verify_auth(serialised_payload.auth_object) {
+        let messages = helpers::fetch_message_vec(serialised_payload.up_to, user_object);
+    } else {
+    }
+}
 
 async fn message_handler(
     ws: WebSocketUpgrade,
@@ -55,6 +61,8 @@ async fn message_handler(
 async fn message_socket_handler(mut socket: WebSocket, state: Arc<models::AppState>) {
     let (mut sender, mut reciever) = socket.split();
 
+    let user_object: models::User;
+
     while let Some(Ok(msg)) = reciever.next().await {
         if let Message::Text(unparse_auth_obj) = msg {
             let auth_object: Result<models::InitialMessage, serde_json::Error> =
@@ -62,7 +70,8 @@ async fn message_socket_handler(mut socket: WebSocket, state: Arc<models::AppSta
 
             match auth_object {
                 Ok(result) => {
-                    if helpers::verify_auth(result) {
+                    if let Ok(temp_user_object) = helpers::verify_auth(result) {
+                        user_object = temp_user_object;
                         break;
                     } else {
                         let _ = sender
@@ -78,6 +87,8 @@ async fn message_socket_handler(mut socket: WebSocket, state: Arc<models::AppSta
                     return;
                 }
             }
+        } else {
+            return;
         }
     }
 
@@ -92,12 +103,11 @@ async fn message_socket_handler(mut socket: WebSocket, state: Arc<models::AppSta
     });
 
     let tx = state.tx.clone();
-    // let name = username.clone();
 
     let mut recv_task = tokio::spawn(async move {
         while let Some(Ok(Message::Text(unparsed_message))) = reciever.next().await {
             let serialised_message: SentMessage = serde_json::from_str(&unparsed_message).unwrap();
-            let saved_message: StoredMessage = message_processor(serialised_message);
+            let saved_message: StoredMessage = message_processor(serialised_message, &user_object);
             let _ = tx.send(serde_json::to_string(&saved_message).unwrap());
         }
     });
