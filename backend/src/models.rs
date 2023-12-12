@@ -73,6 +73,16 @@ pub struct User {
     pub password: String,
 }
 
+impl Default for User {
+    fn default() -> Self {
+        User {
+            id: 65535,
+            email: "init".to_string(),
+            password: "init".to_string(),
+        }
+    }
+}
+
 #[derive(Queryable, Selectable, Insertable)]
 #[diesel(table_name = crate::schema::app_keys)]
 #[diesel(check_for_backend(diesel::mysql::Mysql))]

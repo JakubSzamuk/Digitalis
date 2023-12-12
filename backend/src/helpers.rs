@@ -1,15 +1,11 @@
-use crate::models::{self, AppKey, SentMessage, StoredMessage};
-use crate::schema::users::dsl;
-
 use super::models::{InitialMessage, User};
+use crate::models::{self, AppKey, SentMessage, StoredMessage};
 use argon2::{Argon2, PasswordHash, PasswordVerifier};
 use chrono::Utc;
-use diesel::dsl::now;
 use diesel::mysql::MysqlConnection;
 use diesel::prelude::*;
 use dotenvy::dotenv;
 use std::env;
-use std::time::SystemTime;
 
 pub fn verify_auth(auth_obj: InitialMessage) -> Result<User, diesel::result::Error> {
     use crate::schema::app_keys::dsl::*;
@@ -70,21 +66,18 @@ pub fn verify_auth(auth_obj: InitialMessage) -> Result<User, diesel::result::Err
     }
 }
 
-pub fn fetch_message_vec(
-    range: i8,
-    auth_obj: User,
-) -> Result<Vec<models::StoredMessage>, diesel::result::Error> {
+pub fn fetch_message_vec(range: i8, auth_obj: User) -> QueryResult<Vec<models::StoredMessage>> {
     use crate::schema::sent_messages::dsl::*;
     let mut connection = establish_db();
 
-    let message_list: Result<Vec<StoredMessage>, diesel::result::Error> = sent_messages
+    let message_list: QueryResult<Vec<StoredMessage>> = sent_messages
         .filter(
             recipient_id
                 .eq(auth_obj.id.to_string())
                 .or(sender_id.eq(auth_obj.id.to_string())),
         )
         .limit(range.into())
-        .load::<StoredMessage>(&mut connection);
+        .load(&mut connection);
 
     message_list
 }

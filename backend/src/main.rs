@@ -61,7 +61,7 @@ async fn message_handler(
 async fn message_socket_handler(mut socket: WebSocket, state: Arc<models::AppState>) {
     let (mut sender, mut reciever) = socket.split();
 
-    let user_object: models::User;
+    let mut user_object: models::User = Default::default();
 
     while let Some(Ok(msg)) = reciever.next().await {
         if let Message::Text(unparse_auth_obj) = msg {
