@@ -49,9 +49,9 @@ async fn message_fetch_handler(
     Json(payload): Json<models::MessageFetchPayload>,
 ) -> axum::response::Result<Json<Vec<StoredMessage>>> {
     let serialised_payload: models::MessageFetchPayload = payload;
-    if let Ok(user_object) = helpers::verify_auth(serialised_payload.auth_object) {
+    if let Ok(user_object) = helpers::verify_auth(&serialised_payload.auth_object) {
         let messages: diesel::result::QueryResult<Vec<StoredMessage>> =
-            helpers::fetch_message_vec(serialised_payload.up_to, user_object);
+            helpers::fetch_message_vec(serialised_payload.up_to, user_object, serialised_payload);
 
         if let Ok(message_vec) = messages {
             return Ok(Json(message_vec));
