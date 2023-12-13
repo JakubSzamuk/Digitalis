@@ -28,7 +28,6 @@ pub struct InitialMessage {
 pub struct MessageFetchPayload {
     pub auth_object: InitialMessage,
     pub up_to: i8,
-    pub sender_id: String,
     pub recipient_id: String,
 }
 
@@ -38,7 +37,7 @@ pub struct SentMessage {
     pub recipient_id: String,
 }
 impl SentMessage {
-    pub fn new(message_body: String, sender_id: String, recipient_id: String) -> SentMessage {
+    pub fn new(message_body: String, recipient_id: String) -> SentMessage {
         SentMessage {
             message_body,
             recipient_id,

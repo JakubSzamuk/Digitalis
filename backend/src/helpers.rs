@@ -72,9 +72,7 @@ pub fn fetch_message_vec(range: i8, auth_obj: User) -> QueryResult<Vec<models::S
 
     let message_list: QueryResult<Vec<StoredMessage>> = sent_messages
         .filter(
-            recipient_id
-                .eq(auth_obj.id.to_string())
-                .or(sender_id.eq(auth_obj.id.to_string())),
+            recipient_id.eq(auth_obj.id.to_string()), // .and()
         )
         .limit(range.into())
         .load(&mut connection);
