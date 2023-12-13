@@ -10,7 +10,8 @@ diesel::table! {
 
 diesel::table! {
     sent_messages (id) {
-        id -> Integer,
+        #[max_length = 255]
+        id -> Varchar,
         message_body -> Text,
         #[max_length = 255]
         sender_id -> Varchar,

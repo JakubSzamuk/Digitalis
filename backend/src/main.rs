@@ -18,6 +18,7 @@ use axum::{
 };
 
 use futures::{SinkExt, StreamExt};
+use serde_json::json;
 use tokio::sync::broadcast;
 
 use crate::{
@@ -47,6 +48,7 @@ async fn message_fetch_handler(Json(payload): Json<models::MessageFetchPayload>)
     let serialised_payload: models::MessageFetchPayload = payload;
     if let Ok(user_object) = helpers::verify_auth(serialised_payload.auth_object) {
         let messages = helpers::fetch_message_vec(serialised_payload.up_to, user_object);
+        // return json!(messages);
     } else {
     }
 }

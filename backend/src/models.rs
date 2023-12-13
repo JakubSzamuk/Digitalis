@@ -35,23 +35,18 @@ pub struct MessageFetchPayload {
 #[derive(Deserialize)]
 pub struct SentMessage {
     pub message_body: String,
-    pub sender_id: String,
     pub recipient_id: String,
 }
 impl SentMessage {
     pub fn new(message_body: String, sender_id: String, recipient_id: String) -> SentMessage {
         SentMessage {
             message_body,
-            sender_id,
             recipient_id,
         }
     }
 
     pub fn contents(&self) -> &String {
         &self.message_body
-    }
-    pub fn sender(&self) -> &String {
-        &self.sender_id
     }
 }
 
@@ -95,6 +90,7 @@ pub struct AppKey {
 #[diesel(table_name = crate::schema::sent_messages)]
 #[diesel(check_for_backend(diesel::mysql::Mysql))]
 pub struct StoredMessage {
+    pub id: String,
     pub message_body: String,
     pub sender_id: String,
     pub recipient_id: String,

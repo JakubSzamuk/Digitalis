@@ -87,6 +87,7 @@ pub fn message_processor(message_object: SentMessage, signed_in_user: &User) -> 
     let mut connection = establish_db();
 
     let new_message = StoredMessage {
+        id: uuid::Uuid::new_v4().as_hyphenated().to_string(),
         message_body: message_object.message_body,
         sender_id: signed_in_user.id.to_string(),
         recipient_id: message_object.recipient_id,
