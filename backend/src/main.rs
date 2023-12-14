@@ -44,7 +44,7 @@ fn app() -> Router {
         .route("/messages", get(message_handler))
         .with_state(app_state)
 }
-//  -> Vec<SentMessage>
+
 async fn message_fetch_handler(
     Json(payload): Json<models::MessageFetchPayload>,
 ) -> axum::response::Result<Json<Vec<StoredMessage>>> {
@@ -74,7 +74,7 @@ async fn message_handler(
     ws.on_upgrade(|socket| message_socket_handler(socket, state))
 }
 
-async fn message_socket_handler(mut socket: WebSocket, state: Arc<models::AppState>) {
+async fn message_socket_handler(socket: WebSocket, state: Arc<models::AppState>) {
     let (mut sender, mut reciever) = socket.split();
 
     let mut user_object: models::User = Default::default();
@@ -122,9 +122,13 @@ async fn message_socket_handler(mut socket: WebSocket, state: Arc<models::AppSta
 
     let mut recv_task = tokio::spawn(async move {
         while let Some(Ok(Message::Text(unparsed_message))) = reciever.next().await {
-            let serialised_message: SentMessage = serde_json::from_str(&unparsed_message).unwrap();
-            let saved_message: StoredMessage = message_processor(serialised_message, &user_object);
-            let _ = tx.send(serde_json::to_string(&saved_message).unwrap());
+            if let Ok(serialised_message) = serde_json::from_str(&unparsed_message) {
+                let saved_message: StoredMessage =
+                    message_processor(serialised_message, &user_object);
+                let _ = tx.send(serde_json::to_string(&saved_message).unwrap());
+            } else {
+                return;
+            }
         }
     });
 
