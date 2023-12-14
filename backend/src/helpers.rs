@@ -69,13 +69,20 @@ pub fn verify_auth(auth_obj: InitialMessage) -> Result<User, diesel::result::Err
 pub fn fetch_message_vec(
     range: i8,
     auth_obj: User,
-    sender_id: String,
+    parsed_sender_id: String,
 ) -> QueryResult<Vec<models::StoredMessage>> {
     use crate::schema::sent_messages::dsl::*;
     let mut connection = establish_db();
 
     let message_list: QueryResult<Vec<StoredMessage>> = sent_messages
-        .filter(recipient_id.eq(auth_obj.id.to_string()).and(sender_id.eq()))
+        .filter(
+            recipient_id
+                .eq(auth_obj.id.to_string())
+                .and(sender_id.eq(&parsed_sender_id))
+                .or(recipient_id
+                    .eq(&parsed_sender_id)
+                    .and(sender_id.eq(auth_obj.id.to_string()))),
+        )
         .limit(range.into())
         .load(&mut connection);
 
