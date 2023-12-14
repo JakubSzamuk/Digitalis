@@ -1,4 +1,4 @@
-use diesel::{prelude::*, sql_types::Datetime};
+use diesel::prelude::*;
 use serde::{Deserialize, Serialize, Serializer};
 use std::{collections::HashSet, sync::Mutex};
 use tokio::sync::broadcast;

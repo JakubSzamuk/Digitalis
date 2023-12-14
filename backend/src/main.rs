@@ -19,13 +19,9 @@ use axum::{
 };
 
 use futures::{SinkExt, StreamExt};
-use serde_json::json;
 use tokio::sync::broadcast;
 
-use crate::{
-    helpers::message_processor,
-    models::{SentMessage, StoredMessage},
-};
+use crate::{helpers::message_processor, models::StoredMessage};
 
 #[tokio::main]
 async fn main() {
