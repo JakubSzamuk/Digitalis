@@ -1,4 +1,4 @@
-use super::models::{InitialMessage, User};
+use super::models::{ClientAuthObject, User};
 use crate::models::{self, AppKey, SentMessage, StoredMessage};
 use argon2::{Argon2, PasswordHash, PasswordVerifier};
 use chrono::Utc;
@@ -7,7 +7,7 @@ use diesel::prelude::*;
 use dotenvy::dotenv;
 use std::env;
 
-pub fn verify_auth(auth_obj: InitialMessage) -> Result<User, diesel::result::Error> {
+pub fn verify_auth(auth_obj: ClientAuthObject) -> Result<User, diesel::result::Error> {
     use crate::schema::app_keys::dsl::*;
     use crate::schema::users::dsl::*;
     let mut connection = establish_db();
@@ -62,6 +62,19 @@ pub fn verify_auth(auth_obj: InitialMessage) -> Result<User, diesel::result::Err
                 .execute(&mut connection)
                 .expect("Failed to delete key after failed auth, Keys COMPROMISED");
             return Err(diesel::result::Error::NotFound);
+        }
+    }
+}
+
+pub fn message_is_for_user(message: &String, user_id: &String) -> bool {
+    let deserialisation_result: Result<StoredMessage, serde_json::Error> =
+        serde_json::from_str(&message);
+    match deserialisation_result {
+        Ok(parsed_message) => {
+            return &parsed_message.recipient_id == user_id || &parsed_message.sender_id == user_id;
+        }
+        Err(_) => {
+            return false;
         }
     }
 }

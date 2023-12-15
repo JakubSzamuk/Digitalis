@@ -74,15 +74,17 @@ async fn message_socket_handler(socket: WebSocket, state: Arc<models::AppState>)
     let (mut sender, mut reciever) = socket.split();
 
     let mut user_object: models::User = Default::default();
+    let mut recipient_id: String = "".to_string();
 
     while let Some(Ok(msg)) = reciever.next().await {
         if let Message::Text(unparse_auth_obj) = msg {
-            let auth_object: Result<models::InitialMessage, serde_json::Error> =
+            let intial_deserialisation: Result<models::InitialMessage, serde_json::Error> =
                 serde_json::from_str(&unparse_auth_obj);
 
-            match auth_object {
+            match intial_deserialisation {
                 Ok(result) => {
-                    if let Ok(temp_user_object) = helpers::verify_auth(result) {
+                    recipient_id = result.recipient_id;
+                    if let Ok(temp_user_object) = helpers::verify_auth(result.auth_object) {
                         user_object = temp_user_object;
                         break;
                     } else {
@@ -108,8 +110,10 @@ async fn message_socket_handler(socket: WebSocket, state: Arc<models::AppState>)
 
     let mut send_task = tokio::spawn(async move {
         while let Ok(msg) = rx.recv().await {
-            if sender.send(Message::Text(msg)).await.is_err() {
-                break;
+            if helpers::message_is_for_user(&msg.to_string(), &user_object.id.to_string()) {
+                if sender.send(Message::Text(msg)).await.is_err() {
+                    break;
+                }
             }
         }
     });

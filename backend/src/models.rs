@@ -1,5 +1,5 @@
 use diesel::prelude::*;
-use serde::{Deserialize, Serialize, Serializer};
+use serde::{Deserialize, Deserializer, Serialize, Serializer};
 use std::{collections::HashSet, sync::Mutex};
 use tokio::sync::broadcast;
 
@@ -19,6 +19,12 @@ impl AppState {
 
 #[derive(Deserialize)]
 pub struct InitialMessage {
+    pub auth_object: ClientAuthObject,
+    pub recipient_id: String,
+}
+
+#[derive(Deserialize)]
+pub struct ClientAuthObject {
     pub email: String,
     pub password: String,
     pub app_key: String,
@@ -26,7 +32,7 @@ pub struct InitialMessage {
 
 #[derive(Deserialize)]
 pub struct MessageFetchPayload {
-    pub auth_object: InitialMessage,
+    pub auth_object: ClientAuthObject,
     pub up_to: i8,
     pub recipient_id: String,
 }
@@ -53,9 +59,21 @@ pub fn serialize_dt<S>(dt: &chrono::NaiveDateTime, serializer: S) -> Result<S::O
 where
     S: Serializer,
 {
-    dt.format("%m/%d/%Y %H:%M")
+    dt.format("%d/%m/%Y %H:%M")
         .to_string()
         .serialize(serializer)
+}
+fn deserialize_dt<'de, D>(deserializer: D) -> Result<chrono::NaiveDateTime, D::Error>
+where
+    D: Deserializer<'de>,
+{
+    let s: &str = Deserialize::deserialize(deserializer)?;
+
+    // Parse the string into a NaiveDateTime using the format you specified
+    match chrono::NaiveDateTime::parse_from_str(s, "%d/%m/%Y %H:%M") {
+        Ok(dt) => Ok(dt),
+        Err(_) => Err(serde::de::Error::custom("Failed to parse NaiveDateTime")),
+    }
 }
 
 #[derive(Queryable, Selectable, Insertable)]
@@ -85,7 +103,7 @@ pub struct AppKey {
     pub app_key: String,
 }
 
-#[derive(Serialize, Queryable, Selectable, Insertable)]
+#[derive(Deserialize, Serialize, Queryable, Selectable, Insertable)]
 #[diesel(table_name = crate::schema::sent_messages)]
 #[diesel(check_for_backend(diesel::mysql::Mysql))]
 pub struct StoredMessage {
@@ -93,6 +111,6 @@ pub struct StoredMessage {
     pub message_body: String,
     pub sender_id: String,
     pub recipient_id: String,
-    #[serde(serialize_with = "serialize_dt")]
+    #[serde(serialize_with = "serialize_dt", deserialize_with = "deserialize_dt")]
     pub time: chrono::NaiveDateTime,
 }
