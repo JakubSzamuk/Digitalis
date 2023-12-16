@@ -110,7 +110,11 @@ async fn message_socket_handler(socket: WebSocket, state: Arc<models::AppState>)
 
     let mut send_task = tokio::spawn(async move {
         while let Ok(msg) = rx.recv().await {
-            if helpers::message_is_for_user(&msg.to_string(), &user_object.id.to_string()) {
+            if helpers::message_is_for_user(
+                &msg.to_string(),
+                &user_object.id.to_string(),
+                &recipient_id,
+            ) {
                 if sender.send(Message::Text(msg)).await.is_err() {
                     break;
                 }

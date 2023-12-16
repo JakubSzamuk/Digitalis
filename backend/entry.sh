@@ -7,5 +7,5 @@ echo "started"
 # diesel migration run
 
 # Start the backend server
-./target/release/backend
-
+# ./target/release/backend
+cargo run
