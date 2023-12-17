@@ -1,11 +1,16 @@
 import { View, Text } from 'react-native'
 import React from 'react'
+import { StandardBackground } from '../../constants/colors'
+import { UtilityStyles } from '../../styles/utility'
+
+// const InputField
+
 
 const Login = () => {
   return (
-    <View>
-      <Text>Login</Text>
-    </View>
+    <StandardBackground style={UtilityStyles.mainBackground}>
+      <Text>Sign in</Text>
+    </StandardBackground>
   )
 }
 
