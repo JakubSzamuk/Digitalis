@@ -16,8 +16,16 @@ import {
   useColorScheme,
   View,
 } from 'react-native';
+import {
+  NavigationContainer
+} from '@react-navigation/native'
 
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { Color } from './constants/colors';
+import Login from './screens/Login/Login';
+
+const Stack = createNativeStackNavigator();
+
 
 function Seperator(): React.JSX.Element {
   return (
@@ -30,25 +38,15 @@ function App(): React.JSX.Element {
 
 
   return (
-    <SafeAreaView style={styles.backgroundStyle}>
-      <View style={styles.centerView}>
-        <Text style={styles.textStyle}>
-          {"    "}    .___.__{"       "}.__{"  "}__{"         "}.__{"  "}.__{"        "}{"\n"}
-          {"  "}  __| _/|__| ____ |__|/{"  "}|______{"  "}|{"  "}| |__| ______{"\n"}
-          {" "} / __ | |{"  "}|/ ___\|{"  "}\{"   "}__\__{"  "}\ |{"  "}| |{"  "}|/{"  "}___/{"\n"}
-          / /_/ | |{"  "}/ /_/{"  "}>{"  "}||{"  "}|{"  "}/ __ \|{"  "}|_|{"  "}|\___ \ {"\n"}
-          \____ | |__\___{"  "}/|__||__| (____  /____/__/____  >{"\n"}
-          {"     "}     \/{"   "}/_____/{"               "}\/{"             "}\/ {"\n"}
-        </Text>
-      </View>
-      <Seperator />
-      <View>
-
-      </View>
-    </SafeAreaView>
+    <NavigationContainer>
+      <Stack.Navigator initialRouteName='login'>
+        <Stack.Screen name='login' component={Login} options={{ headerShown: false }} />
+        <Stack.Screen name='home' component={Login} options={{ headerShown: false }} />
+      </Stack.Navigator>
+    </NavigationContainer>
   );
 }
-
+ 
 const styles = StyleSheet.create({
   backgroundStyle: {
     backgroundColor: Color.background,
@@ -57,6 +55,8 @@ const styles = StyleSheet.create({
   },
   textStyle: {
     color: Color.text,
+    fontFamily: "Nunito-Regular",
+    fontSize: 40
   },
   centerView: {
     display: "flex",
