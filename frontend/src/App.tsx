@@ -23,6 +23,8 @@ import {
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { Color } from './constants/colors';
 import Login from './screens/Login/Login';
+import Home from './screens/Home/Home';
+import AddChat from './screens/Home/add-screen/AddChat';
 
 const Stack = createNativeStackNavigator();
 
@@ -39,9 +41,10 @@ function App(): React.JSX.Element {
 
   return (
     <NavigationContainer>
-      <Stack.Navigator initialRouteName='login'>
+      <Stack.Navigator initialRouteName='add_chat'>
         <Stack.Screen name='login' component={Login} options={{ headerShown: false }} />
-        <Stack.Screen name='home' component={Login} options={{ headerShown: false }} />
+        <Stack.Screen name='home' component={Home} options={{ headerShown: false }} />
+        <Stack.Screen name='add_chat' component={AddChat} options={{ headerShown: false }} />
       </Stack.Navigator>
     </NavigationContainer>
   );
