@@ -37,8 +37,13 @@ fn app() -> Router {
     let app_state = Arc::new(models::AppState::new(users, tx));
     Router::new()
         .route("/fetch-messages", get(message_fetch_handler))
+        .route("/configure-client", get(client_app_key_handler))
         .route("/messages", get(message_handler))
         .with_state(app_state)
+}
+
+async fn client_app_key_handler(Json(payload): Json<models::MessageFetchPayload>) -> String {
+    "hello".to_string()
 }
 
 async fn message_fetch_handler(
@@ -78,13 +83,12 @@ async fn message_socket_handler(socket: WebSocket, state: Arc<models::AppState>)
 
     while let Some(Ok(msg)) = reciever.next().await {
         if let Message::Text(unparse_auth_obj) = msg {
-            let intial_deserialisation: Result<models::InitialMessage, serde_json::Error> =
+            let intial_deserialisation: Result<models::ClientAuthObject, serde_json::Error> =
                 serde_json::from_str(&unparse_auth_obj);
 
             match intial_deserialisation {
                 Ok(result) => {
-                    recipient_id = result.recipient_id;
-                    if let Ok(temp_user_object) = helpers::verify_auth(result.auth_object) {
+                    if let Ok(temp_user_object) = helpers::verify_auth(result) {
                         user_object = temp_user_object;
                         break;
                     } else {
@@ -101,6 +105,18 @@ async fn message_socket_handler(socket: WebSocket, state: Arc<models::AppState>)
                     return;
                 }
             }
+        } else {
+            return;
+        }
+    }
+
+    while let Some(Ok(msg)) = reciever.next().await {
+        if let Message::Text(recipient_id_message) = msg {
+            recipient_id = recipient_id_message.to_string();
+            let _ = sender
+                .send(Message::Text("You are Connected".to_string()))
+                .await;
+            break;
         } else {
             return;
         }

@@ -1,4 +1,4 @@
-use super::models::{ClientAuthObject, User};
+use super::models::{ClientAuthObject, InitialClientAuth, User};
 use crate::models::{self, AppKey, SentMessage, StoredMessage};
 use argon2::{Argon2, PasswordHash, PasswordVerifier};
 use chrono::Utc;
@@ -7,24 +7,12 @@ use diesel::prelude::*;
 use dotenvy::dotenv;
 use std::env;
 
-pub fn verify_auth(auth_obj: ClientAuthObject) -> Result<User, diesel::result::Error> {
-    use crate::schema::app_keys::dsl::*;
+pub fn verify_standard(
+    auth_obj: InitialClientAuth,
+    possible_app_key: Option<String>,
+) -> Result<User, diesel::result::Error> {
     use crate::schema::users::dsl::*;
     let mut connection = establish_db();
-
-    let matching_app_key = app_keys
-        .filter(app_key.eq(&auth_obj.app_key))
-        .first::<AppKey>(&mut connection);
-
-    match matching_app_key {
-        Ok(_) => {}
-        Err(_) => {
-            diesel::delete(users)
-                .execute(&mut connection)
-                .expect("Failed to disable login, Keys COMPROMISED");
-            return Err(diesel::result::Error::NotFound);
-        }
-    }
 
     let matching_obj: Result<User, diesel::result::Error> = users
         .filter(email.eq(auth_obj.email))
@@ -44,8 +32,9 @@ pub fn verify_auth(auth_obj: ClientAuthObject) -> Result<User, diesel::result::E
                     {
                         return Ok(resulting_user_object);
                     } else {
+                        use crate::schema::app_keys::dsl::*;
                         diesel::delete(app_keys)
-                            .filter(app_key.eq(auth_obj.app_key))
+                            .filter(app_key.eq(possible_app_key.unwrap()))
                             .execute(&mut connection)
                             .expect("Failed to delete key after failed auth, Keys COMPROMISED");
                         return Err(diesel::result::Error::NotFound);
@@ -57,14 +46,46 @@ pub fn verify_auth(auth_obj: ClientAuthObject) -> Result<User, diesel::result::E
             }
         }
         Err(_) => {
+            use crate::schema::app_keys::dsl::*;
             diesel::delete(app_keys)
-                .filter(app_key.eq(auth_obj.app_key))
+                .filter(app_key.eq(possible_app_key.unwrap()))
                 .execute(&mut connection)
                 .expect("Failed to delete key after failed auth, Keys COMPROMISED");
             return Err(diesel::result::Error::NotFound);
         }
     }
 }
+
+pub fn verify_auth(auth_obj: ClientAuthObject) -> Result<User, diesel::result::Error> {
+    use crate::schema::app_keys::dsl::*;
+    let mut connection = establish_db();
+
+    let matching_app_key = app_keys
+        .filter(app_key.eq(&auth_obj.app_key))
+        .first::<AppKey>(&mut connection);
+    // let hashed_app_key = auth_obj.app_key
+
+    match matching_app_key {
+        Ok(_) => {}
+        Err(_) => {
+            use crate::schema::users::dsl::*;
+            diesel::delete(users)
+                .execute(&mut connection)
+                .expect("Failed to disable login, Keys COMPROMISED");
+            return Err(diesel::result::Error::NotFound);
+        }
+    }
+
+    verify_standard(
+        InitialClientAuth {
+            email: auth_obj.email,
+            password: auth_obj.password,
+        },
+        Some(auth_obj.app_key),
+    )
+}
+
+// pub fn client_key_gen()
 
 pub fn message_is_for_user(message: &String, user_id: &String, recipient_id: &String) -> bool {
     let deserialisation_result: Result<StoredMessage, serde_json::Error> =

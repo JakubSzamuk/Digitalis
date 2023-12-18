@@ -24,6 +24,18 @@ pub struct InitialMessage {
 }
 
 #[derive(Deserialize)]
+pub struct KeyExchangeMessage {
+    pub auth_object: InitialClientAuth,
+    pub client_key: String,
+}
+
+#[derive(Deserialize)]
+pub struct InitialClientAuth {
+    pub email: String,
+    pub password: String,
+}
+
+#[derive(Deserialize)]
 pub struct ClientAuthObject {
     pub email: String,
     pub password: String,
