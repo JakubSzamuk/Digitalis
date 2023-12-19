@@ -27,6 +27,7 @@ import Home from './screens/Home/Home';
 import AddChat from './screens/Home/add-screen/AddChat';
 import ShowQr from './screens/Home/show-qr/ShowQr';
 import AddedContact from './screens/Home/added_contact/AddedContact';
+import Chat from './screens/Home/chat/Chat';
 
 const Stack = createNativeStackNavigator();
 
@@ -43,9 +44,10 @@ function App(): React.JSX.Element {
 
   return (
     <NavigationContainer>
-      <Stack.Navigator initialRouteName='added_contact'>
+      <Stack.Navigator initialRouteName='chat'>
         <Stack.Screen name='login' component={Login} options={{ headerShown: false }} />
         <Stack.Screen name='home' component={Home} options={{ headerShown: false }} />
+        <Stack.Screen name='chat' component={Chat} options={{ headerShown: false }} />
         <Stack.Screen name='add_chat' component={AddChat} options={{ headerShown: false }} />
         <Stack.Screen name='show_qr' component={ShowQr} options={{ headerShown: false }} />
         <Stack.Screen name='added_contact' component={AddedContact} options={{ headerShown: false }} />

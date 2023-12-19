@@ -15,7 +15,7 @@ const AddedContact = () => {
             <Text style={FontStyles.MediumText}>Contact has been added successfully.</Text>
             <View style={{ flexDirection: 'row', alignItems: 'center', marginTop: 10 }}>
               <Text style={FontStyles.MediumText}>Name:</Text>
-              <TextInput placeholder='Their name' placeholderTextColor={Color.text} style={[FontStyles.MediumText, { marginLeft: 10, paddingHorizontal: 8, paddingVertical: 4, backgroundColor: Color.secondary, borderRadius: 10, minWidth: 160 }]} />
+              <TextInput placeholder='Their name' placeholderTextColor={"#5F5F5F"} style={[FontStyles.MediumText, { marginLeft: 10, paddingHorizontal: 8, paddingVertical: 4, backgroundColor: Color.secondary, borderRadius: 10, minWidth: 160 }]} />
             </View>
           </View>
           <TouchableOpacity style={{ marginTop: 40 }}>
