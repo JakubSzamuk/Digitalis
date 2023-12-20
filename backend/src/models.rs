@@ -36,6 +36,12 @@ pub struct InitialClientAuth {
 }
 
 #[derive(Deserialize)]
+pub struct AppKeyExchangePayload {
+    pub auth_object: InitialClientAuth,
+    pub app_key: String,
+}
+
+#[derive(Deserialize)]
 pub struct ClientAuthObject {
     pub email: String,
     pub password: String,

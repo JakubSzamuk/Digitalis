@@ -1,4 +1,4 @@
-use super::models::{ClientAuthObject, InitialClientAuth, User};
+use super::models::{ClientAuthObject, InitialClientAuth, User, AppKeyExchangePayload };
 use crate::models::{self, AppKey, SentMessage, StoredMessage};
 use argon2::{Argon2, PasswordHash, PasswordVerifier};
 use chrono::Utc;
@@ -85,7 +85,17 @@ pub fn verify_auth(auth_obj: ClientAuthObject) -> Result<User, diesel::result::E
     )
 }
 
-// pub fn client_key_gen()
+pub fn client_key_gen(auth_obj: InitialClientAuth, app_key: String) -> Result<String, diesel::result::Error> {
+    use crate::schema::app_keys::dsl::*;
+    let mut connection = establish_db();
+    // if let Ok(auth_user) = verify_standard(auth_obj) {
+    //      
+    // } else {
+    //     // return ;
+    // }
+    return Ok("hello".to_string());
+    return Err(diesel::result::Error::NotFound)
+}
 
 pub fn message_is_for_user(message: &String, user_id: &String, recipient_id: &String) -> bool {
     let deserialisation_result: Result<StoredMessage, serde_json::Error> =

@@ -25,7 +25,7 @@ use crate::{helpers::message_processor, models::StoredMessage};
 
 #[tokio::main]
 async fn main() {
-    let listener = tokio::net::TcpListener::bind("0.0.0.0:5000").await.unwrap();
+    let listener = tokio::net::TcpListener::bind("0.0.0.0:4000").await.unwrap();
     println!("listening on {}", listener.local_addr().unwrap());
     axum::serve(listener, app()).await.unwrap();
 }
@@ -42,7 +42,7 @@ fn app() -> Router {
         .with_state(app_state)
 }
 
-async fn client_app_key_handler(Json(payload): Json<models::MessageFetchPayload>) -> String {
+async fn client_app_key_handler(Json(payload): Json<models::AppKeyExchangePayload>) -> String {
     "hello".to_string()
 }
 
