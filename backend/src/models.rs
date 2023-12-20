@@ -132,3 +132,12 @@ pub struct StoredMessage {
     #[serde(serialize_with = "serialize_dt", deserialize_with = "deserialize_dt")]
     pub time: chrono::NaiveDateTime,
 }
+
+#[derive(Deserialize, Serialize, Queryable, Selectable, Insertable)]
+#[diesel(table_name = crate::schema::temp_keys)]
+#[diesel(check_for_backend(diesel::mysql::Mysql))]
+pub struct StoredTempKey {
+    pub id: i32,
+    pub key_id: i32,
+    pub temp_key: String,
+}

@@ -1,5 +1,5 @@
-use super::models::{ClientAuthObject, InitialClientAuth, User, AppKeyExchangePayload };
-use crate::models::{self, AppKey, SentMessage, StoredMessage};
+use super::models::{AppKeyExchangePayload, ClientAuthObject, InitialClientAuth, User};
+use crate::models::{self, AppKey, SentMessage, StoredMessage, StoredTempKey};
 use argon2::{Argon2, PasswordHash, PasswordVerifier};
 use chrono::Utc;
 use diesel::mysql::MysqlConnection;
@@ -85,16 +85,37 @@ pub fn verify_auth(auth_obj: ClientAuthObject) -> Result<User, diesel::result::E
     )
 }
 
-pub fn client_key_gen(auth_obj: InitialClientAuth, app_key: String) -> Result<String, diesel::result::Error> {
-    use crate::schema::app_keys::dsl::*;
+pub fn client_key_gen(
+    auth_obj: InitialClientAuth,
+    app_key: String,
+) -> Result<String, diesel::result::Error> {
+    use crate::schema::temp_keys::dsl::*;
     let mut connection = establish_db();
-    // if let Ok(auth_user) = verify_standard(auth_obj) {
-    //      
-    // } else {
-    //     // return ;
-    // }
-    return Ok("hello".to_string());
-    return Err(diesel::result::Error::NotFound)
+    let no_app_key: Option<String> = None;
+    if let Ok(_) = verify_standard(auth_obj, no_app_key) {
+        let matching_key: QueryResult<StoredTempKey> = temp_keys
+            .filter(temp_key.eq(app_key))
+            .first::<StoredTempKey>(&mut connection);
+
+        if let Ok(genuine_temp_key) = matching_key {
+            let is_deleted = diesel::delete(temp_keys)
+                .filter(id.eq(genuine_temp_key.id))
+                .execute(&mut connection);
+
+            if let Ok(_) = is_deleted {
+                use crate::schema::app_keys::dsl::*;
+                let final_key: QueryResult<AppKey> = app_keys
+                    .filter(id.eq(genuine_temp_key.key_id))
+                    .first::<AppKey>(&mut connection);
+
+                if let Ok(key) = final_key {
+                    return Ok(key.app_key);
+                }
+            }
+        }
+    }
+
+    return Err(diesel::result::Error::NotFound);
 }
 
 pub fn message_is_for_user(message: &String, user_id: &String, recipient_id: &String) -> bool {

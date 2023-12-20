@@ -19,13 +19,14 @@ use axum::{
 };
 
 use futures::{SinkExt, StreamExt};
+use helpers::client_key_gen;
 use tokio::sync::broadcast;
 
 use crate::{helpers::message_processor, models::StoredMessage};
 
 #[tokio::main]
 async fn main() {
-    let listener = tokio::net::TcpListener::bind("0.0.0.0:4000").await.unwrap();
+    let listener = tokio::net::TcpListener::bind("0.0.0.0:5000").await.unwrap();
     println!("listening on {}", listener.local_addr().unwrap());
     axum::serve(listener, app()).await.unwrap();
 }
@@ -42,8 +43,16 @@ fn app() -> Router {
         .with_state(app_state)
 }
 
-async fn client_app_key_handler(Json(payload): Json<models::AppKeyExchangePayload>) -> String {
-    "hello".to_string()
+async fn client_app_key_handler(
+    Json(payload): Json<models::AppKeyExchangePayload>,
+) -> axum::response::Result<String> {
+    let key_result = client_key_gen(payload.auth_object, payload.app_key);
+
+    if let Ok(final_key) = key_result {
+        return Ok(final_key);
+    }
+
+    Err(StatusCode::INTERNAL_SERVER_ERROR.into())
 }
 
 async fn message_fetch_handler(
