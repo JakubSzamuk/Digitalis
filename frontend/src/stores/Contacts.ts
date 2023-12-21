@@ -4,8 +4,9 @@ import { StateStorage, createJSONStorage, persist } from "zustand/middleware";
 import EncryptedStorage from 'react-native-encrypted-storage';
 
 
-type StoredContact = {
+export type StoredContact = {
   id: string,
+  name: string,
   incoming_key: string,
   outgoing_key: string,
 
@@ -17,8 +18,12 @@ type StoredContact = {
 
 
 interface ContactsStoreType {
-  contacts: number,
-  setContacts: () => void
+  contacts: StoredContact[],
+  addContact: (new_contact: StoredContact) => void,
+  removeContact: (contactIndex: number) => void,
+  tempContact: any,
+  setTempContact: (new_value: any) => void,
+  resetTempContact: () => void,
 }
 
 const encryptedStorage: StateStorage = {
@@ -37,8 +42,12 @@ const encryptedStorage: StateStorage = {
 const useContactsStore = create(
   persist<ContactsStoreType>(
     (set, get) => ({
-      contacts: 0,
-      setContacts: () => set({ contacts: get().contacts + 1 })
+      contacts: [],
+      addContact: (new_contact: StoredContact) => set({ contacts: [...get().contacts, new_contact] }),
+      removeContact: (contactIndex: number) => set({ contacts: get().contacts.filter((contact, index) => index != contactIndex) }),
+      tempContact: { outgoingIndex: 0 },
+      setTempContact: (new_value: any) => set({ tempContact: {...get().tempContact, new_value} }),
+      resetTempContact: () => set({ tempContact: { outgoingIndex: 0 } }),
     }),
     {
       name: "Contact_keys",
