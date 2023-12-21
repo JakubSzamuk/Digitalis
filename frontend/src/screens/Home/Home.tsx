@@ -8,27 +8,32 @@ import LinearGradient from 'react-native-linear-gradient'
 import { CellSignalNone, Plus } from 'phosphor-react-native'
 
 const ChatCard = () => {
+
+
   return (
-    <StandardBackground withBorder>
-      <View style={{ flexDirection: 'row', padding: 10 }}>
-        <View style={{ flex: 1, flexDirection: 'row' }}>
-          <View style={{ justifyContent: 'center', marginRight: 10 }}>
-            <View style={{ height: 76, width: 76, backgroundColor: Color.secondary, borderRadius: 6, elevation: 20, shadowColor: Color.shadow }}></View>
+    <TouchableOpacity>
+      <StandardBackground withBorder style={{ borderRadius: 3 }}>
+        <View style={{ flexDirection: 'row', padding: 10 }}>
+          <View style={{ flex: 1, flexDirection: 'row' }}>
+            <View style={{ justifyContent: 'center', marginRight: 10 }}>
+              <View style={{ height: 76, width: 76, backgroundColor: Color.secondary, borderRadius: 6, elevation: 20, shadowColor: Color.shadow }}></View>
+            </View>
+            <View>
+              <Text style={FontStyles.StandardText}>Jakub Szamuk</Text>
+              <Text style={FontStyles.MediumText}>Hello, Whats up?</Text>
+            </View>
           </View>
-          <View>
-            <Text style={FontStyles.StandardText}>Jakub Szamuk</Text>
-            <Text style={FontStyles.MediumText}>Hello, Whats up?</Text>
-          </View>
+          <Text style={FontStyles.MediumText}>12h</Text>
         </View>
-        <Text style={FontStyles.MediumText}>12h</Text>
-      </View>
-    </StandardBackground>
+      </StandardBackground>
+    </TouchableOpacity>
   )
 }
 
 
 
 const Home = () => {
+  // const {  }
   return (
     <SafeAreaView>
       <StandardBackground style={UtilityStyles.mainBackground}>

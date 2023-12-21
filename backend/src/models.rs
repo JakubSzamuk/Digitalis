@@ -49,6 +49,11 @@ pub struct ClientAuthObject {
 }
 
 #[derive(Deserialize)]
+pub struct EditConnectionRecipientMessage {
+    pub new_recipient_id: String,
+}
+
+#[derive(Deserialize)]
 pub struct MessageFetchPayload {
     pub auth_object: ClientAuthObject,
     pub up_to: i8,

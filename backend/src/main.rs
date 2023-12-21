@@ -99,6 +99,7 @@ async fn message_socket_handler(socket: WebSocket, state: Arc<models::AppState>)
                 Ok(result) => {
                     if let Ok(temp_user_object) = helpers::verify_auth(result) {
                         user_object = temp_user_object;
+                        let _ = sender.send(Message::Text(String::from("Login Successful"))).await;
                         break;
                     } else {
                         let _ = sender
@@ -146,6 +147,8 @@ async fn message_socket_handler(socket: WebSocket, state: Arc<models::AppState>)
             }
         }
     });
+
+
 
     let tx = state.tx.clone();
 

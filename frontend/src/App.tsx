@@ -44,7 +44,7 @@ function App(): React.JSX.Element {
 
   return (
     <NavigationContainer>
-      <Stack.Navigator initialRouteName='chat'>
+      <Stack.Navigator initialRouteName='login'>
         <Stack.Screen name='login' component={Login} options={{ headerShown: false }} />
         <Stack.Screen name='home' component={Home} options={{ headerShown: false }} />
         <Stack.Screen name='chat' component={Chat} options={{ headerShown: false }} />
