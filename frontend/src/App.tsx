@@ -28,6 +28,7 @@ import AddChat from './screens/Home/add-screen/AddChat';
 import ShowQr from './screens/Home/show-qr/ShowQr';
 import AddedContact from './screens/Home/added_contact/AddedContact';
 import Chat from './screens/Home/chat/Chat';
+import ScanQr from './screens/Home/scan-screen/ScanQr';
 
 const Stack = createNativeStackNavigator();
 
@@ -50,6 +51,7 @@ function App(): React.JSX.Element {
         <Stack.Screen name='chat' component={Chat} options={{ headerShown: false }} />
         <Stack.Screen name='add_chat' component={AddChat} options={{ headerShown: false }} />
         <Stack.Screen name='show_qr' component={ShowQr} options={{ headerShown: false }} />
+        <Stack.Screen name='scan_qr' component={ScanQr} options={{ headerShown: false }} />
         <Stack.Screen name='added_contact' component={AddedContact} options={{ headerShown: false }} />
       </Stack.Navigator>
     </NavigationContainer>

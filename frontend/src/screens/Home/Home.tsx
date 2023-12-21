@@ -7,11 +7,11 @@ import { FontStyles } from '../../styles/text'
 import LinearGradient from 'react-native-linear-gradient'
 import { CellSignalNone, Plus } from 'phosphor-react-native'
 
-const ChatCard = () => {
+const ChatCard = ({ navigation, contactName, contactMessage, messageTime, contactId }: any) => {
 
 
   return (
-    <TouchableOpacity>
+    <TouchableOpacity onPress={() => navigation.navigate("chat")}>
       <StandardBackground withBorder style={{ borderRadius: 3 }}>
         <View style={{ flexDirection: 'row', padding: 10 }}>
           <View style={{ flex: 1, flexDirection: 'row' }}>
@@ -32,7 +32,7 @@ const ChatCard = () => {
 
 
 
-const Home = () => {
+const Home = ({ navigation }) => {
   // const {  }
   return (
     <SafeAreaView>
@@ -75,14 +75,14 @@ const Home = () => {
           <View style={{ paddingHorizontal: 10, marginTop: 16 }}>
             <FlatList
               renderItem={(key) => (
-                <ChatCard key={key} />
+                <ChatCard key={key} navigation={navigation} />
               )}
               contentContainerStyle={{ gap: 10 }}
               data={[...Array(3).keys()]}
             />
           </View>
           <View>
-            <TouchableOpacity>
+            <TouchableOpacity onPress={() => navigation.navigate("add_chat")}>
               <StandardBackground withBorder style={{ padding: 12, borderRadius: 100, width: 100, height: 100, justifyContent: 'center', alignItems: 'center' }}>
                 <LinearGradient
                   colors={["#F3F3F3", "#575B5C"]}

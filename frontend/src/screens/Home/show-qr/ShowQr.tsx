@@ -6,7 +6,7 @@ import { FontStyles } from '../../../styles/text'
 import { CaretLeft, CellSignalNone } from 'phosphor-react-native'
 import Logo from '../../reusable/Logo'
 
-const ShowQr = () => {
+const ShowQr = ({ navigation }) => {
   return (
     <SafeAreaView>
       <StandardBackground style={UtilityStyles.mainBackground}>
@@ -18,12 +18,12 @@ const ShowQr = () => {
             </View>
             <View style={{ flexDirection: 'row', marginTop: 10 }}>
               <View style={{ flex: 1, marginLeft: -10 }}>
-                <TouchableOpacity style={{ flexDirection: 'row', alignItems: 'center' }}>
+                <TouchableOpacity style={{ flexDirection: 'row', alignItems: 'center' }} onPress={() => navigation.navigate("add_chat")}>
                   <CaretLeft color={Color.text} size={48} />
                   <Text style={[FontStyles.StandardText, { marginLeft: -12 }]}>Back</Text>
                 </TouchableOpacity>
               </View>
-              <TouchableOpacity>
+              <TouchableOpacity onPress={() => navigation.navigate("scan_qr")}>
                 <StandardBackground withBorder style={{ borderRadius: 2, width: 212, height: 52 }}>
                   {/* Logic for which text to show */}
                   <View style={{ height: "100%", justifyContent: 'center', alignItems: 'center' }}>

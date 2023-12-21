@@ -6,7 +6,7 @@ import { FontStyles } from '../../../styles/text'
 import { Camera, CaretLeft, QrCode, Rows } from 'phosphor-react-native'
 import Logo from '../../reusable/Logo'
 
-const AddChat = () => {
+const AddChat = ({ navigation }) => {
   return (
     <SafeAreaView>
       <StandardBackground style={UtilityStyles.mainBackground}>
@@ -25,7 +25,7 @@ const AddChat = () => {
                 </View>
               </StandardBackground>
             </TouchableOpacity>
-            <TouchableOpacity style={{ marginTop: 14 }}>
+            <TouchableOpacity style={{ marginTop: 14 }} onPress={() => navigation.navigate("show_qr")}>
               <StandardBackground withBorder style={{ borderRadius: 8, height: 70, width: 310 }}>
                 <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center' }}>
                   <View style={{ flex: 1, marginLeft: 30 }}>
@@ -39,7 +39,7 @@ const AddChat = () => {
             </TouchableOpacity>
           </View>
           <View style={{ marginLeft: 60, marginTop: 30 }}>
-            <TouchableOpacity style={{ flexDirection: 'row', alignItems: 'center' }}>
+            <TouchableOpacity style={{ flexDirection: 'row', alignItems: 'center' }} onPress={() => navigation.navigate("home")}>
               <CaretLeft color={Color.text} size={48} />
               <Text style={[FontStyles.StandardText, { marginLeft: -12 }]}>Back</Text>
             </TouchableOpacity>
