@@ -18,6 +18,8 @@ diesel::table! {
         #[max_length = 255]
         recipient_id -> Varchar,
         time -> Datetime,
+        #[max_length = 100]
+        message_key_range -> Varchar,
     }
 }
 

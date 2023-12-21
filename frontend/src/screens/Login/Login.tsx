@@ -20,7 +20,8 @@ const Login = ({ navigation }) => {
   const [loginCredentials, setLoginCredentials] = useState<loginCredentials | null>(null);
 
   const { socket, subscribeToSocket, resetSocket } = useWebSocketStore((state) => state);
-  const handle_login_submit = () => {
+
+  useEffect(() => {
     const handle_message = (event: any) => {
       if (event.data == "Login Successful") {
         navigation.navigate('home');
@@ -29,15 +30,16 @@ const Login = ({ navigation }) => {
       }
     }
     subscribeToSocket(handle_message);
+  }, [])
 
-
+  const handle_login_submit = () => {
     socket.send(JSON.stringify(
       {
-        "email": loginCredentials?.email,
-        "password": loginCredentials?.password,
-        "app_key": APP_KEY
+        "email": "test",
+        "password": "password",
+        "app_key": "Hello"
       }
-    ))
+    ));
   }
 
 

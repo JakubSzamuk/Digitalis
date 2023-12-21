@@ -8,7 +8,8 @@ interface WebSocketState {
 }
 
 const useWebSocketStore = create<WebSocketState>((set, get) => ({
-  socket: new WebSocket(`ws://${BACKEND_URL}/messages`),
+  socket: new WebSocket(`ws://192.168.1.63:5000/messages`),
+  // socket: new WebSocket(`ws://${BACKEND_URL}/messages`),
   subscribeToSocket: (bind_to: any) => {
     get().socket.onmessage = bind_to;
   },

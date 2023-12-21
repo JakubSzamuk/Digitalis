@@ -167,6 +167,7 @@ pub fn message_processor(message_object: SentMessage, signed_in_user: &User) -> 
         sender_id: signed_in_user.id.to_string(),
         recipient_id: message_object.recipient_id,
         time: Utc::now().naive_utc(),
+        message_key_range: message_object.message_key_range,
     };
 
     let _ = diesel::insert_into(sent_messages)

@@ -64,12 +64,14 @@ pub struct MessageFetchPayload {
 pub struct SentMessage {
     pub message_body: String,
     pub recipient_id: String,
+    pub message_key_range: String,
 }
 impl SentMessage {
-    pub fn new(message_body: String, recipient_id: String) -> SentMessage {
+    pub fn new(message_body: String, recipient_id: String, message_key_range: String) -> SentMessage {
         SentMessage {
             message_body,
             recipient_id,
+            message_key_range,
         }
     }
 
@@ -136,6 +138,7 @@ pub struct StoredMessage {
     pub recipient_id: String,
     #[serde(serialize_with = "serialize_dt", deserialize_with = "deserialize_dt")]
     pub time: chrono::NaiveDateTime,
+    pub message_key_range: String,
 }
 
 #[derive(Deserialize, Serialize, Queryable, Selectable, Insertable)]
