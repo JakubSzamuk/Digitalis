@@ -6,6 +6,10 @@ import { FontStyles } from '../../../styles/text'
 import { CaretLeft, CellSignalNone } from 'phosphor-react-native'
 import Logo from '../../reusable/Logo'
 
+
+
+
+
 const ShowQr = ({ navigation }) => {
   return (
     <SafeAreaView>

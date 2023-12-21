@@ -6,14 +6,20 @@ import { FontStyles } from '../../../styles/text'
 import { Camera, CaretLeft, QrCode, Rows } from 'phosphor-react-native'
 import Logo from '../../reusable/Logo'
 
+import useContactsStore from '../../../stores/Contacts'
+
+
 const AddChat = ({ navigation }) => {
+  const { contacts, setContacts } = useContactsStore((state) => state);
+
   return (
     <SafeAreaView>
+      <Text>{contacts}</Text>
       <StandardBackground style={UtilityStyles.mainBackground}>
         <View style={{ flex: 1 }}>
           <Text style={[FontStyles.Header, { marginTop: 145, marginLeft: 60 }]}>Add Chat</Text>
           <View style={{ width: "100%", alignItems: 'center' }}>
-            <TouchableOpacity style={{ marginTop: 16 }}>
+            <TouchableOpacity style={{ marginTop: 16 }} onPress={setContacts}>
               <StandardBackground withBorder style={{ borderRadius: 8, height: 70, width: 310 }}>
                 <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center' }}>
                   <View style={{ flex: 1, marginLeft: 30 }}>
