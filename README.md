@@ -55,9 +55,9 @@ Usage:
 - [ ] Message, key Statistic Api-Route
 - [X] Hash password
 - [ ] Hash app_keys
-- [ ] App keys need to verify there is only one version of the client
+- [X] App keys need to verify there is only one version of the client
 - [X] App design
-- [ ] App developement
+- [X] App developement **Started
 
 - [ ] Current deployment
 

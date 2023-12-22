@@ -10,10 +10,6 @@ const ScanQr = ({ navigation }) => {
     console.log(e.data);
     setTempContact({ ...JSON.parse(e.data) })
 
-    // if (typeof tempContact == stored)
-    // verify that tempContact is of the correct type to determine if redirect to success or show qr
-
-
 
     // navigation.navigate()
   }
