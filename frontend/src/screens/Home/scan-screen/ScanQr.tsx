@@ -7,11 +7,14 @@ const ScanQr = ({ navigation }) => {
   const { tempContact, setTempContact } = useContactsStore((state) => state);
 
   const onSuccess = (e) => {
-    console.log(e.data);
     setTempContact({ ...JSON.parse(e.data) })
+    // Format of QR code will include recipient's id and there key
 
-
-    // navigation.navigate()
+    if (tempContact.outgoing_key != undefined) {
+      navigation.navigate("added_contact")
+    } else {
+      navigation.navigate("show_qr")
+    }
   }
 
   return (
