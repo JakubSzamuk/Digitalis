@@ -26,7 +26,7 @@ interface ContactsStoreType {
   resetTempContact: () => void,
 }
 
-const encryptedStorage: StateStorage = {
+export const encryptedStorage: StateStorage = {
   getItem: async (name: string): Promise<string | null> => {
     return await EncryptedStorage.getItem(name)
   },

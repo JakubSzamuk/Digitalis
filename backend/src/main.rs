@@ -14,7 +14,7 @@ use axum::{
     },
     http::StatusCode,
     response::Response,
-    routing::get,
+    routing::{get, post},
     Json, Router,
 };
 
@@ -38,7 +38,7 @@ fn app() -> Router {
     let app_state = Arc::new(models::AppState::new(users, tx));
     Router::new()
         .route("/fetch-messages", get(message_fetch_handler))
-        .route("/configure-client", get(client_app_key_handler))
+        .route("/configure-client", post(client_app_key_handler))
         .route("/messages", get(message_handler))
         .with_state(app_state)
 }

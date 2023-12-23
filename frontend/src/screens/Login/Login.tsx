@@ -4,8 +4,10 @@ import { Color, StandardBackground } from '../../constants/colors'
 import { UtilityStyles } from '../../styles/utility'
 import { FontStyles } from '../../styles/text'
 import Logo from '../reusable/Logo'
-import { APP_KEY } from '@env'
+import { TEMP_APP_KEY, BACKEND_URL } from '@env'
 import useWebSocketStore from '../../stores/Websocket'
+import useAppKey from '../../stores/CredentialStore'
+import axios from 'axios'
 
 
 
@@ -20,26 +22,50 @@ const Login = ({ navigation }) => {
   const [loginCredentials, setLoginCredentials] = useState<loginCredentials | null>(null);
 
   const { socket, subscribeToSocket, resetSocket } = useWebSocketStore((state) => state);
+  const { app_key, setAppKey } = useAppKey((state) => state);
 
-  useEffect(() => {
-    const handle_message = (event: any) => {
-      if (event.data == "Login Successful") {
-        navigation.navigate('home');
-      } else {
-        resetSocket();
-      }
+  const handle_message = (event: any) => {
+    if (event.data == "Login Successful") {
+      navigation.navigate('home');
+    } else {
+      resetSocket();
     }
+  }
+  useEffect(() => {
     subscribeToSocket(handle_message);
   }, [])
 
   const handle_login_submit = () => {
-    socket.send(JSON.stringify(
-      {
-        "email": "test",
-        "password": "password",
-        "app_key": "Hello"
-      }
-    ));
+    socket.onerror = (e) => console.log(e);
+    if (app_key != "") {
+      socket.send(JSON.stringify(
+        {
+          "email": loginCredentials?.email,
+          "password": loginCredentials?.password,
+          "app_key": app_key
+        }
+      ));
+    } else {
+      axios.post(`${BACKEND_URL}/configure-client`, {
+        "auth_object": {
+          "email": loginCredentials?.email,
+          "password": loginCredentials?.password,
+        },
+        "app_key": TEMP_APP_KEY
+      }).then((data) => {
+          socket.send(JSON.stringify(
+            {
+              "email": loginCredentials?.email,
+              "password": loginCredentials?.password,
+              "app_key": data.data
+            }
+          ));
+          setAppKey(data.data);
+        })
+
+    }
+    // resetSocket();
+
   }
 
 
