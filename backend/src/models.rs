@@ -24,6 +24,11 @@ pub struct InitialMessage {
 }
 
 #[derive(Deserialize)]
+pub struct RecipientChangeMessage {
+    pub new_recipient_id: String,
+}
+
+#[derive(Deserialize)]
 pub struct KeyExchangeMessage {
     pub auth_object: InitialClientAuth,
     pub client_key: String,

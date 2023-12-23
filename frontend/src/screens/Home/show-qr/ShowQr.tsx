@@ -3,7 +3,7 @@ import React from 'react'
 import { Color, StandardBackground } from '../../../constants/colors'
 import { UtilityStyles } from '../../../styles/utility'
 import { FontStyles } from '../../../styles/text'
-import { CaretLeft, CellSignalNone } from 'phosphor-react-native'
+import { CaretLeft } from 'phosphor-react-native'
 import Logo from '../../reusable/Logo'
 
 
@@ -11,6 +11,8 @@ import Logo from '../../reusable/Logo'
 
 
 const ShowQr = ({ navigation }) => {
+
+  
   return (
     <SafeAreaView>
       <StandardBackground style={UtilityStyles.mainBackground}>

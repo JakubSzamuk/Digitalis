@@ -22,7 +22,7 @@ use futures::{SinkExt, StreamExt};
 use helpers::client_key_gen;
 use tokio::sync::broadcast;
 
-use crate::{helpers::message_processor, models::StoredMessage};
+use crate::{helpers::message_processor, models::{StoredMessage, SentMessage, RecipientChangeMessage}};
 
 #[tokio::main]
 async fn main() {
@@ -88,7 +88,6 @@ async fn message_socket_handler(socket: WebSocket, state: Arc<models::AppState>)
     let (mut sender, mut reciever) = socket.split();
 
     let mut user_object: models::User = Default::default();
-    let mut recipient_id: String = "".to_string();
 
     while let Some(Ok(msg)) = reciever.next().await {
         if let Message::Text(unparse_auth_obj) = msg {
@@ -120,9 +119,11 @@ async fn message_socket_handler(socket: WebSocket, state: Arc<models::AppState>)
         }
     }
 
+    let mut temp_recipient_id = String::new();
+
     while let Some(Ok(msg)) = reciever.next().await {
         if let Message::Text(recipient_id_message) = msg {
-            recipient_id = recipient_id_message.to_string();
+            temp_recipient_id = recipient_id_message.to_string();
             let _ = sender
                 .send(Message::Text("You are Connected".to_string()))
                 .await;
@@ -132,14 +133,20 @@ async fn message_socket_handler(socket: WebSocket, state: Arc<models::AppState>)
         }
     }
 
+    let mut recipient_id = Arc::new(Mutex::new(temp_recipient_id));
+
+
     let mut rx = state.tx.subscribe();
+
+    let recipient_id_clone = recipient_id.clone();
+
 
     let mut send_task = tokio::spawn(async move {
         while let Ok(msg) = rx.recv().await {
             if helpers::message_is_for_user(
                 &msg.to_string(),
                 &user_object.id.to_string(),
-                &recipient_id,
+                &recipient_id.lock().unwrap().to_string(),
             ) {
                 if sender.send(Message::Text(msg)).await.is_err() {
                     break;
@@ -150,14 +157,19 @@ async fn message_socket_handler(socket: WebSocket, state: Arc<models::AppState>)
 
 
 
+
+    
+    
     let tx = state.tx.clone();
 
     let mut recv_task = tokio::spawn(async move {
         while let Some(Ok(Message::Text(unparsed_message))) = reciever.next().await {
-            if let Ok(serialised_message) = serde_json::from_str(&unparsed_message) {
+            if let Ok(serialised_message) = serde_json::from_str::<SentMessage>(&unparsed_message) {
                 let saved_message: StoredMessage =
                     message_processor(serialised_message, &user_object);
                 let _ = tx.send(serde_json::to_string(&saved_message).unwrap());
+            } else if let Ok(serialised_message) = serde_json::from_str::<RecipientChangeMessage>(&unparsed_message) {
+                *recipient_id_clone.lock().unwrap() = serialised_message.new_recipient_id;
             } else {
                 return;
             }

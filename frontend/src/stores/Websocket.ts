@@ -5,6 +5,9 @@ interface WebSocketState {
   socket: WebSocket,
   subscribeToSocket: (bind_to: (event: any) => void) => void,
   resetSocket: () => void
+
+  connected_contact: string,
+  setConnectedContact: (id: string) => void
 }
 
 const useWebSocketStore = create<WebSocketState>((set, get) => ({
@@ -14,6 +17,17 @@ const useWebSocketStore = create<WebSocketState>((set, get) => ({
     get().socket.onmessage = bind_to;
   },
   resetSocket: () => set(() => ({ socket: new WebSocket(`ws://${BACKEND_URL}/messages`) })),
+
+  connected_contact: "",
+  setConnectedContact: (id: string) => {
+    get().socket.send(
+      JSON.stringify({
+        new_recipient_id: id,
+      })
+    );
+
+    set(() => ({ connected_contact: id }));
+  }
 }));
 
 export default useWebSocketStore;
