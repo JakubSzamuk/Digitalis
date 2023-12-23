@@ -1,26 +1,41 @@
-import { View, Text, SafeAreaView, TouchableOpacity } from 'react-native'
-import React from 'react'
+import { View, Text, SafeAreaView, TouchableOpacity, ActivityIndicator } from 'react-native'
+import React, { useEffect, useState } from 'react'
 import { Color, StandardBackground } from '../../../constants/colors'
 import { UtilityStyles } from '../../../styles/utility'
 import { FontStyles } from '../../../styles/text'
 import { CaretLeft } from 'phosphor-react-native'
 import Logo from '../../reusable/Logo'
 
-
-
+import { generateSecureRandom } from 'react-native-securerandom';
+import QRCode from 'react-native-qrcode-svg'
 
 
 const ShowQr = ({ navigation }) => {
-
+  const [qrValue, setQrValue] = useState() 
   
+  useEffect(() => {
+    generateSecureRandom(600).then(randomBytes => setQrValue(randomBytes.toString()));
+  }, [])
+
   return (
     <SafeAreaView>
       <StandardBackground style={UtilityStyles.mainBackground}>
         <View style={{ alignItems: 'center', width: "100%", marginTop: 110, flex: 1 }}>
           <View>
             <Text style={FontStyles.MediumText}>Message Encryption Key</Text>
-            <View style={{ height: 320, width: 320, borderRadius: 8, backgroundColor: Color.secondary }}>
-              {/* Qr code here */}
+            <View style={{ height: 320, width: 320, borderRadius: 8, backgroundColor: Color.secondary, justifyContent: 'center', alignItems: 'center' }}>
+              {
+                qrValue != undefined ? (
+                  <View style={{ backgroundColor: "#ffffff", padding: 12, borderRadius: 2 }}>
+                    <QRCode
+                      size={260}
+                      value={qrValue}
+                    />
+                  </View>
+                ) : (
+                  <ActivityIndicator size="large" color={Color.text} />
+                )
+              }
             </View>
             <View style={{ flexDirection: 'row', marginTop: 10 }}>
               <View style={{ flex: 1, marginLeft: -10 }}>

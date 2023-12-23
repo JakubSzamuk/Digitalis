@@ -14,7 +14,6 @@ const AddChat = ({ navigation }) => {
 
   return (
     <SafeAreaView>
-      <Text>{contacts}</Text>
       <StandardBackground style={UtilityStyles.mainBackground}>
         <View style={{ flex: 1 }}>
           <Text style={[FontStyles.Header, { marginTop: 145, marginLeft: 60 }]}>Add Chat</Text>
