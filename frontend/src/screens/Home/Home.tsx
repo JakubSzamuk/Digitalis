@@ -10,7 +10,7 @@ import useContactsStore from '../../stores/Contacts'
 
 const ChatCard = ({ navigation, name, id }: any) => {
   return (
-    <TouchableOpacity onPress={() => navigation.navigate("chat")}>
+    <TouchableOpacity onPress={() => navigation.navigate("chat", { recipient_id: id })}>
       <StandardBackground withBorder style={{ borderRadius: 3 }}>
         <View style={{ flexDirection: 'row', padding: 10 }}>
           <View style={{ flex: 1, flexDirection: 'row' }}>

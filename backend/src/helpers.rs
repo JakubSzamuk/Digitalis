@@ -123,15 +123,15 @@ pub fn client_key_gen(
     return Err(diesel::result::Error::NotFound);
 }
 
-pub fn message_is_for_user(message: &String, user_id: &String, recipient_id: &String) -> bool {
+pub fn message_is_for_user(message: &String, user_id: &String, recipient_id: String) -> bool {
     let deserialisation_result: Result<StoredMessage, serde_json::Error> =
         serde_json::from_str(&message);
     match deserialisation_result {
         Ok(parsed_message) => {
             return (&parsed_message.recipient_id == user_id
                 || &parsed_message.sender_id == user_id)
-                && (&parsed_message.recipient_id == recipient_id
-                    || &parsed_message.sender_id == recipient_id);
+                && (&parsed_message.recipient_id == &recipient_id
+                    || &parsed_message.sender_id == &recipient_id);
         }
         Err(_) => {
             return false;

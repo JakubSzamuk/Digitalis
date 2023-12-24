@@ -119,22 +119,7 @@ async fn message_socket_handler(socket: WebSocket, state: Arc<models::AppState>)
             return;
         }
     }
-
-    let mut temp_recipient_id = String::new();
-
-    while let Some(Ok(msg)) = reciever.next().await {
-        if let Message::Text(recipient_id_message) = msg {
-            temp_recipient_id = recipient_id_message.to_string();
-            let _ = sender
-                .send(Message::Text("You are Connected".to_string()))
-                .await;
-            break;
-        } else {
-            return;
-        }
-    }
-
-    let mut recipient_id = Arc::new(Mutex::new(temp_recipient_id));
+    let mut recipient_id = Arc::new(Mutex::new("".to_string()));
 
 
     let mut rx = state.tx.subscribe();
@@ -143,11 +128,11 @@ async fn message_socket_handler(socket: WebSocket, state: Arc<models::AppState>)
 
 
     let mut send_task = tokio::spawn(async move {
-        while let Ok(msg) = rx.recv().await {
+        while let Ok(msg) = rx.recv().await {            
             if helpers::message_is_for_user(
                 &msg.to_string(),
                 &user_object.id.to_string(),
-                &recipient_id.lock().unwrap().to_string(),
+                recipient_id.lock().unwrap().to_string(),
             ) {
                 if sender.send(Message::Text(msg)).await.is_err() {
                     break;
@@ -157,9 +142,6 @@ async fn message_socket_handler(socket: WebSocket, state: Arc<models::AppState>)
     });
 
 
-
-
-    
     
     let tx = state.tx.clone();
 
