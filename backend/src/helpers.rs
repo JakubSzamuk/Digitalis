@@ -1,5 +1,5 @@
 use super::models::{AppKeyExchangePayload, ClientAuthObject, InitialClientAuth, User};
-use crate::models::{self, AppKey, SentMessage, StoredMessage, StoredTempKey};
+use crate::models::{self, AppKey, SentMessage, StoredMessage, StoredTempKey, CredentialResponse};
 use argon2::{Argon2, PasswordHash, PasswordVerifier};
 use chrono::Utc;
 use diesel::mysql::MysqlConnection;
@@ -88,11 +88,11 @@ pub fn verify_auth(auth_obj: ClientAuthObject) -> Result<User, diesel::result::E
 pub fn client_key_gen(
     auth_obj: InitialClientAuth,
     app_key: String,
-) -> Result<String, diesel::result::Error> {
+) -> Result<CredentialResponse, diesel::result::Error> {
     use crate::schema::temp_keys::dsl::*;
     let mut connection = establish_db();
     let no_app_key: Option<String> = None;
-    if let Ok(_) = verify_standard(auth_obj, no_app_key) {
+    if let Ok(user_credentials) = verify_standard(auth_obj, no_app_key) {
         let matching_key: QueryResult<StoredTempKey> = temp_keys
             .filter(temp_key.eq(app_key))
             .first::<StoredTempKey>(&mut connection);
@@ -109,7 +109,12 @@ pub fn client_key_gen(
                     .first::<AppKey>(&mut connection);
 
                 if let Ok(key) = final_key {
-                    return Ok(key.app_key);
+                    return Ok(
+                        CredentialResponse {
+                            app_key: key.app_key,
+                            user_id: user_credentials.id.to_string(),
+                        }
+                    );
                 }
             }
         }

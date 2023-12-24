@@ -71,6 +71,13 @@ pub struct SentMessage {
     pub recipient_id: String,
     pub message_key_range: String,
 }
+
+#[derive(Serialize)]
+pub struct CredentialResponse {
+    pub app_key: String,
+    pub user_id: String,
+}
+
 impl SentMessage {
     pub fn new(message_body: String, recipient_id: String, message_key_range: String) -> SentMessage {
         SentMessage {

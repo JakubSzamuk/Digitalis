@@ -22,7 +22,7 @@ const Login = ({ navigation }) => {
   const [loginCredentials, setLoginCredentials] = useState<loginCredentials | null>(null);
 
   const { socket, subscribeToSocket, resetSocket } = useWebSocketStore((state) => state);
-  const { app_key, setAppKey } = useAppKey((state) => state);
+  const { app_key, setCredentialStore } = useAppKey((state) => state);
 
   const handle_message = (event: any) => {
     if (event.data == "Login Successful") {
@@ -57,10 +57,10 @@ const Login = ({ navigation }) => {
             {
               "email": loginCredentials?.email,
               "password": loginCredentials?.password,
-              "app_key": data.data
+              "app_key": data.data.app_key
             }
           ));
-          setAppKey(data.data);
+          setCredentialStore(data.data);
         })
 
     }

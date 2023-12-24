@@ -4,8 +4,12 @@ import { Color, StandardBackground } from '../../../constants/colors'
 import { UtilityStyles } from '../../../styles/utility'
 import { FontStyles } from '../../../styles/text'
 import Logo from '../../reusable/Logo'
+import useContactsStore from '../../../stores/Contacts'
 
 const AddedContact = () => {
+  const { tempContact, setTempContact } = useContactsStore((state) => state);
+  console.log(tempContact)
+  
   return (
     <SafeAreaView>
       <StandardBackground style={UtilityStyles.mainBackground}>

@@ -2,9 +2,16 @@ import { create } from "zustand";
 import { encryptedStorage } from "./Contacts";
 import { createJSONStorage, persist } from "zustand/middleware";
 
+
+type CredentialResponse = {
+  app_key: string,
+  user_id: string
+}
+
 interface AppKeyStore {
   app_key: string,
-  setAppKey: (key: string) => void
+  user_id: string,
+  setCredentialStore: (key: CredentialResponse) => void
 }
 
 
@@ -12,10 +19,11 @@ const useAppKey = create(
   persist<AppKeyStore>(
     (set) => ({
       app_key: "",
-      setAppKey: (key: string) => set({ app_key: key })
+      user_id: "",
+      setCredentialStore: (key: CredentialResponse) => set({ ...key }),
     }),
     {
-      name: "App_key",
+      name: "credential_store",
       storage: createJSONStorage(() => encryptedStorage),
     },
   ),

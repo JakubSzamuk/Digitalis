@@ -8,15 +8,42 @@ import Logo from '../../reusable/Logo'
 
 import { generateSecureRandom } from 'react-native-securerandom';
 import QRCode from 'react-native-qrcode-svg'
+import useAppKey from '../../../stores/CredentialStore'
+import useContactsStore from '../../../stores/Contacts'
 
 
 const ShowQr = ({ navigation }) => {
-  const [qrValue, setQrValue] = useState() 
+  const [qrValue, setQrValue] = useState<string>() 
   
+  const { user_id } = useAppKey((state) => state);
+  const { tempContact, setTempContact } = useContactsStore((state) => state);
+
+
   useEffect(() => {
-    generateSecureRandom(600).then(randomBytes => setQrValue(randomBytes.toString()));
+    const generate_qr_code = async () => {
+      let key = await generateSecureRandom(550);
+      setTempContact({ outgoing_key: key });
+      setQrValue(
+        JSON.stringify(
+          {
+            id: user_id,
+            incoming_key: key.toString(),
+          }
+        )
+      );
+    };
+    generate_qr_code();
   }, [])
 
+  const submit_step = () => {
+    if (tempContact.id != undefined) {
+      navigation.navigate("added_contact");
+    } else {
+      navigation.navigate("scan_qr");
+    }
+  }
+
+    
   return (
     <SafeAreaView>
       <StandardBackground style={UtilityStyles.mainBackground}>
@@ -44,11 +71,11 @@ const ShowQr = ({ navigation }) => {
                   <Text style={[FontStyles.StandardText, { marginLeft: -12 }]}>Back</Text>
                 </TouchableOpacity>
               </View>
-              <TouchableOpacity onPress={() => navigation.navigate("scan_qr")}>
+              <TouchableOpacity onPress={submit_step}>
                 <StandardBackground withBorder style={{ borderRadius: 2, width: 212, height: 52 }}>
                   {/* Logic for which text to show */}
                   <View style={{ height: "100%", justifyContent: 'center', alignItems: 'center' }}>
-                    <Text style={FontStyles.StandardText}>Scan other QR</Text>
+                    <Text style={FontStyles.StandardText}>{tempContact.id != undefined ? "Finish" : "Scan other QR"}</Text>
                   </View>
                 </StandardBackground>
               </TouchableOpacity>

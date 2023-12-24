@@ -20,6 +20,7 @@ use axum::{
 
 use futures::{SinkExt, StreamExt};
 use helpers::client_key_gen;
+use models::CredentialResponse;
 use tokio::sync::broadcast;
 
 use crate::{helpers::message_processor, models::{StoredMessage, SentMessage, RecipientChangeMessage}};
@@ -45,11 +46,11 @@ fn app() -> Router {
 
 async fn client_app_key_handler(
     Json(payload): Json<models::AppKeyExchangePayload>,
-) -> axum::response::Result<String> {
+) -> axum::response::Result<Json<CredentialResponse>> {
     let key_result = client_key_gen(payload.auth_object, payload.app_key);
 
     if let Ok(final_key) = key_result {
-        return Ok(final_key);
+        return Ok(Json(final_key));
     }
 
     Err(StatusCode::INTERNAL_SERVER_ERROR.into())
