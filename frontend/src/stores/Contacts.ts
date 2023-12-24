@@ -46,7 +46,7 @@ const useContactsStore = create(
       addContact: (new_contact: StoredContact) => set({ contacts: [...get().contacts, new_contact] }),
       removeContact: (contactIndex: number) => set({ contacts: get().contacts.filter((contact, index) => index != contactIndex) }),
       tempContact: { outgoingIndex: 0 },
-      setTempContact: (new_value: any) => set({ tempContact: {...get().tempContact, new_value} }),
+      setTempContact: (new_value: any) => set({ tempContact: {...get().tempContact, ...new_value} }),
       resetTempContact: () => set({ tempContact: { outgoingIndex: 0 } }),
     }),
     {

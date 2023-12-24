@@ -1,15 +1,22 @@
 import { View, Text, SafeAreaView, TextInput, TouchableOpacity } from 'react-native'
-import React from 'react'
+import React, { useState } from 'react'
 import { Color, StandardBackground } from '../../../constants/colors'
 import { UtilityStyles } from '../../../styles/utility'
 import { FontStyles } from '../../../styles/text'
 import Logo from '../../reusable/Logo'
 import useContactsStore from '../../../stores/Contacts'
 
-const AddedContact = () => {
-  const { tempContact, setTempContact } = useContactsStore((state) => state);
-  console.log(tempContact)
+const AddedContact = ({ navigation }) => {
+  const { tempContact, setTempContact, addContact, resetTempContact } = useContactsStore((state) => state);
+  const [contactName, setContactName] = useState<string>("")
   
+  const handle_save_form = () => {
+    addContact({ ...tempContact, name: contactName});
+    resetTempContact();
+
+    navigation.navigate("home");
+  }
+
   return (
     <SafeAreaView>
       <StandardBackground style={UtilityStyles.mainBackground}>
@@ -19,10 +26,10 @@ const AddedContact = () => {
             <Text style={FontStyles.MediumText}>Contact has been added successfully.</Text>
             <View style={{ flexDirection: 'row', alignItems: 'center', marginTop: 10 }}>
               <Text style={FontStyles.MediumText}>Name:</Text>
-              <TextInput placeholder='Their name' placeholderTextColor={"#5F5F5F"} style={[FontStyles.MediumText, { marginLeft: 10, paddingHorizontal: 8, paddingVertical: 4, backgroundColor: Color.secondary, borderRadius: 10, minWidth: 160 }]} />
+              <TextInput placeholder='Their name' onChangeText={(text) => setContactName(text)} placeholderTextColor={"#5F5F5F"} style={[FontStyles.MediumText, { marginLeft: 10, paddingHorizontal: 8, paddingVertical: 4, backgroundColor: Color.secondary, borderRadius: 10, minWidth: 160 }]} />
             </View>
           </View>
-          <TouchableOpacity style={{ marginTop: 40 }}>
+          <TouchableOpacity style={{ marginTop: 40 }} onPress={handle_save_form}>
             <StandardBackground withBorder style={{ borderRadius: 3 }}>
               <View style={{ width: 212, height: 52, justifyContent: 'center', alignItems: 'center' }}>
                 <Text style={FontStyles.StandardText}>Save</Text>

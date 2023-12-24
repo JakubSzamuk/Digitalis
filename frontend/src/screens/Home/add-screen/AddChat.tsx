@@ -1,5 +1,5 @@
 import { View, Text, SafeAreaView, TouchableOpacity } from 'react-native'
-import React from 'react'
+import React, { useEffect } from 'react'
 import { Color, StandardBackground } from '../../../constants/colors'
 import { UtilityStyles } from '../../../styles/utility'
 import { FontStyles } from '../../../styles/text'
@@ -10,7 +10,10 @@ import useContactsStore from '../../../stores/Contacts'
 
 
 const AddChat = ({ navigation }) => {
-  const { contacts, setContacts } = useContactsStore((state) => state);
+  const { resetTempContact } = useContactsStore((state) => state);
+  useEffect(() => {
+    resetTempContact()
+  }, [])
 
   return (
     <SafeAreaView>
@@ -18,7 +21,7 @@ const AddChat = ({ navigation }) => {
         <View style={{ flex: 1 }}>
           <Text style={[FontStyles.Header, { marginTop: 145, marginLeft: 60 }]}>Add Chat</Text>
           <View style={{ width: "100%", alignItems: 'center' }}>
-            <TouchableOpacity style={{ marginTop: 16 }} onPress={setContacts}>
+            <TouchableOpacity style={{ marginTop: 16 }}>
               <StandardBackground withBorder style={{ borderRadius: 8, height: 70, width: 310 }}>
                 <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center' }}>
                   <View style={{ flex: 1, marginLeft: 30 }}>

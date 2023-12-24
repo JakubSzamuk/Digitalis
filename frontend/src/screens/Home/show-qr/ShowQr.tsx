@@ -16,18 +16,22 @@ const ShowQr = ({ navigation }) => {
   const [qrValue, setQrValue] = useState<string>() 
   
   const { user_id } = useAppKey((state) => state);
-  const { tempContact, setTempContact } = useContactsStore((state) => state);
+  const { tempContact, setTempContact, resetTempContact } = useContactsStore((state) => state);
 
 
   useEffect(() => {
     const generate_qr_code = async () => {
-      let key = await generateSecureRandom(550);
-      setTempContact({ outgoing_key: key });
+      let key = await generateSecureRandom(1100);
+
+      let hexKeyArray: string = Array.from(key, val => val.toString(16)).join('');
+
+
+      setTempContact({ outgoing_key: hexKeyArray });
       setQrValue(
         JSON.stringify(
           {
             id: user_id,
-            incoming_key: key.toString(),
+            incoming_key: hexKeyArray,
           }
         )
       );

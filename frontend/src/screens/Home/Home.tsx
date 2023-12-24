@@ -6,10 +6,9 @@ import Logo from '../reusable/Logo'
 import { FontStyles } from '../../styles/text'
 import LinearGradient from 'react-native-linear-gradient'
 import { CellSignalNone, Plus } from 'phosphor-react-native'
+import useContactsStore from '../../stores/Contacts'
 
-const ChatCard = ({ navigation, contactName, contactMessage, messageTime, contactId }: any) => {
-
-
+const ChatCard = ({ navigation, name, id }: any) => {
   return (
     <TouchableOpacity onPress={() => navigation.navigate("chat")}>
       <StandardBackground withBorder style={{ borderRadius: 3 }}>
@@ -19,7 +18,7 @@ const ChatCard = ({ navigation, contactName, contactMessage, messageTime, contac
               <View style={{ height: 76, width: 76, backgroundColor: Color.secondary, borderRadius: 6, elevation: 20, shadowColor: Color.shadow }}></View>
             </View>
             <View>
-              <Text style={FontStyles.StandardText}>Jakub Szamuk</Text>
+              <Text style={FontStyles.StandardText}>{name}</Text>
               <Text style={FontStyles.MediumText}>Hello, Whats up?</Text>
             </View>
           </View>
@@ -33,7 +32,9 @@ const ChatCard = ({ navigation, contactName, contactMessage, messageTime, contac
 
 
 const Home = ({ navigation }) => {
-  // const {  }
+  const { contacts } = useContactsStore((state) => state);
+
+
   return (
     <SafeAreaView>
       <StandardBackground style={UtilityStyles.mainBackground}>
@@ -74,11 +75,11 @@ const Home = ({ navigation }) => {
           </View>
           <View style={{ paddingHorizontal: 10, marginTop: 16 }}>
             <FlatList
-              renderItem={(key) => (
-                <ChatCard key={key} navigation={navigation} />
+              renderItem={(contactItem) => (
+                <ChatCard key={contactItem.index} navigation={navigation} {...contactItem.item} />
               )}
               contentContainerStyle={{ gap: 10 }}
-              data={[...Array(3).keys()]}
+              data={contacts}
             />
           </View>
           <View>

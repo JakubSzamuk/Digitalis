@@ -36,6 +36,7 @@ const Login = ({ navigation }) => {
   }, [])
 
   const handle_login_submit = () => {
+    resetSocket();
     socket.onerror = (e) => console.log(e);
     if (app_key != "") {
       socket.send(JSON.stringify(
