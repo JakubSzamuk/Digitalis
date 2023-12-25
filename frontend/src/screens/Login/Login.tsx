@@ -5,9 +5,9 @@ import { UtilityStyles } from '../../styles/utility'
 import { FontStyles } from '../../styles/text'
 import Logo from '../reusable/Logo'
 import { TEMP_APP_KEY, BACKEND_URL } from '@env'
-import useWebSocketStore from '../../stores/Websocket'
 import useAppKey from '../../stores/CredentialStore'
 import axios from 'axios'
+import WebSocketController from '../../stores/Websocket'
 
 
 
@@ -21,22 +21,23 @@ const Login = ({ navigation }) => {
 
   const [loginCredentials, setLoginCredentials] = useState<loginCredentials | null>(null);
 
-  const { socket, subscribeToSocket, resetSocket } = useWebSocketStore((state) => state);
+  let socket: WebSocket, controller;
+
+  useEffect(() => {
+    controller = new WebSocketController()
+    socket = controller.ws;
+  }, [])  
+
   const { app_key, setCredentialStore } = useAppKey((state) => state);
 
   const handle_message = (event: any) => {
     if (event.data == "Login Successful") {
       navigation.navigate('home');
-    } else {
-      resetSocket();
     }
   }
-  useEffect(() => {
-    subscribeToSocket(handle_message);
-  }, [])
 
   const handle_login_submit = () => {
-    resetSocket();
+    socket.onmessage = handle_message;
     socket.onerror = (e) => console.log(e);
     if (app_key != "") {
       socket.send(JSON.stringify(
@@ -63,10 +64,7 @@ const Login = ({ navigation }) => {
           ));
           setCredentialStore(data.data);
         })
-
     }
-    // resetSocket();
-
   }
 
 
