@@ -52,12 +52,15 @@ Usage:
 
 ### Todo List
 - [X] Message storage, Sending
-- [ ] Message, key Statistic Api-Route
+- [X] Message, key Statistic Api-Route
 - [X] Hash password
 - [ ] Hash app_keys
 - [X] App keys need to verify there is only one version of the client
 - [X] App design
 - [X] App developement **Started
+
+- [ ] Create the chat screen
+
 
 - [ ] Current deployment
 
