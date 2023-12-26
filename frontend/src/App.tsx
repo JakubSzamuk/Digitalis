@@ -8,11 +8,7 @@
 import React from 'react';
 import type {PropsWithChildren} from 'react';
 import {
-  SafeAreaView,
-  ScrollView,
-  StatusBar,
   StyleSheet,
-  Text,
   useColorScheme,
   View,
 } from 'react-native';
@@ -58,29 +54,29 @@ function App(): React.JSX.Element {
   );
 }
  
-const styles = StyleSheet.create({
-  backgroundStyle: {
-    backgroundColor: Color.background,
-    width: "100%",
-    height: "100%"
-  },
-  textStyle: {
-    color: Color.text,
-    fontFamily: "Nunito-Regular",
-    fontSize: 40
-  },
-  centerView: {
-    display: "flex",
-    width: "100%",
-    justifyContent: "center",
-    alignItems: "center"
-  },
-  innerSeperatorView: {
-    width: "80%",
-    height: 1,
-    backgroundColor: Color.accent
-  }
-});
+// const styles = StyleSheet.create({
+//   backgroundStyle: {
+//     backgroundColor: Color.background,
+//     width: "100%",
+//     height: "100%"
+//   },
+//   textStyle: {
+//     color: Color.text,
+//     fontFamily: "Nunito-Regular",
+//     fontSize: 40
+//   },
+//   centerView: {
+//     display: "flex",
+//     width: "100%",
+//     justifyContent: "center",
+//     alignItems: "center"
+//   },
+//   innerSeperatorView: {
+//     width: "80%",
+//     height: 1,
+//     backgroundColor: Color.accent
+//   }
+// });
 
 export default App;
 

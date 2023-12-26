@@ -15,6 +15,8 @@ const ScanQr = ({ navigation }) => {
     setTempContact({ ...JSON.parse(e.data) })
     // Format of QR code will include recipient's id and there key
 
+
+    // checks to see which route to go to next, based on which props have been filled on the temporary contact.
     if (tempContact.outgoing_key != undefined) {
       navigation.navigate("added_contact")
     } else {

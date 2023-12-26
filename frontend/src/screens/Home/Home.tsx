@@ -82,7 +82,7 @@ const Home = ({ navigation }) => {
               data={contacts}
             />
           </View>
-          <View>
+          <View style={{ position: 'absolute', right: 8 }}>
             <TouchableOpacity onPress={() => navigation.navigate("add_chat")}>
               <StandardBackground withBorder style={{ padding: 12, borderRadius: 100, width: 100, height: 100, justifyContent: 'center', alignItems: 'center' }}>
                 <LinearGradient

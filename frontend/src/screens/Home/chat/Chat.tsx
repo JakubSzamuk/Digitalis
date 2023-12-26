@@ -6,6 +6,7 @@ import { UtilityStyles } from '../../../styles/utility'
 import { CaretLeft } from 'phosphor-react-native'
 import { FontStyles } from '../../../styles/text'
 import useWebSocketStore from '../../../stores/Websocket'
+import WebSocketController from '../../../stores/Websocket'
 
 // const ChatMessage = () => {
 //   return (
@@ -17,14 +18,20 @@ import useWebSocketStore from '../../../stores/Websocket'
 
 const Chat = ({ route, navigation }) => {
 
-  const { socket, subscribeToSocket } = useWebSocketStore((state) => state);
+
+  let socket: WebSocket, controller;
+
+  useEffect(() => {
+    controller = new WebSocketController()
+    socket = controller.ws;
+  }, [])  
 
   const message_reciever = (message) => {
     console.log(message)
   };
 
   useEffect(() => {
-    subscribeToSocket(message_reciever);
+    
     console.log(route.params.recipient_id)
     socket.send(JSON.stringify({ "new_recipient_id": route.params.recipient_id }))
   }, [])
@@ -46,7 +53,7 @@ const Chat = ({ route, navigation }) => {
         </View>
         <StandardBackground withBorder style={{ borderRadius: 10, marginTop: 10, elevation: 20, shadowColor: Color.primary }}>
           <View style={{ width: "100%", height: "100%" }}>
-
+            {/* Put the messages in here */}
           </View>
         </StandardBackground>
       </StandardBackground>

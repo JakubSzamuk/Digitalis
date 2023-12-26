@@ -12,6 +12,7 @@ export const Color = {
 }
 
 
+
 export const StandardBackground = ({ children, style, withBorder }: { children?: ReactNode, style?: ViewStyle, withBorder?: boolean }) => {
   if (withBorder) {
     return (
@@ -20,7 +21,7 @@ export const StandardBackground = ({ children, style, withBorder }: { children?:
           colors={["#25292E", "#212427"]}
           start={{x: 0, y: 0}}
           end={{x: 1, y: 0.2}}
-          style={{ borderRadius: style.borderRadius }}
+          style={{ borderRadius: style.borderRadius || 3 }}
         >
           <View style={style}>{children}</View>
         </LinearGradient>

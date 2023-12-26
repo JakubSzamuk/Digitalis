@@ -17,6 +17,9 @@
       
       // export default useWebSocketStore;
       
+
+
+// using singleton to try and preserve the websockets connection between screens on the app
       
 import { BACKEND_URL } from "@env";
 let instance = null;
