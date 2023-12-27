@@ -11,7 +11,7 @@ import Logo from '../../reusable/Logo';
 const ScanQr = ({ navigation }) => {
   const { tempContact, setTempContact } = useContactsStore((state) => state);
 
-  const onSuccess = (e) => {
+  const onSuccess = (e: { data: string }) => {
     setTempContact({ ...JSON.parse(e.data) })
     // Format of QR code will include recipient's id and there key
 

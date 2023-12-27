@@ -26,7 +26,7 @@ const Chat = ({ route, navigation }) => {
     socket = controller.ws;
   }, [])  
 
-  const message_reciever = (message) => {
+  const message_reciever = (message: string) => {
     console.log(message)
   };
 

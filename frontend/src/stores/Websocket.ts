@@ -22,13 +22,15 @@
 // using singleton to try and preserve the websockets connection between screens on the app
       
 import { BACKEND_URL } from "@env";
-let instance = null;
+let instance: any = null;
 class WebSocketController {
+  ws: WebSocket;
+
   constructor() {
     if (!instance) {
       instance = this;
-      this.ws = new WebSocket(`ws://${BACKEND_URL}/messages`);
     }
+    this.ws = new WebSocket(`ws://${BACKEND_URL}/messages`);
     return instance;
   }
 }

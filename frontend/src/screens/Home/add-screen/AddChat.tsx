@@ -3,7 +3,7 @@ import React, { useEffect } from 'react'
 import { Color, StandardBackground } from '../../../constants/colors'
 import { UtilityStyles } from '../../../styles/utility'
 import { FontStyles } from '../../../styles/text'
-import { Camera, CaretLeft, QrCode, Rows } from 'phosphor-react-native'
+import { Camera, CaretLeft, QrCode } from 'phosphor-react-native'
 import Logo from '../../reusable/Logo'
 
 import useContactsStore from '../../../stores/Contacts'
