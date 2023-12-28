@@ -18,21 +18,19 @@ import WebSocketController from '../../../stores/Websocket'
 
 const Chat = ({ route, navigation }) => {
 
+  const { socket, subscribeToSocket } = useWebSocketStore((state) => state);
 
-  let socket: WebSocket, controller;
+
 
   useEffect(() => {
-    controller = new WebSocketController()
-    socket = controller.ws;
+    subscribeToSocket(message_reciever);
   }, [])  
 
   const message_reciever = (message: string) => {
     console.log(message)
   };
 
-  useEffect(() => {
-    
-    console.log(route.params.recipient_id)
+  useEffect(() => {    
     socket.send(JSON.stringify({ "new_recipient_id": route.params.recipient_id }))
   }, [])
 

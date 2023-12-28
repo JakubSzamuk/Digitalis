@@ -153,8 +153,6 @@ async fn message_socket_handler(socket: WebSocket, state: Arc<models::AppState>)
                 let _ = tx.send(serde_json::to_string(&saved_message).unwrap());
             } else if let Ok(serialised_message) = serde_json::from_str::<RecipientChangeMessage>(&unparsed_message) {
                 *recipient_id_clone.lock().unwrap() = serialised_message.new_recipient_id;
-            } else {
-                return;
             }
         }
     });

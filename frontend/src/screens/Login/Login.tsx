@@ -8,6 +8,7 @@ import { TEMP_APP_KEY, BACKEND_URL } from '@env'
 import useAppKey from '../../stores/CredentialStore'
 import axios from 'axios'
 import WebSocketController from '../../stores/Websocket'
+import useWebSocketStore from '../../stores/Websocket'
 
 
 
@@ -20,13 +21,7 @@ type loginCredentials = {
 const Login = ({ navigation }) => { 
 
   const [loginCredentials, setLoginCredentials] = useState<loginCredentials | null>(null);
-
-  let socket: WebSocket, controller;
-
-  useEffect(() => {
-    controller = new WebSocketController()
-    socket = controller.ws;
-  }, [])  
+  const { socket, subscribeToSocket } = useWebSocketStore((state) => state)
 
   const { app_key, setCredentialStore } = useAppKey((state) => state);
 
@@ -36,8 +31,12 @@ const Login = ({ navigation }) => {
     }
   }
 
+  useEffect(() => {
+    subscribeToSocket(handle_message);
+
+  }, [])
+    
   const handle_login_submit = () => {
-    socket.onmessage = handle_message;
     socket.onerror = (e) => console.log(e);
     if (app_key != "") {
       socket.send(JSON.stringify(

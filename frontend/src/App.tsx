@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import {
   NavigationContainer
 } from '@react-navigation/native'
@@ -11,11 +11,29 @@ import ShowQr from './screens/Home/show-qr/ShowQr';
 import AddedContact from './screens/Home/added_contact/AddedContact';
 import Chat from './screens/Home/chat/Chat';
 import ScanQr from './screens/Home/scan-screen/ScanQr';
+import useWebSocketStore from './stores/Websocket';
 
 const Stack = createNativeStackNavigator();
 
 
 function App(): React.JSX.Element {
+
+  const { socket } = useWebSocketStore((state) => state);
+
+
+  const preserveWebSocket = () => {
+    socket.send(JSON.stringify({ "ping": "ping" }));
+
+    setTimeout(() => {
+      preserveWebSocket();
+    }, 20000);
+  }
+
+
+  // useEffect(() => {
+  //   preserveWebSocket();
+  // }, [])
+
   return (
     <NavigationContainer>
       <Stack.Navigator initialRouteName='login'>
