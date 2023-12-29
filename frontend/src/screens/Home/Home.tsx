@@ -8,13 +8,14 @@ import LinearGradient from 'react-native-linear-gradient'
 import { ArrowLeft, CellSignalNone, Check, PencilSimple, Plus, Trash } from 'phosphor-react-native'
 import useContactsStore from '../../stores/Contacts'
 
-const ChatCard = ({ navigation, optionSet, setOption, setSelected, name, id }: any) => {
+const ChatCard = ({ navigation, optionSet, setOption, removeSelected, setSelected, name, id }: any) => {
   const [chosen, setChosen] = useState(false)
   useEffect(() => {
     if (!optionSet) {
       setChosen(false)
     }
   }, [optionSet])
+
   
   
   return (
@@ -30,7 +31,11 @@ const ChatCard = ({ navigation, optionSet, setOption, setSelected, name, id }: a
      onPress={() => {
         if (optionSet) {
           setChosen(!chosen)
-          setSelected(id)
+          if (chosen) {
+            removeSelected(id);
+          } else {
+            setSelected(id)
+          }
         } else {
           navigation.navigate("chat", { recipient_id: id })
         }
@@ -63,13 +68,25 @@ const ChatCard = ({ navigation, optionSet, setOption, setSelected, name, id }: a
 
 
 const Home = ({ navigation }) => {
-  const { contacts } = useContactsStore((state) => state);
+  const { contacts, removeContact } = useContactsStore((state) => state);
 
   const [optionsEnabled, setOptionsEnabled] = useState(false);
-  const [selectedContacts, setSelectedContacts] = useState<number[]>([]);
+  const [selectedContacts, setSelectedContacts] = useState<string[]>([]);
 
-  const addSelected = (id: number) => {
+  const addSelected = (id: string) => {
     setSelectedContacts([...selectedContacts, id])
+  };
+  const removeSelected = (id: string) => {
+    setSelectedContacts(selectedContacts.filter((contactId) => contactId !== id))
+  };
+  console.log(selectedContacts)
+
+  const deleteSelected = () => {
+    selectedContacts.forEach((contactId) => {
+      removeContact(contactId);
+    });
+    setSelectedContacts([]);
+    setOptionsEnabled(false);
   };
 
 
@@ -113,7 +130,7 @@ const Home = ({ navigation }) => {
                     <PencilSimple size={34} color={Color.primary} />
                   </TouchableOpacity>
                 
-                  <TouchableOpacity style={{ marginLeft: 6 }}>
+                  <TouchableOpacity style={{ marginLeft: 6 }} onPress={deleteSelected}>
                     <Trash size={34} color={Color.primary} />
                   </TouchableOpacity>
                 </>
@@ -138,7 +155,7 @@ const Home = ({ navigation }) => {
           <View style={{ paddingHorizontal: 10, marginTop: 16 }}>
             <FlatList
               renderItem={(contactItem) => (
-                <ChatCard key={contactItem.index} navigation={navigation} optionSet={optionsEnabled} setOption={setOptionsEnabled} setSelected={addSelected} {...contactItem.item} />
+                <ChatCard key={contactItem.index} navigation={navigation} optionSet={optionsEnabled} setOption={setOptionsEnabled} setSelected={addSelected} removeSelected={removeSelected} {...contactItem.item} />
               )}
               contentContainerStyle={{ gap: 10 }}
               data={contacts}

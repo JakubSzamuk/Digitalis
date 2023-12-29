@@ -17,6 +17,19 @@ const AddedContact = ({ navigation }) => {
     navigation.navigate("home");
   }
 
+  const handleAddContact = () => {
+    addContact({
+      name: "Testing account 2",
+      id: "11",
+      outgoing_key: tempContact.outgoing_key,
+      incoming_key: tempContact.incoming_key,
+      outgoing_index: 0,
+    });
+    resetTempContact();
+
+    navigation.navigate("home");
+  }
+
   return (
     <SafeAreaView>
       <StandardBackground style={UtilityStyles.mainBackground}>
@@ -37,6 +50,9 @@ const AddedContact = ({ navigation }) => {
             </StandardBackground>
           </TouchableOpacity>
         </View>
+      <TouchableOpacity onPress={handleAddContact}>
+        <Text>Add test contact</Text>
+      </TouchableOpacity>
         <View style={{ width: "100%", alignItems: 'center', marginBottom: 20 }}>
           <Logo />
         </View>

@@ -20,7 +20,7 @@ export type StoredContact = {
 interface ContactsStoreType {
   contacts: StoredContact[],
   addContact: (new_contact: StoredContact) => void,
-  removeContact: (contactIndex: number) => void,
+  removeContact: (contactId: string) => void,
   tempContact: any,
   setTempContact: (new_value: any) => void,
   resetTempContact: () => void,
@@ -44,7 +44,7 @@ const useContactsStore = create(
     (set, get) => ({
       contacts: [],
       addContact: (new_contact: StoredContact) => set({ contacts: [...get().contacts, new_contact] }),
-      removeContact: (contactIndex: number) => set({ contacts: get().contacts.filter((contact, index) => index != contactIndex) }),
+      removeContact: (contactId: string) => set({ contacts: get().contacts.filter((contact) => contact.id != contactId) }),
       tempContact: { outgoingIndex: 0 },
       setTempContact: (new_value: any) => set({ tempContact: {...get().tempContact, ...new_value} }),
       resetTempContact: () => set({ tempContact: { outgoingIndex: 0 } }),

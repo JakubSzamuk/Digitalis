@@ -32,6 +32,7 @@ const Chat = ({ route, navigation }) => {
 
   useEffect(() => {    
     socket.send(JSON.stringify({ "new_recipient_id": route.params.recipient_id }))
+    console.log(route.params.recipient_id)
   }, [])
 
   return (
