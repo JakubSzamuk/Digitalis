@@ -1,21 +1,53 @@
 import { View, Text, SafeAreaView, FlatList, TouchableOpacity } from 'react-native'
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { Color, StandardBackground } from '../../constants/colors'
 import { UtilityStyles } from '../../styles/utility'
 import Logo from '../reusable/Logo'
 import { FontStyles } from '../../styles/text'
 import LinearGradient from 'react-native-linear-gradient'
-import { CellSignalNone, Plus } from 'phosphor-react-native'
+import { ArrowLeft, CellSignalNone, Check, PencilSimple, Plus, Trash } from 'phosphor-react-native'
 import useContactsStore from '../../stores/Contacts'
 
-const ChatCard = ({ navigation, name, id }: any) => {
+const ChatCard = ({ navigation, optionSet, setOption, setSelected, name, id }: any) => {
+  const [chosen, setChosen] = useState(false)
+  useEffect(() => {
+    if (!optionSet) {
+      setChosen(false)
+    }
+  }, [optionSet])
+  
+  
   return (
-    <TouchableOpacity onPress={() => navigation.navigate("chat", { recipient_id: id })}>
+    <TouchableOpacity
+      onLongPress={() => {
+        if (optionSet) {
+          setChosen(true)
+        } else {
+          setOption(true)
+          setChosen(true)
+        }
+      }}
+     onPress={() => {
+        if (optionSet) {
+          setChosen(!chosen)
+          setSelected(id)
+        } else {
+          navigation.navigate("chat", { recipient_id: id })
+        }
+      }}>
       <StandardBackground withBorder style={{ borderRadius: 3 }}>
         <View style={{ flexDirection: 'row', padding: 10 }}>
           <View style={{ flex: 1, flexDirection: 'row' }}>
             <View style={{ justifyContent: 'center', marginRight: 10 }}>
-              <View style={{ height: 76, width: 76, backgroundColor: Color.secondary, borderRadius: 6, elevation: 20, shadowColor: Color.shadow }}></View>
+              <View style={{ height: 76, width: 76, backgroundColor: Color.secondary, borderRadius: 6, elevation: 20, shadowColor: Color.shadow }}>
+                {
+                  chosen && (
+                    <View style={{ position: 'absolute', bottom: 4, right: 4 }}>
+                      <Check size={32} color={Color.primary} />
+                    </View>
+                  )
+                }
+              </View>
             </View>
             <View>
               <Text style={FontStyles.StandardText}>{name}</Text>
@@ -30,9 +62,15 @@ const ChatCard = ({ navigation, name, id }: any) => {
 }
 
 
-
 const Home = ({ navigation }) => {
   const { contacts } = useContactsStore((state) => state);
+
+  const [optionsEnabled, setOptionsEnabled] = useState(false);
+  const [selectedContacts, setSelectedContacts] = useState<number[]>([]);
+
+  const addSelected = (id: number) => {
+    setSelectedContacts([...selectedContacts, id])
+  };
 
 
   return (
@@ -56,27 +94,51 @@ const Home = ({ navigation }) => {
           </View>
         </View>
         <StandardBackground withBorder style={{ borderRadius: 20, height: "100%" }}>
-          <View style={{ paddingHorizontal: 25, paddingTop: 15, flexDirection: 'row', alignItems: 'center' }}>
+          <View style={{ paddingHorizontal: 25, paddingTop: 15, flexDirection: 'row', alignItems: 'center', height: 50 }}>
+            {
+              optionsEnabled && (
+                <TouchableOpacity style={{ marginRight: 10 }} onPress={() => setOptionsEnabled(false)}>
+                  <ArrowLeft size={32} color={Color.primary} />
+                </TouchableOpacity>
+              )
+            }
             <View style={{ flex: 1 }}>
-              <Text style={FontStyles.StandardText}>Messages</Text>
+              <Text style={FontStyles.StandardText}>{optionsEnabled ? "Edit" : "Messages"}</Text>
             </View>
-            <View style={{ alignItems: 'center' }}>
-              <FlatList
-                renderItem={
-                  (key) => (
-                    <View key={key} style={{ margin: 2, width: 8, height: 8, borderRadius: 30, backgroundColor: Color.primary }}></View>
-                  )
-                }
-                contentContainerStyle={{ alignItems: 'center' }}
-                horizontal
-                data={[...Array(3).keys()]}
-              />
-            </View>
+
+            {
+              optionsEnabled ? (
+                <>
+                  <TouchableOpacity>
+                    <PencilSimple size={34} color={Color.primary} />
+                  </TouchableOpacity>
+                
+                  <TouchableOpacity style={{ marginLeft: 6 }}>
+                    <Trash size={34} color={Color.primary} />
+                  </TouchableOpacity>
+                </>
+              ) : (
+                <TouchableOpacity style={{ alignItems: 'center' }} onPress={() => setOptionsEnabled(!optionsEnabled)}>
+                  <FlatList
+                    renderItem={
+                      (key) => (
+                        <View key={key} style={{ margin: 2, width: 8, height: 8, borderRadius: 30, backgroundColor: Color.primary }}></View>
+                      )
+                    }
+                    contentContainerStyle={{ alignItems: 'center' }}
+                    horizontal
+                    data={[...Array(3).keys()]}
+                  />
+                </TouchableOpacity>
+              )
+            }
+
+            
           </View>
           <View style={{ paddingHorizontal: 10, marginTop: 16 }}>
             <FlatList
               renderItem={(contactItem) => (
-                <ChatCard key={contactItem.index} navigation={navigation} {...contactItem.item} />
+                <ChatCard key={contactItem.index} navigation={navigation} optionSet={optionsEnabled} setOption={setOptionsEnabled} setSelected={addSelected} {...contactItem.item} />
               )}
               contentContainerStyle={{ gap: 10 }}
               data={contacts}
