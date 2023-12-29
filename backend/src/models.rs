@@ -26,6 +26,7 @@ pub struct InitialMessage {
 #[derive(Deserialize)]
 pub struct RecipientChangeMessage {
     pub new_recipient_id: String,
+    pub up_to: i8,
 }
 
 #[derive(Deserialize)]

@@ -141,7 +141,6 @@ async fn message_socket_handler(socket: WebSocket, state: Arc<models::AppState>)
         }
     });
 
-
     
     let tx = state.tx.clone();
 
@@ -152,7 +151,16 @@ async fn message_socket_handler(socket: WebSocket, state: Arc<models::AppState>)
                     message_processor(serialised_message, &user_object);
                 let _ = tx.send(serde_json::to_string(&saved_message).unwrap());
             } else if let Ok(serialised_message) = serde_json::from_str::<RecipientChangeMessage>(&unparsed_message) {
+                let messages: diesel::result::QueryResult<Vec<StoredMessage>> = helpers::fetch_message_vec(
+                    serialised_message.up_to,
+                    &user_object,
+                    &serialised_message.new_recipient_id,
+                );
                 *recipient_id_clone.lock().unwrap() = serialised_message.new_recipient_id;
+        
+                if let Ok(message_vec) = messages {
+                    let _ = tx.send(serde_json::to_string(&message_vec).unwrap()).unwrap();
+                }
             }
         }
     });

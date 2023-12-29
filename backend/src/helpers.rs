@@ -141,8 +141,8 @@ pub fn message_is_for_user(message: &String, user_id: &String, recipient_id: Str
 
 pub fn fetch_message_vec(
     range: i8,
-    auth_obj: User,
-    parsed_sender_id: String,
+    auth_obj: &User,
+    parsed_sender_id: &String,
 ) -> QueryResult<Vec<models::StoredMessage>> {
     use crate::schema::sent_messages::dsl::*;
     let mut connection = establish_db();
