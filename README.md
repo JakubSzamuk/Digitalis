@@ -59,7 +59,7 @@ Usage:
 - [X] App design
 - [X] App developement **Started
 
-- [ ] Create the chat screen
+- [X] Create the chat screen
 
 
 - [ ] Current deployment

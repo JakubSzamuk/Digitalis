@@ -21,19 +21,6 @@ function App(): React.JSX.Element {
   const { socket } = useWebSocketStore((state) => state);
 
 
-  const preserveWebSocket = () => {
-    socket.send(JSON.stringify({ "ping": "ping" }));
-
-    setTimeout(() => {
-      preserveWebSocket();
-    }, 20000);
-  }
-
-
-  // useEffect(() => {
-  //   preserveWebSocket();
-  // }, [])
-
   return (
     <NavigationContainer>
       <Stack.Navigator initialRouteName='login'>
