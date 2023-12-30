@@ -18,6 +18,7 @@ use axum::{
     Json, Router,
 };
 
+use chrono::naive::serde;
 use futures::{SinkExt, StreamExt};
 use helpers::client_key_gen;
 use models::CredentialResponse;
@@ -64,8 +65,8 @@ async fn message_fetch_handler(
     if let Ok(user_object) = helpers::verify_auth(serialised_payload.auth_object) {
         let messages: diesel::result::QueryResult<Vec<StoredMessage>> = helpers::fetch_message_vec(
             serialised_payload.up_to,
-            user_object,
-            serialised_payload.recipient_id,
+            &user_object,
+            &serialised_payload.recipient_id,
         );
 
         if let Ok(message_vec) = messages {
@@ -134,8 +135,15 @@ async fn message_socket_handler(socket: WebSocket, state: Arc<models::AppState>)
                 &user_object.id.to_string(),
                 recipient_id.lock().unwrap().to_string(),
             ) {
+                println!("Received message: {:?}", msg);
                 if sender.send(Message::Text(msg)).await.is_err() {
                     break;
+                }
+            } else if let Ok(serialised_tuple) = serde_json::from_str::<(Vec<StoredMessage>, String)>(&msg.to_string()) {
+                if serialised_tuple.1 == user_object.id.to_string() {
+                    if sender.send(Message::Text(serde_json::to_string(&serialised_tuple.0).unwrap())).await.is_err() {
+                        break;
+                    }
                 }
             }
         }
@@ -159,7 +167,7 @@ async fn message_socket_handler(socket: WebSocket, state: Arc<models::AppState>)
                 *recipient_id_clone.lock().unwrap() = serialised_message.new_recipient_id;
         
                 if let Ok(message_vec) = messages {
-                    let _ = tx.send(serde_json::to_string(&message_vec).unwrap()).unwrap();
+                    let _ = tx.send(serde_json::to_string(&(&message_vec, &user_object.id)).unwrap()).unwrap();
                 }
             }
         }
