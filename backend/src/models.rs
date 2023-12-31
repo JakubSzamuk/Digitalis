@@ -17,6 +17,15 @@ impl AppState {
     }
 }
 
+#[derive(Deserialize, Serialize)]
+pub struct MessageVecProcessor {
+    pub message_vec: Vec<StoredMessage>,
+    pub user_id: i32,
+}
+
+
+
+
 #[derive(Deserialize)]
 pub struct InitialMessage {
     pub auth_object: ClientAuthObject,
@@ -141,7 +150,7 @@ pub struct AppKey {
     pub app_key: String,
 }
 
-#[derive(Deserialize, Serialize, Queryable, Selectable, Insertable)]
+#[derive(Deserialize, Serialize, Queryable, Selectable, Insertable, Clone)]
 #[diesel(table_name = crate::schema::sent_messages)]
 #[diesel(check_for_backend(diesel::mysql::Mysql))]
 pub struct StoredMessage {

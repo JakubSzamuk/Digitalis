@@ -2,6 +2,7 @@ mod helpers;
 pub mod models;
 pub mod schema;
 
+use core::panic;
 use std::{
     collections::HashSet,
     sync::{Arc, Mutex},
@@ -24,7 +25,7 @@ use helpers::client_key_gen;
 use models::CredentialResponse;
 use tokio::sync::broadcast;
 
-use crate::{helpers::message_processor, models::{StoredMessage, SentMessage, RecipientChangeMessage}};
+use crate::{helpers::message_processor, models::{StoredMessage, SentMessage, RecipientChangeMessage, MessageVecProcessor}};
 
 #[tokio::main]
 async fn main() {
@@ -135,13 +136,12 @@ async fn message_socket_handler(socket: WebSocket, state: Arc<models::AppState>)
                 &user_object.id.to_string(),
                 recipient_id.lock().unwrap().to_string(),
             ) {
-                println!("Received message: {:?}", msg);
                 if sender.send(Message::Text(msg)).await.is_err() {
                     break;
                 }
-            } else if let Ok(serialised_tuple) = serde_json::from_str::<(Vec<StoredMessage>, String)>(&msg.to_string()) {
-                if serialised_tuple.1 == user_object.id.to_string() {
-                    if sender.send(Message::Text(serde_json::to_string(&serialised_tuple.0).unwrap())).await.is_err() {
+            } else if let Ok(serialised_struct) = serde_json::from_str::<MessageVecProcessor>(&msg.to_string()) {
+                if serialised_struct.user_id == user_object.id {
+                    if sender.send(Message::Text(serde_json::to_string(&serialised_struct.message_vec).unwrap())).await.is_err() {
                         break;
                     }
                 }
@@ -167,7 +167,7 @@ async fn message_socket_handler(socket: WebSocket, state: Arc<models::AppState>)
                 *recipient_id_clone.lock().unwrap() = serialised_message.new_recipient_id;
         
                 if let Ok(message_vec) = messages {
-                    let _ = tx.send(serde_json::to_string(&(&message_vec, &user_object.id)).unwrap()).unwrap();
+                    let _ = tx.send(serde_json::to_string(&MessageVecProcessor { message_vec: message_vec.clone(), user_id: user_object.id.clone() }).unwrap()).unwrap();
                 }
             }
         }
