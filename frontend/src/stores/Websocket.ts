@@ -19,7 +19,3 @@ const useWebSocketStore = create<WebSocketState>((set, get) => ({
 
 
 export default useWebSocketStore;
-
-
-
-// using singleton to try and preserve the websockets connection between screens on the app

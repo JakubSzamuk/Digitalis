@@ -153,6 +153,7 @@ pub fn fetch_message_vec(
                     .eq(&parsed_sender_id)
                     .and(sender_id.eq(auth_obj.id.to_string()))),
         )
+        .order(time.desc())
         .limit(range.into())
         .load(&mut connection);
 

@@ -21,9 +21,9 @@ const ShowQr = ({ navigation }) => {
 
   useEffect(() => {
     const generate_qr_code = async () => {
-      let key = await generateSecureRandom(2000);
+      let key = await generateSecureRandom(1100);
 
-      let hexKeyArray: string = Array.from(key, val => String.fromCharCode(val)).join('');
+      let hexKeyArray: string = Array.from(key, val => val.toString(16)).join('');
       console.log(hexKeyArray)
 
       setTempContact({ outgoing_key: hexKeyArray });

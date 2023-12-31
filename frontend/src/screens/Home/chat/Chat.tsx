@@ -1,12 +1,13 @@
-import { View, Text, TouchableOpacity, FlatList, ScrollView } from 'react-native'
+import { View, Text, TouchableOpacity, FlatList, ScrollView, TextInput, KeyboardAvoidingView } from 'react-native'
 import React, { useEffect, useState } from 'react'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { Color, StandardBackground } from '../../../constants/colors'
 import { UtilityStyles } from '../../../styles/utility'
-import { CaretLeft } from 'phosphor-react-native'
+import { CaretLeft, CellSignalNone, ChatCentered, PaperPlaneTilt, Plus } from 'phosphor-react-native'
 import { FontStyles } from '../../../styles/text'
 import useWebSocketStore from '../../../stores/Websocket'
 import useContactsStore from '../../../stores/Contacts'
+import LinearGradient from 'react-native-linear-gradient'
 
 // const ChatMessage = () => {
 //   return (
@@ -47,16 +48,23 @@ const Chat = ({ route, navigation }) => {
   let contact = getContact(route.params.recipient_id);
   console.log(contact)
 
-  useEffect(() => {
-    subscribeToSocket(message_reciever);
-  }, [])  
 
-  const message_reciever = (message: string) => {
-    setMessages(prev => [...prev, (JSON.parse(message.data) as ChatMessage)])
+  const message_reciever = (message) => {
+    console.log(message)
+    message = JSON.parse(message.data) as ChatMessage | ChatMessage[];
+    if (Array.isArray(message)) {
+      setMessages(prev => [...prev, ...message])
+    } else {
+      setMessages(prev => [...prev, message])
+    }
   };
+
   useEffect(() => {    
-    socket.send(JSON.stringify({ "new_recipient_id": route.params.recipient_id }))
+    subscribeToSocket(message_reciever);
+    socket.onmessage = message_reciever;
+    socket.send(JSON.stringify({ "new_recipient_id": route.params.recipient_id, "up_to": 10 }))
   }, [])
+  
 
 
   return (
@@ -74,19 +82,43 @@ const Chat = ({ route, navigation }) => {
             </View>
           </View>
         </View>
-        <StandardBackground withBorder style={{ borderRadius: 10, marginTop: 10 }}>
-          <ScrollView 
-            style={{ width: "100%", height: "100%", paddingHorizontal: 16, paddingTop: 8 }}
-            ref={ref => {this.scrollView = ref}}
-            onContentSizeChange={() => this.scrollView.scrollToEnd({animated: true})}
-          >
-            <FlatList 
-              data={messages}
-              renderItem={({ item }) => <Message recipient={route.params.recipient_id} message={item} />}
-              keyExtractor={(item) => item.id}
-            />
-          </ScrollView>
-        </StandardBackground>
+        <KeyboardAvoidingView behavior='position' style={{ marginTop: 10 }}>
+          <StandardBackground withBorder style={{ borderRadius: 10 }}>
+            <ScrollView
+              style={{ width: "100%", paddingHorizontal: 16, paddingTop: 8, marginBottom: 120 }}
+              ref={ref => {this.scrollView = ref}}
+              onContentSizeChange={() => this.scrollView.scrollToEnd({animated: true})}
+            >
+              <View>
+                <FlatList
+                  data={messages}
+                  renderItem={({ item }) => <Message recipient={route.params.recipient_id} message={item} />}
+                  keyExtractor={(item) => item.id}
+                />
+              </View>
+            </ScrollView>
+            <View style={{ elevation: 20, shadowColor: Color.primary, borderRadius: 80, overflow: 'hidden', bottom: 20, position: 'absolute' }}>
+              <StandardBackground>
+                <View style={{ flexDirection: 'row', paddingVertical: 6, paddingLeft: 20, paddingRight: 6, alignItems: 'center' }}>
+                  <TextInput style={[FontStyles.StandardText, { width: "80%" }]} placeholder='Message' multiline placeholderTextColor={Color.primary} />
+                  <TouchableOpacity onPress={() => {}}>
+                    <LinearGradient
+                      colors={["#F3F3F3", "#575B5C"]}
+                      style={{ borderRadius: 100, height: 72, width: 72, padding: 4 }}
+                    >
+                      <LinearGradient 
+                        colors={["#ABACAC", "#949494"]}
+                        style={{ borderRadius: 100, height: "100%", width: "100%", alignItems: 'center', justifyContent: 'center' }}
+                      >
+                        <PaperPlaneTilt color="#252525" size={32} />
+                      </LinearGradient>
+                    </LinearGradient>
+                  </TouchableOpacity>
+                </View>
+              </StandardBackground>
+            </View>
+          </StandardBackground>
+        </KeyboardAvoidingView>
       </StandardBackground>
     </SafeAreaView>
   )
