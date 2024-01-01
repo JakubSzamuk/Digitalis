@@ -79,7 +79,7 @@ const Home = ({ navigation }) => {
   const removeSelected = (id: string) => {
     setSelectedContacts(selectedContacts.filter((contactId) => contactId !== id))
   };
-  console.log(selectedContacts)
+
 
   const deleteSelected = () => {
     selectedContacts.forEach((contactId) => {

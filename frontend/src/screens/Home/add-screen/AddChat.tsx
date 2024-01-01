@@ -21,7 +21,7 @@ const AddChat = ({ navigation }) => {
         <View style={{ flex: 1 }}>
           <Text style={[FontStyles.Header, { marginTop: 145, marginLeft: 60 }]}>Add Chat</Text>
           <View style={{ width: "100%", alignItems: 'center' }}>
-            <TouchableOpacity style={{ marginTop: 16 }}>
+            <TouchableOpacity style={{ marginTop: 16 }} onPress={() => navigation.navigate("scan_qr")}>
               <StandardBackground withBorder style={{ borderRadius: 8, height: 70, width: 310 }}>
                 <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center' }}>
                   <View style={{ flex: 1, marginLeft: 30 }}>

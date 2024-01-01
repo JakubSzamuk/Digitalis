@@ -71,14 +71,17 @@ const Chat = ({ route, navigation }) => {
     let startingIndex = contact!.outgoing_index;
     let currentKeyIndex = 0;
     for (let i = 0; i < message.length; i++) {
-      outputMessage += (message.charCodeAt(i) ^ parseInt(contact?.outgoing_key[contact.outgoing_index + currentKeyIndex] + contact?.outgoing_key[contact.outgoing_index + currentKeyIndex + 1], 16)).toString(16);
+      let currentChars = (message.charCodeAt(i) ^ parseInt(contact?.outgoing_key[contact.outgoing_index + currentKeyIndex] + contact?.outgoing_key[contact.outgoing_index + currentKeyIndex + 1], 16)).toString(16);
+      if (currentChars.length == 1) {
+        currentChars = "0" + currentChars;
+      }
+      outputMessage += currentChars;
       currentKeyIndex += 2;
     }
     addToOutgoingIndex(contact!.id, 2 * message.length);
     return {outputMessage, outputIndex: `${startingIndex}-${startingIndex + 2 * message.length}`};
   }
-
-
+  console.log(contact)
 
   const send_message = () => {
     let cyphered_text = cypher_message(messageText);
@@ -109,13 +112,13 @@ const Chat = ({ route, navigation }) => {
           <View style={{ flexDirection: 'row', alignItems: 'center', marginLeft: 10 }}>
             <View style={{ backgroundColor: Color.secondary, width: 76, height: 76, borderRadius: 4, elevation: 20, shadowColor: Color.secondary }}></View>
             <View style={{ marginLeft: 8 }}>
-              <Text style={FontStyles.Header}>Jakub Szamuk</Text>
+              <Text style={FontStyles.Header}>{contact?.name}</Text>
               <Text style={FontStyles.StandardText}>100 Messages Left</Text>
             </View>
           </View>
         </View>
         <KeyboardAvoidingView behavior='position' style={{ marginTop: 10, maxHeight: "88%" }}>
-          <StandardBackground withBorder style={{ borderRadius: 10 }}>
+          <StandardBackground withBorder style={{ borderRadius: 10, height: "100%" }}>
             <ScrollView
               style={{ width: "100%", paddingHorizontal: 16, paddingTop: 8, marginBottom: 120 }}
               ref={ref => {this.scrollView = ref; scrollViewRef = ref}}

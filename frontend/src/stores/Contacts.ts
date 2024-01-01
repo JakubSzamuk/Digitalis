@@ -48,7 +48,7 @@ const useContactsStore = create(
       contacts: [],
       addToOutgoingIndex: (contactId: string, amount: number) => set({ contacts: get().contacts.map((contact) => {
         if (contact.id == contactId) {
-          contact.outgoing_index += amount;
+          return {...contact, outgoing_index: contact.outgoing_index + amount}
         }
         return contact;
       }) }),
@@ -56,9 +56,9 @@ const useContactsStore = create(
       getContact: (contactId: string) => get().contacts.find((contact) => contact.id == contactId),
       addContact: (new_contact: StoredContact) => set({ contacts: [...get().contacts, new_contact] }),
       removeContact: (contactId: string) => set({ contacts: get().contacts.filter((contact) => contact.id != contactId) }),
-      tempContact: { outgoingIndex: 0 },
+      tempContact: { outgoing_index: 0 },
       setTempContact: (new_value: any) => set({ tempContact: {...get().tempContact, ...new_value} }),
-      resetTempContact: () => set({ tempContact: { outgoingIndex: 0 } }),
+      resetTempContact: () => set({ tempContact: { outgoing_index: 0 } }),
     }),
     {
       name: "Contact_keys",

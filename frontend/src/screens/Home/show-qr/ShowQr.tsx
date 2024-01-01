@@ -25,7 +25,6 @@ const ShowQr = ({ navigation }) => {
 
       let hexKeyArray: string = Array.from(key, val => val.toString(16)).join('');
       console.log(hexKeyArray)
-
       setTempContact({ outgoing_key: hexKeyArray });
       setQrValue(
         JSON.stringify(
