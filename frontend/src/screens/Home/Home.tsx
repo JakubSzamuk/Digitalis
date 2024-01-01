@@ -7,8 +7,9 @@ import { FontStyles } from '../../styles/text'
 import LinearGradient from 'react-native-linear-gradient'
 import { ArrowLeft, CellSignalNone, Check, PencilSimple, Plus, Trash } from 'phosphor-react-native'
 import useContactsStore from '../../stores/Contacts'
+import useWebSocketStore from '../../stores/Websocket'
 
-const ChatCard = ({ navigation, optionSet, setOption, removeSelected, setSelected, name, id }: any) => {
+const ChatCard = ({ navigation, optionSet, setOption, removeSelected, setSelected, name, id, outgoing_index }: any) => {
   const [chosen, setChosen] = useState(false)
   useEffect(() => {
     if (!optionSet) {
@@ -23,7 +24,9 @@ const ChatCard = ({ navigation, optionSet, setOption, removeSelected, setSelecte
       onLongPress={() => {
         if (optionSet) {
           setChosen(true)
+          setSelected(id)
         } else {
+          setSelected(id)
           setOption(true)
           setChosen(true)
         }
@@ -56,10 +59,9 @@ const ChatCard = ({ navigation, optionSet, setOption, removeSelected, setSelecte
             </View>
             <View>
               <Text style={FontStyles.StandardText}>{name}</Text>
-              <Text style={FontStyles.MediumText}>Hello, Whats up?</Text>
+              <Text style={FontStyles.MediumText}>{Math.floor((1410 - outgoing_index) / 50)} Messages Left</Text>
             </View>
           </View>
-          <Text style={FontStyles.MediumText}>12h</Text>
         </View>
       </StandardBackground>
     </TouchableOpacity>
@@ -69,7 +71,15 @@ const ChatCard = ({ navigation, optionSet, setOption, removeSelected, setSelecte
 
 const Home = ({ navigation }) => {
   const { contacts, removeContact } = useContactsStore((state) => state);
-
+  const { socket } = useWebSocketStore((state) => state);
+  
+  socket.onclose = () => {
+    navigation.navigate("connection_lost")
+  }
+  if (socket.readyState == 3) {
+    navigation.navigate("connection_lost")
+  }
+  
   const [optionsEnabled, setOptionsEnabled] = useState(false);
   const [selectedContacts, setSelectedContacts] = useState<string[]>([]);
 
@@ -79,7 +89,6 @@ const Home = ({ navigation }) => {
   const removeSelected = (id: string) => {
     setSelectedContacts(selectedContacts.filter((contactId) => contactId !== id))
   };
-
 
   const deleteSelected = () => {
     selectedContacts.forEach((contactId) => {
@@ -101,7 +110,7 @@ const Home = ({ navigation }) => {
             <FlatList
               renderItem={
                 (key) => (
-                  <View key={key} style={{ margin: 4, width: 8, height: 8, borderRadius: 30, backgroundColor: Color.primary }}></View>
+                  <View key={key} style={{ margin: 10, width: 8, height: 8, borderRadius: 30, backgroundColor: Color.primary }}></View>
                 )
               }
               data={[...Array(4).keys()]}
@@ -124,16 +133,10 @@ const Home = ({ navigation }) => {
             </View>
 
             {
-              optionsEnabled ? (
-                <>
-                  <TouchableOpacity>
-                    <PencilSimple size={34} color={Color.primary} />
-                  </TouchableOpacity>
-                
-                  <TouchableOpacity style={{ marginLeft: 6 }} onPress={deleteSelected}>
-                    <Trash size={34} color={Color.primary} />
-                  </TouchableOpacity>
-                </>
+              optionsEnabled ? (                
+                <TouchableOpacity style={{ marginLeft: 6 }} onPress={deleteSelected}>
+                  <Trash size={34} color={Color.primary} />
+                </TouchableOpacity>
               ) : (
                 <TouchableOpacity style={{ alignItems: 'center' }} onPress={() => setOptionsEnabled(!optionsEnabled)}>
                   <FlatList
@@ -153,6 +156,11 @@ const Home = ({ navigation }) => {
             
           </View>
           <View style={{ paddingHorizontal: 10, marginTop: 16 }}>
+            {
+              contacts[0] == undefined && (
+                <Text style={[FontStyles.ExtraSmall, { opacity: 0.6 }]}>Looks like you have not added any contacts, Please use the Add button to do so.</Text>
+              )
+            }
             <FlatList
               renderItem={(contactItem) => (
                 <ChatCard key={contactItem.index} navigation={navigation} optionSet={optionsEnabled} setOption={setOptionsEnabled} setSelected={addSelected} removeSelected={removeSelected} {...contactItem.item} />

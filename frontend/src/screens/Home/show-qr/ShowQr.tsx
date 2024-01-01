@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react'
 import { Color, StandardBackground } from '../../../constants/colors'
 import { UtilityStyles } from '../../../styles/utility'
 import { FontStyles } from '../../../styles/text'
-import { CaretLeft } from 'phosphor-react-native'
+import { CaretLeft, QrCode } from 'phosphor-react-native'
 import Logo from '../../reusable/Logo'
 
 import { generateSecureRandom } from 'react-native-securerandom';
@@ -19,22 +19,22 @@ const ShowQr = ({ navigation }) => {
   const { tempContact, setTempContact, resetTempContact } = useContactsStore((state) => state);
 
 
-  useEffect(() => {
-    const generate_qr_code = async () => {
-      let key = await generateSecureRandom(1100);
+  const generate_qr_code = async () => {
+    let key = await generateSecureRandom(1425);
 
-      let hexKeyArray: string = Array.from(key, val => val.toString(16)).join('');
-      console.log(hexKeyArray)
-      setTempContact({ outgoing_key: hexKeyArray });
-      setQrValue(
-        JSON.stringify(
-          {
-            id: user_id,
-            incoming_key: hexKeyArray,
-          }
-        )
-      );
-    };
+    let hexKeyArray: string = Array.from(key, val => String.fromCharCode(val)).join('');
+    setTempContact({ outgoing_key: hexKeyArray });
+    
+    setQrValue(
+      JSON.stringify(
+        {
+          id: user_id,
+          incoming_key: hexKeyArray,
+        }
+      )
+    );
+  };
+  useEffect(() => {
     generate_qr_code();
   }, [])
 
@@ -60,6 +60,8 @@ const ShowQr = ({ navigation }) => {
                     <QRCode
                       size={260}
                       value={qrValue}
+                      ecl='L'
+                      onError={() => {setQrValue(undefined); generate_qr_code()}}
                     />
                   </View>
                 ) : (

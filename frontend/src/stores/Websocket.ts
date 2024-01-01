@@ -4,7 +4,7 @@ import { create } from "zustand";
 interface WebSocketState {
   socket: WebSocket,
   subscribeToSocket: (bind_to: (event: any) => void) => void,
-  resetSocket: () => void
+  resetSocket: (callback: () => void) => void
 }
   
 const useWebSocketStore = create<WebSocketState>((set, get) => ({
@@ -13,7 +13,7 @@ const useWebSocketStore = create<WebSocketState>((set, get) => ({
   subscribeToSocket: (bind_to: any) => {
     get().socket.onmessage = bind_to;
   },
-  resetSocket: () => set(() => ({ socket: new WebSocket(`ws://${BACKEND_URL}/messages`) })),
+  resetSocket: (callback) => {set(() => ({ socket: new WebSocket(`ws://192.168.1.63:5000/messages`) })); get().socket.onopen = () => callback()},
 }));
 
 

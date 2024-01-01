@@ -19,8 +19,8 @@ const AddedContact = ({ navigation }) => {
 
   const handleAddContact = () => {
     addContact({
-      name: "Testing account",
-      id: "10",
+      name: "Testing account NEW",
+      id: "11",
       outgoing_key: tempContact.outgoing_key,
       incoming_key: tempContact.incoming_key,
       outgoing_index: 0,

@@ -1,4 +1,4 @@
-import { View, Text, TextInput, TouchableHighlight, TouchableOpacity, SafeAreaView } from 'react-native'
+import { View, Text, TextInput, TouchableHighlight, TouchableOpacity, SafeAreaView, ActivityIndicator } from 'react-native'
 import React, { useEffect, useState } from 'react'
 import { Color, StandardBackground } from '../../constants/colors'
 import { UtilityStyles } from '../../styles/utility'
@@ -21,8 +21,16 @@ type loginCredentials = {
 const Login = ({ navigation }) => { 
 
   const [loginCredentials, setLoginCredentials] = useState<loginCredentials | null>(null);
-  const { socket, subscribeToSocket } = useWebSocketStore((state) => state)
+  const { socket, subscribeToSocket, resetSocket } = useWebSocketStore((state) => state)
+  
+  const [loggingIn, setLoggingIn] = useState(false);
 
+  socket.onclose = () => {
+    navigation.navigate("connection_lost")
+  }  
+  if (socket.readyState == 3) {
+    navigation.navigate("connection_lost")
+  }
   const { app_key, setCredentialStore } = useAppKey((state) => state);
 
   const handle_message = (event: any) => {
@@ -33,13 +41,15 @@ const Login = ({ navigation }) => {
 
   useEffect(() => {
     subscribeToSocket(handle_message);
-
   }, [])
     
-  const handle_login_submit = () => {
-    socket.onerror = (e) => console.log(e);
+  const handle_login_submit = async () => {
+    if (socket.readyState == 3) {
+      navigation.navigate("connection_lost")
+    }
+    setLoggingIn(true);
     if (app_key != "") {
-      socket.send(JSON.stringify(
+      await socket.send(JSON.stringify(
         {
           "email": loginCredentials?.email,
           "password": loginCredentials?.password,
@@ -47,7 +57,7 @@ const Login = ({ navigation }) => {
         }
       ));
     } else {
-      axios.post(`${BACKEND_URL}/configure-client`, {
+      await axios.post(`${BACKEND_URL}/configure-client`, {
         "auth_object": {
           "email": loginCredentials?.email,
           "password": loginCredentials?.password,
@@ -84,9 +94,14 @@ const Login = ({ navigation }) => {
             <TouchableOpacity style={{ marginTop: 50 }} onPress={handle_login_submit}>
               <StandardBackground withBorder style={{ borderRadius: 3 }}>
                 <View style={{ width: 212, height: 52, justifyContent: 'center', alignItems: 'center' }}>
-                  <Text style={FontStyles.StandardText}>
+                  {
+                  loggingIn ? (
+                    <ActivityIndicator />
+                  ) :
+                  (<Text style={FontStyles.StandardText}>
                     Login
-                  </Text>
+                  </Text>)
+                  }
                 </View>
               </StandardBackground>
             </TouchableOpacity>
