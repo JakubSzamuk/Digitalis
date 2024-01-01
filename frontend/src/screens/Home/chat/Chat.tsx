@@ -26,9 +26,9 @@ type ChatMessage = {
 
 const Message = ({ message, recipient, contact }: { message: ChatMessage, recipient: string, contact: StoredContact}) => {
   let isClient = recipient == message.recipient_id ? true : false
-  let plainText;
-  for (let i = 0; i < message.message_body.length; i += 2) {
-    let currentKey = parseInt((isClient ? contact.outgoing_key : contact.incoming_key)[message.message_key_range.split("-")[0] + i] + (isClient ? contact.outgoing_key : contact.incoming_key)[message.message_key_range.split("-")[0] + 1 + i], 16)
+  let plainText: string = "";
+  for (let i = 0; i < message.message_body.length - 1; i += 2) {
+    let currentKey = parseInt((isClient ? contact.outgoing_key : contact.incoming_key)[parseInt(message.message_key_range.split("-")[0]) + i] + (isClient ? contact.outgoing_key : contact.incoming_key)[parseInt(message.message_key_range.split("-")[0]) + 1 + i], 16)
     plainText += String.fromCharCode(parseInt(message.message_body[i] + message.message_body[i + 1], 16) ^ currentKey);
   }
   
@@ -57,7 +57,6 @@ const Chat = ({ route, navigation }) => {
   let contact = getContact(route.params.recipient_id);
 
 
-
   const message_reciever = (message) => {
     message = JSON.parse(message.data) as ChatMessage | ChatMessage[];
     if (Array.isArray(message)) {
@@ -70,9 +69,10 @@ const Chat = ({ route, navigation }) => {
   const cypher_message = (message: string) => {
     let outputMessage = "";
     let startingIndex = contact!.outgoing_index;
+    let currentKeyIndex = 0;
     for (let i = 0; i < message.length; i++) {
-      outputMessage += (message.charCodeAt(i) ^ parseInt(contact?.outgoing_key[contact.outgoing_index + i] + contact?.outgoing_key[contact.outgoing_index + i + 1], 16)).toString(16);
-      console.log("THIS ONE", parseInt(contact?.outgoing_key[contact.outgoing_index + i] + contact?.outgoing_key[contact.outgoing_index + i + 1], 16))
+      outputMessage += (message.charCodeAt(i) ^ parseInt(contact?.outgoing_key[contact.outgoing_index + currentKeyIndex] + contact?.outgoing_key[contact.outgoing_index + currentKeyIndex + 1], 16)).toString(16);
+      currentKeyIndex += 2;
     }
     addToOutgoingIndex(contact!.id, 2 * message.length);
     return {outputMessage, outputIndex: `${startingIndex}-${startingIndex + 2 * message.length}`};
@@ -125,7 +125,7 @@ const Chat = ({ route, navigation }) => {
                 <FlatList
                   data={messages}
                   renderItem={({ item }) => <Message key={item.id} recipient={route.params.recipient_id} message={item} contact={contact} />}
-                  keyExtractor={(item) => item.id}
+                  keyExtractor={(item, value) => value}
                 />
               </View>
             </ScrollView>
