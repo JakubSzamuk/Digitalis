@@ -7,7 +7,6 @@ import Logo from '../reusable/Logo'
 import { TEMP_APP_KEY, BACKEND_URL } from '@env'
 import useAppKey from '../../stores/CredentialStore'
 import axios from 'axios'
-import WebSocketController from '../../stores/Websocket'
 import useWebSocketStore from '../../stores/Websocket'
 
 
@@ -32,20 +31,20 @@ const Login = ({ navigation }) => {
     navigation.navigate("connection_lost")
   }
   const { app_key, setCredentialStore } = useAppKey((state) => state);
-
+  
   const handle_message = (event: any) => {
     if (event.data == "Login Successful") {
       navigation.navigate('home');
     }
   }
-
   useEffect(() => {
     subscribeToSocket(handle_message);
   }, [])
     
   const handle_login_submit = async () => {
     if (socket.readyState == 3) {
-      navigation.navigate("connection_lost")
+      navigation.navigate("connection_lost");
+      return;
     }
     setLoggingIn(true);
     if (app_key != "") {
@@ -57,7 +56,7 @@ const Login = ({ navigation }) => {
         }
       ));
     } else {
-      await axios.post(`${BACKEND_URL}/configure-client`, {
+      await axios.post("https://JakubSzamuk.co.uk/chat-app/configure-client", {
         "auth_object": {
           "email": loginCredentials?.email,
           "password": loginCredentials?.password,

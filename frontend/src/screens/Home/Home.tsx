@@ -59,7 +59,7 @@ const ChatCard = ({ navigation, optionSet, setOption, removeSelected, setSelecte
             </View>
             <View>
               <Text style={FontStyles.StandardText}>{name}</Text>
-              <Text style={FontStyles.MediumText}>{Math.floor((1410 - outgoing_index) / 50)} Messages Left</Text>
+              <Text style={FontStyles.MediumText}>{Math.floor((2300 - outgoing_index) / 50)} Messages Left</Text>
             </View>
           </View>
         </View>

@@ -8,12 +8,12 @@ interface WebSocketState {
 }
   
 const useWebSocketStore = create<WebSocketState>((set, get) => ({
-  socket: new WebSocket(`ws://192.168.1.63:5000/messages`),
+  socket: new WebSocket("wss://jakubszamuk.co.uk/chat-app/messages"),
   
   subscribeToSocket: (bind_to: any) => {
     get().socket.onmessage = bind_to;
   },
-  resetSocket: (callback) => {set(() => ({ socket: new WebSocket(`ws://192.168.1.63:5000/messages`) })); get().socket.onopen = () => callback()},
+  resetSocket: (callback) => {set(() => ({ socket: new WebSocket("wss://jakubszamuk.co.uk/chat-app/messages") })); get().socket.onopen = () => callback()},
 }));
 
 

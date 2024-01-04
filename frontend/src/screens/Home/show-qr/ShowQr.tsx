@@ -1,5 +1,5 @@
 import { View, Text, SafeAreaView, TouchableOpacity, ActivityIndicator } from 'react-native'
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { Color, StandardBackground } from '../../../constants/colors'
 import { UtilityStyles } from '../../../styles/utility'
 import { FontStyles } from '../../../styles/text'
@@ -14,25 +14,19 @@ import useContactsStore from '../../../stores/Contacts'
 
 const ShowQr = ({ navigation }) => {
   const [qrValue, setQrValue] = useState<string>() 
-  
+
   const { user_id } = useAppKey((state) => state);
   const { tempContact, setTempContact, resetTempContact } = useContactsStore((state) => state);
 
 
   const generate_qr_code = async () => {
-    let key = await generateSecureRandom(1425);
+    let key = await generateSecureRandom(2300);
+    let clampedKey = new Uint8ClampedArray([parseInt(user_id), ...key]);
 
-    let hexKeyArray: string = Array.from(key, val => String.fromCharCode(val)).join('');
-    setTempContact({ outgoing_key: hexKeyArray });
-    
-    setQrValue(
-      JSON.stringify(
-        {
-          id: user_id,
-          incoming_key: hexKeyArray,
-        }
-      )
-    );
+    setTempContact({ outgoing_key: key });
+
+    setQrValue([{ data: clampedKey, mode: "byte"}]);
+
   };
   useEffect(() => {
     generate_qr_code();
@@ -45,6 +39,7 @@ const ShowQr = ({ navigation }) => {
       navigation.navigate("scan_qr");
     }
   }
+
 
     
   return (
@@ -60,7 +55,7 @@ const ShowQr = ({ navigation }) => {
                     <QRCode
                       size={260}
                       value={qrValue}
-                      ecl='L'
+                      ecl='M'
                       onError={() => {setQrValue(undefined); generate_qr_code()}}
                     />
                   </View>

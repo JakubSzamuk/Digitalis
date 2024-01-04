@@ -7,8 +7,8 @@ import EncryptedStorage from 'react-native-encrypted-storage';
 export type StoredContact = {
   id: string,
   name: string,
-  incoming_key: string,
-  outgoing_key: string,
+  incoming_key: number[],
+  outgoing_key: number[],
 
   outgoing_index: number,
 }

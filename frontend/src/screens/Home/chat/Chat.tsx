@@ -36,7 +36,7 @@ const Message = ({ message, recipient, contact }: { message: ChatMessage, recipi
   let isClient = recipient == message.recipient_id ? true : false
   let plainText: string = "";
   for (let i = 0; i < message.message_body.length; i++) {
-    let currentKey = (isClient ? contact.outgoing_key : contact.incoming_key).charCodeAt((parseInt(message.message_key_range.split("-")[0]) + i) % 1410 )
+    let currentKey = (isClient ? contact.outgoing_key : contact.incoming_key)[(parseInt(message.message_key_range.split("-")[0]) + i) % 2300]
     plainText += String.fromCharCode(message.message_body.charCodeAt(i) ^ currentKey);
   }
   
@@ -72,7 +72,7 @@ const Chat = ({ route, navigation }) => {
   let contact = getContact(route.params.recipient_id);
 
 
-  if (contact!.outgoing_index >= 1409 && !route.params.no_warn) {
+  if (contact!.outgoing_index >= 2299 && !route.params.no_warn) {
     navigation.navigate("out_of_chats", { recipient_id: route.params.recipient_id })
   }
 
@@ -90,7 +90,7 @@ const Chat = ({ route, navigation }) => {
     let outputMessage = "";
     let startingIndex = contact!.outgoing_index;
     for (let i = 0; i < message.length; i++) {
-      outputMessage += String.fromCharCode(message.charCodeAt(i) ^ contact!.outgoing_key.charCodeAt((contact!.outgoing_index + i) % 1420));
+      outputMessage += String.fromCharCode(message.charCodeAt(i) ^ contact!.outgoing_key[(contact!.outgoing_index + i) % 2300]);
     }
     addToOutgoingIndex(contact!.id, message.length);
     return {outputMessage, outputIndex: `${startingIndex}-${startingIndex + message.length}`};
@@ -127,7 +127,7 @@ const Chat = ({ route, navigation }) => {
             <View style={{ backgroundColor: Color.secondary, width: 76, height: 76, borderRadius: 4, elevation: 20, shadowColor: Color.secondary }}></View>
             <View style={{ marginLeft: 8 }}>
               <Text style={FontStyles.Header}>{contact?.name}</Text>
-              <Text style={FontStyles.StandardText}>{Math.floor((1410 - contact!.outgoing_index) / 50)} Messages Left</Text>
+              <Text style={FontStyles.StandardText}>{Math.floor((2300 - contact!.outgoing_index) / 50)} Messages Left</Text>
             </View>
           </View>
         </View>
