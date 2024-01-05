@@ -8,7 +8,7 @@ import useContactsStore from '../../../stores/Contacts'
 import { NativeStackHeaderProps } from '@react-navigation/native-stack'
 
 const AddedContact = ({ navigation }: NativeStackHeaderProps) => {
-  const { tempContact, setTempContact, addContact, resetTempContact } = useContactsStore((state) => state);
+  const { tempContact, addContact, resetTempContact } = useContactsStore((state) => state);
   const [contactName, setContactName] = useState<string>("")
   
   const handle_save_form = () => {

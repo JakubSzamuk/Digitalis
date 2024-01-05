@@ -20,15 +20,16 @@ const ScanQr = ({ navigation }: NativeStackHeaderProps) => {
     let decodedData = [];
     
     try {
-      console.log(e.rawData)
+      let debug = {}
       data = e.rawData.slice(5, parseInt(e.rawData.slice(1, 5), 16) * 2 + 6)
-      console.log(data)
+      debug = { data1: data }
       decodedData = [];
       
       for (let i = 0; i <= data.length - 2; i += 2) {
         decodedData.push(parseInt(data.slice(i, i + 2), 16));
       }
-      console.log(decodedData)
+      debug = {...debug, decodedData}
+      console.log(JSON.stringify(debug))
       setTempContact({ id: decodedData[0], incoming_key: decodedData.slice(1, decodedData.length) })
     } catch (e) {
       console.log(JSON.stringify(e))
