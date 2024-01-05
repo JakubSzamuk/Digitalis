@@ -20,15 +20,6 @@ type ChatMessage = {
   message_key_range: string,
 }
 
-// const MessageWarningModal = ({ navigation, route }) => {
-//   return (
-
-//   )
-// }
-
-
-
-
 
 
 
@@ -77,12 +68,12 @@ const Chat = ({ route, navigation }) => {
   }
 
 
-  const message_reciever = (message) => {
-    message = JSON.parse(message.data) as ChatMessage | ChatMessage[];
-    if (Array.isArray(message)) {
-      setMessages(prev => [...prev, ...message.reverse()])
+  const message_reciever = (message: { data: string }) => {
+    let parsedMessage = JSON.parse(message.data) as ChatMessage | ChatMessage[];
+    if (Array.isArray(parsedMessage)) {
+      setMessages(prev => [...prev, ...(parsedMessage as ChatMessage[]).reverse()])
     } else {
-      setMessages(prev => [...prev, message])
+      setMessages(prev => [...prev, parsedMessage as ChatMessage])
     }
   };
 
@@ -110,7 +101,6 @@ const Chat = ({ route, navigation }) => {
 
   useEffect(() => {    
     subscribeToSocket(message_reciever);
-    socket.onmessage = message_reciever;
     socket.send(JSON.stringify({ "new_recipient_id": route.params.recipient_id, "up_to": 10 }))
   }, [])
   
@@ -131,7 +121,7 @@ const Chat = ({ route, navigation }) => {
             </View>
           </View>
         </View>
-        <KeyboardAvoidingView behavior='position' style={{ marginTop: 10, maxHeight: "88%" }}>
+        <KeyboardAvoidingView behavior='padding' style={{ marginTop: 10, maxHeight: "88%" }}>
           <StandardBackground withBorder style={{ borderRadius: 10, height: "100%", width: '100%' }}>
             <ScrollView
               style={{ width: "100%", paddingHorizontal: 16, paddingTop: 8, marginBottom: 120 }}
@@ -139,11 +129,9 @@ const Chat = ({ route, navigation }) => {
               onContentSizeChange={() => this.scrollView.scrollToEnd({animated: true})}
             >
               <View>
-                <FlatList
-                  data={messages}
-                  renderItem={({ item }) => <Message key={item.id} recipient={route.params.recipient_id} message={item} contact={contact} />}
-                  keyExtractor={(item, value) => value}
-                />
+                {
+                  messages && messages.map((item, index) => <Message key={index} recipient={route.params.recipient_id} message={item} contact={contact!} />)
+                }
               </View>
             </ScrollView>
             <View style={{ width: "100%", alignItems: 'center' }}>

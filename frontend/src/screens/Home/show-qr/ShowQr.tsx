@@ -11,9 +11,14 @@ import QRCode from 'react-native-qrcode-svg'
 import useAppKey from '../../../stores/CredentialStore'
 import useContactsStore from '../../../stores/Contacts'
 
+type QRValue = {
+  data: Uint8ClampedArray,
+  mode: "byte"
+}
+
 
 const ShowQr = ({ navigation }) => {
-  const [qrValue, setQrValue] = useState<string>() 
+  const [qrValue, setQrValue] = useState<QRValue[]>() 
 
   const { user_id } = useAppKey((state) => state);
   const { tempContact, setTempContact, resetTempContact } = useContactsStore((state) => state);
@@ -26,7 +31,6 @@ const ShowQr = ({ navigation }) => {
     setTempContact({ outgoing_key: key });
 
     setQrValue([{ data: clampedKey, mode: "byte"}]);
-
   };
   useEffect(() => {
     generate_qr_code();
