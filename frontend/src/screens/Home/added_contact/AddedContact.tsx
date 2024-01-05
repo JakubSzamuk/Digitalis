@@ -5,9 +5,10 @@ import { UtilityStyles } from '../../../styles/utility'
 import { FontStyles } from '../../../styles/text'
 import Logo from '../../reusable/Logo'
 import useContactsStore from '../../../stores/Contacts'
+import { NativeStackHeaderProps } from '@react-navigation/native-stack'
 
-const AddedContact = ({ navigation }: any) => {
-  const { tempContact, setTempContact, addContact, resetTempContact, resetContacts } = useContactsStore((state) => state);
+const AddedContact = ({ navigation }: NativeStackHeaderProps) => {
+  const { tempContact, setTempContact, addContact, resetTempContact } = useContactsStore((state) => state);
   const [contactName, setContactName] = useState<string>("")
   
   const handle_save_form = () => {
@@ -50,12 +51,9 @@ const AddedContact = ({ navigation }: any) => {
             </StandardBackground>
           </TouchableOpacity>
         </View>
-      <TouchableOpacity onPress={handleAddContact}>
-        <Text>Add test contact</Text>
-      </TouchableOpacity>
-      <TouchableOpacity onPress={() => resetContacts()}>
-        <Text>remove contacts</Text>
-      </TouchableOpacity>
+        <TouchableOpacity onPress={handleAddContact}>
+          <Text>Add test contact</Text>
+        </TouchableOpacity>
         <View style={{ width: "100%", alignItems: 'center', marginBottom: 20 }}>
           <Logo />
         </View>

@@ -10,6 +10,7 @@ import { generateSecureRandom } from 'react-native-securerandom';
 import QRCode from 'react-native-qrcode-svg'
 import useAppKey from '../../../stores/CredentialStore'
 import useContactsStore from '../../../stores/Contacts'
+import { NativeStackHeaderProps } from '@react-navigation/native-stack'
 
 type QRValue = {
   data: Uint8ClampedArray,
@@ -17,7 +18,7 @@ type QRValue = {
 }
 
 
-const ShowQr = ({ navigation }: any) => {
+const ShowQr = ({ navigation }: NativeStackHeaderProps) => {
   const [qrValue, setQrValue] = useState<QRValue[]>() 
 
   const { user_id } = useAppKey((state) => state);

@@ -7,9 +7,10 @@ import { Camera, CaretLeft, QrCode } from 'phosphor-react-native'
 import Logo from '../../reusable/Logo'
 
 import useContactsStore from '../../../stores/Contacts'
+import { NativeStackHeaderProps } from '@react-navigation/native-stack'
 
 
-const AddChat = ({ navigation }: any) => {
+const AddChat = ({ navigation }: NativeStackHeaderProps) => {
   const { resetTempContact } = useContactsStore((state) => state);
   useEffect(() => {
     resetTempContact()

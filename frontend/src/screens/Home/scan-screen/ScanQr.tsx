@@ -10,8 +10,9 @@ import Logo from '../../reusable/Logo';
 
 
 import { Buffer } from 'buffer';
+import { NativeStackHeaderProps } from '@react-navigation/native-stack';
 
-const ScanQr = ({ navigation }: any) => {
+const ScanQr = ({ navigation }: NativeStackHeaderProps) => {
   const { tempContact, setTempContact } = useContactsStore((state) => state);
 
   const onSuccess = (e: { rawData: string }) => {
@@ -34,9 +35,6 @@ const ScanQr = ({ navigation }: any) => {
       return;
     }
 
-
-
-
     // checks to see which route to go to next, based on which props have been filled on the temporary contact.
     if (tempContact.outgoing_key != undefined) {
       navigation.navigate("added_contact")
@@ -44,8 +42,6 @@ const ScanQr = ({ navigation }: any) => {
       navigation.navigate("show_qr")
     }
   } 
-
-
 
   return (
     <StandardBackground style={UtilityStyles.mainBackground}>

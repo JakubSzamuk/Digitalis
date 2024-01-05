@@ -8,8 +8,21 @@ import LinearGradient from 'react-native-linear-gradient'
 import { ArrowLeft, CellSignalNone, Check, PencilSimple, Plus, Trash } from 'phosphor-react-native'
 import useContactsStore from '../../stores/Contacts'
 import useWebSocketStore from '../../stores/Websocket'
+import { NativeStackHeaderProps } from '@react-navigation/native-stack'
 
-const ChatCard = ({ navigation, optionSet, setOption, removeSelected, setSelected, name, id, outgoing_index }: any) => {
+type chatCardProps = {
+  navigation: any,
+  optionSet: boolean,
+  setOption: (val: boolean) => void,
+  removeSelected: (id: string) => void,
+  setSelected: (id: string) => void,
+  name: string,
+  id: string,
+  outgoing_index: number
+}
+
+
+const ChatCard = ({ navigation, optionSet, setOption, removeSelected, setSelected, name, id, outgoing_index }: chatCardProps) => {
   const [chosen, setChosen] = useState(false)
   useEffect(() => {
     if (!optionSet) {
@@ -69,7 +82,7 @@ const ChatCard = ({ navigation, optionSet, setOption, removeSelected, setSelecte
 }
 
 
-const Home = ({ navigation }) => {
+const Home = ({ navigation }: NativeStackHeaderProps) => {
   const { contacts, removeContact } = useContactsStore((state) => state);
   const { socket } = useWebSocketStore((state) => state);
   
@@ -109,8 +122,8 @@ const Home = ({ navigation }) => {
           <View>
             <FlatList
               renderItem={
-                (key) => (
-                  <View key={key} style={{ margin: 10, width: 8, height: 8, borderRadius: 30, backgroundColor: Color.primary }}></View>
+                (key: number, index: number) => (
+                  <View key={index} style={{ margin: 10, width: 8, height: 8, borderRadius: 30, backgroundColor: Color.primary }}></View>
                 )
               }
               data={[...Array(4).keys()]}
