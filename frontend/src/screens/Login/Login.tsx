@@ -30,11 +30,19 @@ const Login = ({ navigation }: any) => {
   if (socket.readyState == 3) {
     navigation.navigate("connection_lost")
   }
-  const { app_key, setCredentialStore } = useAppKey((state) => state);
+  const { app_key, setCredentialStore, setLockedOut, isLockedOut } = useAppKey((state) => state);
   
+  if (isLockedOut) {
+    navigation.navigate("locked_out");
+  }
+
+
+
   const handle_message = (event: any) => {
     if (event.data == "Login Successful") {
       navigation.navigate('home');
+    } else {
+      setLockedOut();
     }
   }
   useEffect(() => {
@@ -42,6 +50,10 @@ const Login = ({ navigation }: any) => {
   }, [])
     
   const handle_login_submit = async () => {
+    if (isLockedOut) {
+      return;
+    }
+    
     if (socket.readyState == 3) {
       navigation.navigate("connection_lost");
       return;

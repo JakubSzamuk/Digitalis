@@ -9,6 +9,8 @@ type CredentialResponse = {
 }
 
 interface AppKeyStore {
+  isLockedOut: boolean,
+  setLockedOut: () => void,
   app_key: string,
   user_id: string,
   setCredentialStore: (key: CredentialResponse) => void
@@ -18,6 +20,8 @@ interface AppKeyStore {
 const useAppKey = create(
   persist<AppKeyStore>(
     (set) => ({
+      isLockedOut: false,
+      setLockedOut: () => set({ isLockedOut: true }),
       app_key: "",
       user_id: "",
       setCredentialStore: (key: CredentialResponse) => set({ ...key }),

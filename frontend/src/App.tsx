@@ -15,6 +15,7 @@ import useWebSocketStore from './stores/Websocket';
 import Connection from './screens/reusable/Connection';
 import OutOfChats from './screens/reusable/OutOfChats';
 import Info from './screens/info/Info';
+import LockedOut from './screens/reusable/LockedOut';
 
 const Stack = createNativeStackNavigator();
 
@@ -27,6 +28,7 @@ function App(): React.JSX.Element {
     <NavigationContainer>
       <Stack.Navigator initialRouteName={'login'}>
         <Stack.Screen name='login' component={Login} options={{ headerShown: false }} />
+        
         <Stack.Screen name='home' component={Home} options={{ headerShown: false }} />
         <Stack.Screen name='chat' component={Chat} options={{ headerShown: false }} />
         <Stack.Screen name='add_chat' component={AddChat} options={{ headerShown: false }} />
@@ -36,6 +38,7 @@ function App(): React.JSX.Element {
         
         <Stack.Screen name='out_of_chats' component={OutOfChats} options={{ headerShown: false }} />
         <Stack.Screen name='connection_lost' component={Connection} options={{ headerShown: false }} />
+        <Stack.Screen name='locked_out' component={LockedOut} options={{ headerShown: false }} />
       </Stack.Navigator>
     </NavigationContainer>
   );
