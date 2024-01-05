@@ -9,7 +9,7 @@ import Logo from '../../reusable/Logo'
 import useContactsStore from '../../../stores/Contacts'
 
 
-const AddChat = ({ navigation }) => {
+const AddChat = ({ navigation }: any) => {
   const { resetTempContact } = useContactsStore((state) => state);
   useEffect(() => {
     resetTempContact()

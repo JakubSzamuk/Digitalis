@@ -1,9 +1,9 @@
 import { View, Text, SafeAreaView, TouchableOpacity, ActivityIndicator } from 'react-native'
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Color, StandardBackground } from '../../../constants/colors'
 import { UtilityStyles } from '../../../styles/utility'
 import { FontStyles } from '../../../styles/text'
-import { CaretLeft, QrCode } from 'phosphor-react-native'
+import { CaretLeft } from 'phosphor-react-native'
 import Logo from '../../reusable/Logo'
 
 import { generateSecureRandom } from 'react-native-securerandom';
@@ -17,11 +17,11 @@ type QRValue = {
 }
 
 
-const ShowQr = ({ navigation }) => {
+const ShowQr = ({ navigation }: any) => {
   const [qrValue, setQrValue] = useState<QRValue[]>() 
 
   const { user_id } = useAppKey((state) => state);
-  const { tempContact, setTempContact, resetTempContact } = useContactsStore((state) => state);
+  const { tempContact, setTempContact } = useContactsStore((state) => state);
 
 
   const generate_qr_code = async () => {
@@ -43,8 +43,6 @@ const ShowQr = ({ navigation }) => {
       navigation.navigate("scan_qr");
     }
   }
-
-
     
   return (
     <SafeAreaView>
@@ -58,7 +56,7 @@ const ShowQr = ({ navigation }) => {
                   <View style={{ backgroundColor: "#ffffff", padding: 12, borderRadius: 2 }}>
                     <QRCode
                       size={260}
-                      value={qrValue}
+                      value={qrValue as any}
                       ecl='M'
                       onError={() => {setQrValue(undefined); generate_qr_code()}}
                     />

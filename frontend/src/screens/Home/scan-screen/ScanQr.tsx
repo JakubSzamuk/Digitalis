@@ -11,7 +11,7 @@ import Logo from '../../reusable/Logo';
 
 import { Buffer } from 'buffer';
 
-const ScanQr = ({ navigation }) => {
+const ScanQr = ({ navigation }: any) => {
   const { tempContact, setTempContact } = useContactsStore((state) => state);
 
   const onSuccess = (e: { rawData: string }) => {
@@ -49,7 +49,7 @@ const ScanQr = ({ navigation }) => {
 
   return (
     <StandardBackground style={UtilityStyles.mainBackground}>
-      <QRCodeScanner onRead={onSuccess}  />
+      <QRCodeScanner onRead={onSuccess as any}  />
       <View style={{ flexDirection: 'row', alignItems: 'center', marginBottom: 60, marginTop: -110 }}>
         <View style={{ flex: 1 }}>
           <TouchableOpacity style={{ flexDirection: 'row', alignItems: 'center', marginLeft: 10 }} onPress={() => navigation.navigate("home")}>

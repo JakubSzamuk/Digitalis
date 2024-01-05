@@ -6,7 +6,7 @@ import { FontStyles } from '../../styles/text'
 import Logo from './Logo'
 import useWebSocketStore from '../../stores/Websocket'
 
-const Connection = ({ navigation }) => {
+const Connection = ({ navigation }: any) => {
   const { socket, resetSocket } = useWebSocketStore((state) => state);
   
   const retry = () => {

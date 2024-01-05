@@ -17,7 +17,7 @@ type loginCredentials = {
 }
 
 
-const Login = ({ navigation }) => { 
+const Login = ({ navigation }: any) => { 
 
   const [loginCredentials, setLoginCredentials] = useState<loginCredentials | null>(null);
   const { socket, subscribeToSocket, resetSocket } = useWebSocketStore((state) => state)

@@ -6,7 +6,7 @@ import { FontStyles } from '../../../styles/text'
 import Logo from '../../reusable/Logo'
 import useContactsStore from '../../../stores/Contacts'
 
-const AddedContact = ({ navigation }) => {
+const AddedContact = ({ navigation }: any) => {
   const { tempContact, setTempContact, addContact, resetTempContact, resetContacts } = useContactsStore((state) => state);
   const [contactName, setContactName] = useState<string>("")
   

@@ -44,7 +44,7 @@ const Message = ({ message, recipient, contact }: { message: ChatMessage, recipi
   )
 }
 
-const Chat = ({ route, navigation }) => {
+const Chat = ({ route, navigation }: any) => {
 
   const { socket, subscribeToSocket } = useWebSocketStore((state) => state);
   const [messages, setMessages] = useState<ChatMessage[]>([])
@@ -125,8 +125,8 @@ const Chat = ({ route, navigation }) => {
           <StandardBackground withBorder style={{ borderRadius: 10, height: "100%", width: '100%' }}>
             <ScrollView
               style={{ width: "100%", paddingHorizontal: 16, paddingTop: 8, marginBottom: 120 }}
-              ref={ref => {this.scrollView = ref; scrollViewRef = ref}}
-              onContentSizeChange={() => this.scrollView.scrollToEnd({animated: true})}
+              ref={ref => {(this! as any).scrollView = ref; scrollViewRef = ref!}}
+              onContentSizeChange={() => (this as any).scrollView.scrollToEnd({animated: true})}
             >
               <View>
                 {

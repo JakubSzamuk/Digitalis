@@ -6,7 +6,7 @@ import Logo from './Logo'
 import { UtilityStyles } from '../../styles/utility'
 import { FontStyles } from '../../styles/text'
 
-const OutOfChats = ({ route, navigation }) => {
+const OutOfChats = ({ route, navigation }: any) => {
   return (
     <SafeAreaView>
       <StandardBackground style={UtilityStyles.mainBackground}>
