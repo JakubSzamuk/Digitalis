@@ -68,7 +68,7 @@ const Login = ({ navigation }: any) => {
         }
       ));
     } else {
-      await axios.post("https://JakubSzamuk.co.uk/chat-app/configure-client", {
+      await axios.post("https://digitalis.JakubSzamuk.co.uk/configure-client", {
         "auth_object": {
           "email": loginCredentials?.email,
           "password": loginCredentials?.password,
