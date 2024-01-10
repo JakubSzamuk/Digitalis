@@ -40,7 +40,6 @@ fn app() -> Router {
 
     let app_state = Arc::new(models::AppState::new(users, tx));
     Router::new()
-        .route("/fetch-messages", get(message_fetch_handler))
         .route("/configure-client", post(client_app_key_handler))
         .route("/messages", get(message_handler))
         .with_state(app_state)
@@ -56,28 +55,6 @@ async fn client_app_key_handler(
     }
 
     Err(StatusCode::INTERNAL_SERVER_ERROR.into())
-}
-
-async fn message_fetch_handler(
-    Json(payload): Json<models::MessageFetchPayload>,
-) -> axum::response::Result<Json<Vec<StoredMessage>>> {
-    let serialised_payload: models::MessageFetchPayload = payload;
-
-    if let Ok(user_object) = helpers::verify_auth(serialised_payload.auth_object) {
-        let messages: diesel::result::QueryResult<Vec<StoredMessage>> = helpers::fetch_message_vec(
-            serialised_payload.up_to,
-            &user_object,
-            &serialised_payload.recipient_id,
-        );
-
-        if let Ok(message_vec) = messages {
-            return Ok(Json(message_vec));
-        } else {
-            return Err(StatusCode::NOT_FOUND.into());
-        }
-    } else {
-        return Err(StatusCode::UNAUTHORIZED.into());
-    }
 }
 
 async fn message_handler(
@@ -148,6 +125,8 @@ async fn message_socket_handler(socket: WebSocket, state: Arc<models::AppState>)
             }
         }
     });
+
+
 
     
     let tx = state.tx.clone();
