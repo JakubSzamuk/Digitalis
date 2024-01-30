@@ -14,7 +14,7 @@ const Connection = () => {
 
   const retry = () => {
     resetSocket(() => {
-      router.navigate("login")
+      router.navigate("Login")
     });
   }
 
