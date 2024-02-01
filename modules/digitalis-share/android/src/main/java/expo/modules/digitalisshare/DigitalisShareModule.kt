@@ -1,9 +1,11 @@
 package expo.modules.digitalisshare
 
+import android.content.Context
+import expo.modules.kotlin.AppContext
 import expo.modules.kotlin.modules.Module
 import expo.modules.kotlin.modules.ModuleDefinition
 
-class DigitalisShareModule : Module() {
+class DigitalisShareModule(context: Context, appContext: AppContext) : Module() {
   // Each module class must implement the definition function. The definition consists of components
   // that describes the module's functionality and behavior.
   // See https://docs.expo.dev/modules/module-api for more details about available components.
@@ -23,7 +25,8 @@ class DigitalisShareModule : Module() {
 
     // Defines a JavaScript synchronous function that runs the native code on the JavaScript thread.
     Function("hello") {
-      "Hello world! 👋"
+      println("hello world");
+      "hello world"
     }
 
     // Defines a JavaScript function that always returns a Promise and whose native code

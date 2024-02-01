@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module version="4">
+  <component name="NewModuleRootManager">
+    <content url="file://$USER_HOME$/.gradle/caches/transforms-3/eddb9c83b2f64d79328ab92b7361e648/transformed/jetified-react-android-0.73.2-debug/prefab/modules/jsi/include">
+      <sourceFolder url="file://$USER_HOME$/.gradle/caches/transforms-3/eddb9c83b2f64d79328ab92b7361e648/transformed/jetified-react-android-0.73.2-debug/prefab/modules/jsi/include" type="native-header-root" />
+    </content>
+    <content url="file://$USER_HOME$/.gradle/caches/transforms-3/eddb9c83b2f64d79328ab92b7361e648/transformed/jetified-react-android-0.73.2-debug/prefab/modules/reactnativejni/include">
+      <sourceFolder url="file://$USER_HOME$/.gradle/caches/transforms-3/eddb9c83b2f64d79328ab92b7361e648/transformed/jetified-react-android-0.73.2-debug/prefab/modules/reactnativejni/include" type="native-header-root" />
+      <sourceFolder url="file://$USER_HOME$/.gradle/caches/transforms-3/eddb9c83b2f64d79328ab92b7361e648/transformed/jetified-react-android-0.73.2-debug/prefab/modules/reactnativejni/include/react" type="native-header-root" />
+    </content>
+    <content url="file://$MODULE_DIR$/../../../node_modules/expo-modules-core/common/cpp">
+      <sourceFolder url="file://$MODULE_DIR$/../../../node_modules/expo-modules-core/common/cpp" type="native-Source-root" />
+    </content>
+    <content url="file://$USER_HOME$/.gradle/caches/transforms-3/b270ed81273e9082a1970d58644ea579/transformed/jetified-fbjni-0.5.1/prefab/modules/fbjni/include">
+      <sourceFolder url="file://$USER_HOME$/.gradle/caches/transforms-3/b270ed81273e9082a1970d58644ea579/transformed/jetified-fbjni-0.5.1/prefab/modules/fbjni/include" type="native-header-root" />
+    </content>
+    <content url="file://$MODULE_DIR$/../../../node_modules/react-native/ReactAndroid/src/main/jni/react/turbomodule">
+      <sourceFolder url="file://$MODULE_DIR$/../../../node_modules/react-native/ReactAndroid/src/main/jni/react/turbomodule" type="native-header-root" />
+    </content>
+    <content url="file://$MODULE_DIR$/../../../node_modules/expo-modules-core/android/src/fabric">
+      <sourceFolder url="file://$MODULE_DIR$/../../../node_modules/expo-modules-core/android/src/fabric" type="native-header-root" />
+    </content>
+    <content url="file://$USER_HOME$/.gradle/caches/transforms-3/eddb9c83b2f64d79328ab92b7361e648/transformed/jetified-react-android-0.73.2-debug/prefab/modules/folly_runtime/include">
+      <sourceFolder url="file://$USER_HOME$/.gradle/caches/transforms-3/eddb9c83b2f64d79328ab92b7361e648/transformed/jetified-react-android-0.73.2-debug/prefab/modules/folly_runtime/include" type="native-header-root" />
+    </content>
+    <content url="file://$USER_HOME$/.gradle/caches/transforms-3/eddb9c83b2f64d79328ab92b7361e648/transformed/jetified-react-android-0.73.2-debug/prefab/modules/react_nativemodule_core/include">
+      <sourceFolder url="file://$USER_HOME$/.gradle/caches/transforms-3/eddb9c83b2f64d79328ab92b7361e648/transformed/jetified-react-android-0.73.2-debug/prefab/modules/react_nativemodule_core/include" type="native-header-root" />
+    </content>
+    <content url="file://$MODULE_DIR$/../../../node_modules/expo-modules-core/android/src/main">
+      <sourceFolder url="file://$MODULE_DIR$/../../../node_modules/expo-modules-core/android/src/main/cpp" type="native-Source-root" />
+    </content>
+  </component>
+</module>
