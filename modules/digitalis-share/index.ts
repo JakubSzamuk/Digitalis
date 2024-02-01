@@ -1,26 +1,37 @@
-import { NativeModulesProxy, EventEmitter, Subscription } from 'expo-modules-core';
+import {
+  NativeModulesProxy,
+  EventEmitter,
+  Subscription,
+} from "expo-modules-core";
 
 // Import the native module. On web, it will be resolved to DigitalisShare.web.ts
 // and on native platforms to DigitalisShare.ts
-import DigitalisShareModule from './src/DigitalisShareModule';
-import DigitalisShareView from './src/DigitalisShareView';
-import { ChangeEventPayload, DigitalisShareViewProps } from './src/DigitalisShare.types';
+import DigitalisShareModule from "./src/DigitalisShareModule";
+import DigitalisShareView from "./src/DigitalisShareView";
+import {
+  ChangeEventPayload,
+  DigitalisShareViewProps,
+} from "./src/DigitalisShare.types";
 
 // Get the native constant value.
 export const PI = DigitalisShareModule.PI;
 
-export function hello(): string {
-  return DigitalisShareModule.hello();
+export function initialise(): string {
+  return DigitalisShareModule.initialise();
 }
 
 export async function setValueAsync(value: string) {
   return await DigitalisShareModule.setValueAsync(value);
 }
 
-const emitter = new EventEmitter(DigitalisShareModule ?? NativeModulesProxy.DigitalisShare);
+const emitter = new EventEmitter(
+  DigitalisShareModule ?? NativeModulesProxy.DigitalisShare
+);
 
-export function addChangeListener(listener: (event: ChangeEventPayload) => void): Subscription {
-  return emitter.addListener<ChangeEventPayload>('onChange', listener);
+export function addChangeListener(
+  listener: (event: ChangeEventPayload) => void
+): Subscription {
+  return emitter.addListener<ChangeEventPayload>("onChange", listener);
 }
 
 export { DigitalisShareView, DigitalisShareViewProps, ChangeEventPayload };

@@ -2,10 +2,11 @@ package expo.modules.digitalisshare
 
 import android.content.Context
 import expo.modules.kotlin.AppContext
+import expo.modules.kotlin.exception.Exceptions
 import expo.modules.kotlin.modules.Module
 import expo.modules.kotlin.modules.ModuleDefinition
 
-class DigitalisShareModule(context: Context, appContext: AppContext) : Module() {
+class DigitalisShareModule : Module() {
   // Each module class must implement the definition function. The definition consists of components
   // that describes the module's functionality and behavior.
   // See https://docs.expo.dev/modules/module-api for more details about available components.
@@ -24,8 +25,11 @@ class DigitalisShareModule(context: Context, appContext: AppContext) : Module() 
     Events("onChange")
 
     // Defines a JavaScript synchronous function that runs the native code on the JavaScript thread.
-    Function("hello") {
-      println("hello world");
+    Function("initialise") {
+      val bluetooth_hook = BluetoothSetup()
+      bluetooth_hook.onCreate(appContext);
+      bluetooth_hook.startDiscovery()
+
       "hello world"
     }
 
