@@ -1,0 +1,500 @@
+   77  clear
+   78  sudo docker [s
+   79  sudo docker ps
+   80  sudo docker exec -it 35566af313d0 /bin/bash
+   81  git pull
+   82  git stash
+   83  git pull
+   84  clear
+   85  pwd
+   86  cd frontend/
+   87  clear
+   88  npm start
+   89  sdk.dir = /Users/USERNAME/Library/Android/sdk
+   90  sdk.dir = /Users/parallax/Library/Android/sdk
+   91  clear
+   92  npm i
+   93  clear
+   94  npm i --force
+   95  clear
+   96  sudo cat .zshrc
+   97  sudo cat ~/.zshrc
+   98  clear
+   99  npm start
+  100  npm start
+  101  parseInt(e.rawData.slice(1, 5), 16) * 2 + 6
+  102  adb logcat *:S ReactNative:V ReactNativeJS:V
+  103  npx react-native log-android
+  104  cd frontend/
+  105  npx react-native log-android
+  106  ls
+  107  cd android/
+  108  ./gradlew assembleRelease
+  109  adb devices
+  110  npm run android
+  111  cd ..
+  112  ls
+  113  clear
+  114  git add .
+  115  git commit -m "Small changes, added types and debug"
+  116  git push -u origin dev
+  117  git ad d.
+  118  git add .
+  119  git commit -m "no type errors, temporary fixes though"
+  120  git push -u origin dev
+  121  gcc main.c 
+  122  clear
+  123  ./a.out 
+  124   git config --global user.name "Jakub Szamuk"
+  125   git config --global user.email "lavaproofJakub1@gmail.com"
+  126  
+  127  ./a.out 
+  128  clear
+  129  gcc -g main.c 
+  130  clear
+  131  lldb a.out
+  132  clear
+  133  gcc main.c 
+  134  clear
+  135  ./a.out
+  136  lldb a.out
+  137  clear
+  138  lldb a.out
+  139  gcc -g main.c 
+  140  lldb a.out
+  141  clear
+  142  gcc -g main.c 
+  143  gcc -g main.c 
+  144  gcc -g main.c 
+  145  gcc -g main.c 
+  146  ./a.out
+  147  gcc main.c 
+  148  ./a.out
+  149  gcc main.c 
+  150  ./a.out
+  151  ./a.out
+  152  ./a.out
+  153  clear
+  154  gcc main.c 
+  155  gcc main.c 
+  156  ./a.out
+  157  ./a.out
+  158  ./a.out
+  159  gcc main.c 
+  160  ./a.out
+  161  gcc main.c 
+  162  ./a.out
+  163  gcc main.c 
+  164  ./a.out
+  165  gcc -g main.c 
+  166  lldb a.out
+  167  clear
+  168  gcc -g main.c 
+  169  clear
+  170  gcc -g main.c 
+  171  clear
+  172  lldb main.c 
+  173  lldb a.out
+  174  clear
+  175  gcc -g main.c 
+  176  a.out
+  177  ./a.out
+  178  a.out
+  179  gcc -g main.c 
+  180  ./a.out
+  181  gcc main.c 
+  182  ./a.out
+  183  gcc main.c 
+  184  ./a.out
+  185  gcc main.c 
+  186  ./a.out
+  187  gcc -g main.c 
+  188  lldb a.out
+  189  gcc -g main.c 
+  190  lldb a.out
+  191  clear
+  192  gcc -g main.c 
+  193  gcc -g main.c 
+  194  gcc -g main.c 
+  195  gcc -g main.c 
+  196  gcc -g main.c 
+  197  gcc -g main.c 
+  198  gcc -g main.c 
+  199  lldb a.out
+  200  gcc main.c 
+  201  ./a.out
+  202  gcc main.c 
+  203  ./a.out
+  204  gcc main.c 
+  205  ./a.out
+  206  gcc main.c 
+  207  ./a.out
+  208  ./a.out
+  209  gcc main.c 
+  210  ./a.out
+  211  gcc main.c 
+  212  ./a.out
+  213  gcc -g main.c 
+  214  lldb a.out
+  215  gcc -g main.c 
+  216  lldb a.out
+  217  gcc main.c 
+  218  gcc main.c 
+  219  gcc main.c 
+  220  ./a.out
+  221  gcc main.c 
+  222  ./a.out
+  223  gcc main.c 
+  224  ./a.out
+  225  gcc main.c 
+  226  ./a.out
+  227  gcc main.c 
+  228  ./a.out
+  229  gcc main.c 
+  230  ./a.out
+  231  gcc main.c 
+  232  ./a.out
+  233  gcc main.c 
+  234  ./a.out
+  235  gcc main.c 
+  236  ./a.out
+  237  gcc main.c 
+  238  ./a.out
+  239  gcc main.c 
+  240  ./a.out
+  241  gcc main.c 
+  242  ./a.out
+  243  gcc main.c 
+  244  ./a.out
+  245  gcc main.c 
+  246  ./a.out
+  247  gcc main.c 
+  248  ./a.out
+  249  gcc main.c 
+  250  ./a.out
+  251  gcc main.c 
+  252  ./a.out
+  253  ./a.out
+  254  ./a.out
+  255  gcc main.c 
+  256  ./a.out
+  257  git add .
+  258  git commit -m "fixed errors but something is not working"
+  259  git push -u origin dev
+  260  git push -u origin main
+  261  git clone git@github.com:JakubSzamuk/my-alloc.git .
+  262  clear
+  263  gcc main.c 
+  264  clear
+  265  gcc main.c
+  266  clear
+  267  gcc main.c
+  268  clear
+  269  gcc main.c
+  270  git add .
+  271  git commit -m "locked out screen"
+  272  git push -u origin dev
+  273  clear
+  274  npm start
+  275  yarn create next-app --ts
+  276  yarn create next-app --ts .
+  277  yarn dev
+  278  cd cms
+  279  yarn develop
+  280  npm i
+  281  npm i --force
+  282  clear
+  283  yarn develop
+  284  git ad d.
+  285  git add .
+  286  git commit -m "refactored projects and added heading"
+  287  git push -u origin dev
+  288  git push -u origin main
+  289  ls
+  290  cd ..
+  291  ls
+  292  git add .
+  293  git commit -m ""
+  294  git commit
+  295  clear
+  296  git push -u origin main
+  297  cle
+  298  clear
+  299  cd c
+  300  cd cms/
+  301  yarn develop
+  302  ls
+  303  clear
+  304  sudo docker compose up
+  305  sudo docker compose up
+  306  sudo docker compose up
+  307  sudo docker compose pull
+  308  sudo docker compose up
+  309  cd frontend/
+  310  yarn dev
+  311  git add .
+  312  git commit -m "Working navbar"
+  313  git push -u origin dev
+  314  git push -u origin main
+  315  sudo docker compose up
+  316  clear
+  317  git filter-branch --index-filter "git rm -rf --cached --ignore-unmatch .env" HEAD
+  318  git log
+  319  clear
+  320  git filter-repo
+  321  clear
+  322  ls
+  323  yarn
+  324   yarn dev
+  325  yarn start
+  326  yarn
+  327  yarn dev
+  328  yarn dve
+  329  yarn dev
+  330  git add .
+  331  git init
+  332  clear
+  333  git add .
+  334  git commit -m "initial"
+  335  git remote add origin git@github.com:JakubSzamuk/kubernetes-scripts.git
+  336  git branch -M main
+  337  git push -u origin main
+  338  git add .
+  339  git commit -m "mysql
+  340  "
+  341  git push -u origin de
+  342  git push -u origin main
+  343  clear
+  344  git add .
+  345  git commit -m "types and removing unnecessary code:
+  346  git commit -m "types and removing unnecessary code"
+  347  git push -u origin dev
+  348  git add .
+  349  git commit -m "nextjs setup and mysql service added"
+  350  git push -u origin dev
+  351  git push -u origin main
+  352  git add .
+  353  git commit -m "debugging for release"
+  354  git push -u origin dev
+  355  clear
+  356  cd frontend/
+  357  yarn create next-app --ts
+  358  yarn create next-app --ts .
+  359  yarn dev
+  360  cd backend/
+  361  yarn create strapi-app
+  362  yarn create strapi-app .
+  363  clear
+  364  clear
+  365  yarn develop
+  366  cd frontend/
+  367  yarn add @phosphor-icons/react
+  368  cd ..
+  369  git add .
+  370  git commit -m "Project setup, config files, started work on home page"
+  371  git remote add origin git@github.com:JakubSzamuk/EduExchange.git
+  372  pwd
+  373  ls
+  374  git remote remove origin 
+  375  git remote add origin git@github.com:JakubSzamuk/EduExchange.git
+  376  git branch -M main
+  377  git push -u origin main
+  378  git remote remove origin
+  379  ls
+  380  git init
+  381  git add .
+  382  git commit -m "Project setup, config files, started work on home page"
+  383  git branch -M main
+  384  git remote add origin git@github.com:JakubSzamuk/EduExchange.git
+  385  git push -u origin main
+  386  git add .
+  387  git commit -m "most of first page content done"
+  388  git push -u origin main
+  389  clear
+  390  ls
+  391  sudo docker compose up
+  392  sudo docker compose up
+  393  sudo docker compose up
+  394  sudo docker compose up
+  395  sudo docker compose up
+  396  sudo docker compose up
+  397  ls ~/.docker/config.json 
+  398  cat ~/.docker/config.json 
+  399  docker compose up
+  400  sudo chown -R parallax:parallax /Users/parallax/
+  401  sudo chown -R parallax /Users/parallax/
+  402  sudo sudo chown -R parallax /Users/parallax/
+  403  sudo sudo chown -R parallax /Users/parallax
+  404  sudo sudo chown -R parallax /Users/parallax/.docker/
+  405  clear
+  406  docker compose up
+  407  git add .
+  408  git commit -m "home page responsive"
+  409  git push -u origin main
+  410  clear
+  411  git add .
+  412  git commit -m "first page CMS setup"
+  413  git push -u origin main
+  414  clear
+  415  yarn dev
+  416  yarn dev
+  417  clear
+  418  ls
+  419  docker ps
+  420  docker exec -it 90a307f7e684 /bin/sh
+  421  clear
+  422  git add .
+  423  git commit -m "lots off optimisations and types"
+  424  git push -u origin dev
+  425  git add .
+  426  git commit -m "working after refactoring"
+  427  git push -u origin dev
+  428  ls
+  429  cd ..
+  430  ls
+  431  clear
+  432  git clone git@github.com:JakubSzamuk/dropin.git
+  433  cd dropin/
+  434  clear
+  435  code .
+  436  php
+  437  clear
+  438  ls
+  439  cp .env.example .env
+  440  sudo docker compose up
+  441  docker compose up
+  442  yarn
+  443  clear
+  444  php artisan serve
+  445  php artisan serve
+  446  composer install
+  447  composer install
+  448  php artisan serve
+  449  php artisan serve
+  450  php artisan serve
+  451  php artisan serve
+  452  yarn dev
+  453  yarn dev
+  454  yarn dev
+  455  yarn dev
+  456  php artisan migrate
+  457  sudo docker ps
+  458  docker ps
+  459  sudo docker compose up
+  460  docker compose up
+  461  docker compose up
+  462  ls
+  463  clear
+  464  php artisan serve
+  465  php artisan migrate
+  466  clear
+  467  docker ps
+  468  docker exec -it 260e5b7661fc /bin/bash
+  469  rve
+  470  php artisan serve
+  471  php artisan serve
+  472  yarn dev
+  473  yarn dev
+  474  yarn dev
+  475  yarn dev
+  476  php artisan migrate
+  477  clear
+  478  git add .
+  479  git commit -m "Saved File Screen"
+  480  git push -u origin dev
+  481  git push -u origin main
+  482  git add .
+  483  git commit -m "today"
+  484  git push -u origin main
+  485  cd ..
+  486  ls
+  487  git clone git@github.com:JakubSzamuk/Oxide-Search.git
+  488  cd Oxide-Search/
+  489  clear
+  490  code .
+  491  cargo run
+  492  cargo run
+  493  git pull
+  494  git stash
+  495  git pull
+  496  clear
+  497  cd ..
+  498  git clone git@github.com:JakubSzamuk/Digitalis.git
+  499  cd Digitalis/
+  500  code .
+  501  git checkout expo-migration
+  502  clear
+  503  yarn expo start
+  504  eas build --profile development --platform android --local
+  505  yarn i -g eas
+  506  npm i -g eas
+  507  sudo npm i -g eas
+  508  eas build --profile development --platform android --local
+  509  sudo npm i -g eas-cli
+  510  clear
+  511  ls
+  512  npm run build
+  513  npx build
+  514  clea
+  515  clear
+  516  ls
+  517  npx install-expo-modules
+  518  npx install-expo-modules --help
+  519  npx install-expo-modules
+  520  clear
+  521  pod install
+  522  cd ios
+  523  clear
+  524  yarn 
+  525  yarn 
+  526  npm install expo-modules-core
+  527  npm install expo-modules-core --legacy-peer-deps
+  528  yarn
+  529  yarn add expo-constants
+  530  clear
+  531  npx expo prebuild
+  532  clear
+  533  ls
+  534  git stash
+  535  cd ..
+  536  rm -rf Digitalis/
+  537  clear
+  538  ls
+  539  git clone https://github.com/JakubSzamuk/Digitalis.git
+  540  git clone git@github.com:JakubSzamuk/Digitalis.git
+  541  clear
+  542  git checkout expo-migration
+  543  git checkout expo_migration
+  544  git checkout expo-migration
+  545  clear
+  546  ls
+  547  cd Digitalis/
+  548  git checkout expo_migration
+  549  git checkout expo_migration
+  550  ls
+  551  ls -a
+  552  git checkout expo-migration]
+  553  git checkout expo-migration
+  554  clear
+  555  yarn expo prebuild
+  556  npx expo prebuild
+  557  ls
+  558  npx expo prebuild
+  559  yarn 
+  560  npm expo prebuild
+  561  clear
+  562* npx create-expo-module@latest --local
+  563  clear
+  564  expo doctor
+  565  npx expo doctor
+  566  npx expo-doctor
+  567  yarn add expo@latest expo-dev-client@latest
+  568  npx expo-doctor
+  569  yarn add expo@50.0.5 expo-dev-client@3.3.8
+  570  npx expo-doctor
+  571  clear
+  572  npx expo prebuild
+  573  clear
+  574  npx expo-doctor
+  575  clear
+  576  history > setup.txt 

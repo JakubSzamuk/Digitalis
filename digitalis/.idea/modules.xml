@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/1043166458/Digitalis.digitalis-share.main.iml" filepath="$PROJECT_DIR$/.idea/modules/1043166458/Digitalis.digitalis-share.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/2144927149/Digitalis.expo-modules-core.main.iml" filepath="$PROJECT_DIR$/.idea/modules/2144927149/Digitalis.expo-modules-core.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/digitalis.iml" filepath="$PROJECT_DIR$/.idea/digitalis.iml" />
+    </modules>
+  </component>
+</project>

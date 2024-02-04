@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="GradleSettings">
+    <option name="linkedExternalProjectsSettings">
+      <GradleProjectSettings>
+        <compositeConfiguration>
+          <compositeBuild compositeDefinitionSource="SCRIPT">
+            <builds>
+              <build path="$PROJECT_DIR$/node_modules/expo-dev-launcher/expo-dev-launcher-gradle-plugin" name="expo-dev-launcher-gradle-plugin">
+                <projects>
+                  <project path="$PROJECT_DIR$/node_modules/expo-dev-launcher/expo-dev-launcher-gradle-plugin" />
+                </projects>
+              </build>
+              <build path="$PROJECT_DIR$/node_modules/@react-native/gradle-plugin" name="react-native-gradle-plugin">
+                <projects>
+                  <project path="$PROJECT_DIR$/node_modules/@react-native/gradle-plugin" />
+                </projects>
+              </build>
+            </builds>
+          </compositeBuild>
+        </compositeConfiguration>
+        <option name="testRunner" value="GRADLE" />
+        <option name="distributionType" value="DEFAULT_WRAPPED" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$/android" />
+        <option name="gradleJvm" value="jbr-17" />
+        <option name="modules">
+          <set>
+            <option value="$PROJECT_DIR$/android" />
+            <option value="$PROJECT_DIR$/android/app" />
+            <option value="$PROJECT_DIR$/modules/digitalis-share/android" />
+            <option value="$PROJECT_DIR$/node_modules/@react-native/gradle-plugin" />
+            <option value="$PROJECT_DIR$/node_modules/expo-constants/android" />
+            <option value="$PROJECT_DIR$/node_modules/expo-crypto/android" />
+            <option value="$PROJECT_DIR$/node_modules/expo-dev-client/android" />
+            <option value="$PROJECT_DIR$/node_modules/expo-dev-launcher/android" />
+            <option value="$PROJECT_DIR$/node_modules/expo-dev-launcher/expo-dev-launcher-gradle-plugin" />
+            <option value="$PROJECT_DIR$/node_modules/expo-dev-menu-interface/android" />
+            <option value="$PROJECT_DIR$/node_modules/expo-dev-menu/android" />
+            <option value="$PROJECT_DIR$/node_modules/expo-file-system/android" />
+            <option value="$PROJECT_DIR$/node_modules/expo-font/android" />
+            <option value="$PROJECT_DIR$/node_modules/expo-json-utils/android" />
+            <option value="$PROJECT_DIR$/node_modules/expo-keep-awake/android" />
+            <option value="$PROJECT_DIR$/node_modules/expo-linear-gradient/android" />
+            <option value="$PROJECT_DIR$/node_modules/expo-manifests/android" />
+            <option value="$PROJECT_DIR$/node_modules/expo-modules-core/android" />
+            <option value="$PROJECT_DIR$/node_modules/expo-modules-core/android-annotation" />
+            <option value="$PROJECT_DIR$/node_modules/expo-modules-core/android-annotation-processor" />
+            <option value="$PROJECT_DIR$/node_modules/expo-secure-store/android" />
+            <option value="$PROJECT_DIR$/node_modules/expo-splash-screen/android" />
+            <option value="$PROJECT_DIR$/node_modules/expo-system-ui/android" />
+            <option value="$PROJECT_DIR$/node_modules/expo-updates-interface/android" />
+            <option value="$PROJECT_DIR$/node_modules/expo-web-browser/android" />
+            <option value="$PROJECT_DIR$/node_modules/expo/android" />
+            <option value="$PROJECT_DIR$/node_modules/react-native-safe-area-context/android" />
+            <option value="$PROJECT_DIR$/node_modules/react-native-screens/android" />
+            <option value="$PROJECT_DIR$/node_modules/react-native-svg/android" />
+          </set>
+        </option>
+      </GradleProjectSettings>
+      <GradleProjectSettings>
+        <option name="testRunner" value="GRADLE" />
+        <option name="distributionType" value="DEFAULT_WRAPPED" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$/modules/digitalis-share/android" />
+        <option name="gradleJvm" value="jbr-17" />
+      </GradleProjectSettings>
+    </option>
+  </component>
+</project>
