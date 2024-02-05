@@ -10,5 +10,8 @@
 8    <uses-permission android:name="android.permission.BLUETOOTH" />
 8-->/home/jakubszamuk/Documents/projects/web-projects/Digitalis/modules/digitalis-share/android/src/main/AndroidManifest.xml:5:5-68
 8-->/home/jakubszamuk/Documents/projects/web-projects/Digitalis/modules/digitalis-share/android/src/main/AndroidManifest.xml:5:22-65
-9
-10</manifest>
+9    <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
+9-->/home/jakubszamuk/Documents/projects/web-projects/Digitalis/modules/digitalis-share/android/src/main/AndroidManifest.xml:6:5-74
+9-->/home/jakubszamuk/Documents/projects/web-projects/Digitalis/modules/digitalis-share/android/src/main/AndroidManifest.xml:6:22-71
+10
+11</manifest>

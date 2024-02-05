@@ -1,7 +1,7 @@
 -- Merging decision tree log ---
 manifest
-ADDED from /home/jakubszamuk/Documents/projects/web-projects/Digitalis/modules/digitalis-share/android/src/main/AndroidManifest.xml:2:1-6:12
-INJECTED from /home/jakubszamuk/Documents/projects/web-projects/Digitalis/modules/digitalis-share/android/src/main/AndroidManifest.xml:2:1-6:12
+ADDED from /home/jakubszamuk/Documents/projects/web-projects/Digitalis/modules/digitalis-share/android/src/main/AndroidManifest.xml:2:1-8:12
+INJECTED from /home/jakubszamuk/Documents/projects/web-projects/Digitalis/modules/digitalis-share/android/src/main/AndroidManifest.xml:2:1-8:12
 	package
 		INJECTED from /home/jakubszamuk/Documents/projects/web-projects/Digitalis/modules/digitalis-share/android/src/main/AndroidManifest.xml
 	xmlns:android
@@ -14,6 +14,10 @@ uses-permission#android.permission.BLUETOOTH
 ADDED from /home/jakubszamuk/Documents/projects/web-projects/Digitalis/modules/digitalis-share/android/src/main/AndroidManifest.xml:5:5-68
 	android:name
 		ADDED from /home/jakubszamuk/Documents/projects/web-projects/Digitalis/modules/digitalis-share/android/src/main/AndroidManifest.xml:5:22-65
+uses-permission#android.permission.BLUETOOTH_ADMIN
+ADDED from /home/jakubszamuk/Documents/projects/web-projects/Digitalis/modules/digitalis-share/android/src/main/AndroidManifest.xml:6:5-74
+	android:name
+		ADDED from /home/jakubszamuk/Documents/projects/web-projects/Digitalis/modules/digitalis-share/android/src/main/AndroidManifest.xml:6:22-71
 uses-sdk
 INJECTED from /home/jakubszamuk/Documents/projects/web-projects/Digitalis/modules/digitalis-share/android/src/main/AndroidManifest.xml reason: use-sdk injection requested
 INJECTED from /home/jakubszamuk/Documents/projects/web-projects/Digitalis/modules/digitalis-share/android/src/main/AndroidManifest.xml
