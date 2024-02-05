@@ -21,6 +21,13 @@ import java.util.UUID
 import android.location.LocationManager
 import android.provider.Settings
 
+
+import android.os.Bundle
+import android.widget.Toast
+import androidx.activity.ComponentActivity
+import androidx.activity.compose.setContent
+
+
 class BluetoothSetup {
     val ACTION_REQUEST_ENABLE = 1;
     val ACTION_FOUND = 4;
@@ -140,6 +147,25 @@ class BluetoothSetup {
 
 
     fun onCreate(appContext: AppContext) {
+        val perms = arrayListOf(
+            android.Manifest.permission.BLUETOOTH,
+            android.Manifest.permission.BLUETOOTH_ADMIN,
+            android.Manifest.permission.BLUETOOTH_SCAN,
+            android.Manifest.permission.BLUETOOTH_CONNECT,
+            android.Manifest.permission.BLUETOOTH_ADVERTISE,
+            android.Manifest.permission.ACCESS_FINE_LOCATION,
+            android.Manifest.permission.ACCESS_COARSE_LOCATION,
+        )
+
+        for (perm in perms) {
+            println("Checking permission: $perm")
+            val granted =
+                checkSelfPermission(perm) == android.content.pm.PackageManager.PERMISSION_GRANTED
+            if (!granted) {
+                println("Requesting permission: $perm")
+                requestPermissions(perms.toTypedArray(), 1)
+            }
+        }
         println("line 99")
 
         AppActivity = appContext.activityProvider?.currentActivity
@@ -178,6 +204,15 @@ class BluetoothSetup {
 
         } else {
             println("Hey, Bluetooth is enabled.")
+        }
+
+        val pairedDevices: Set<BluetoothDevice>? = bluetoothAdapter?.bondedDevices
+
+        println("Paired devices: ${pairedDevices?.size}")
+        pairedDevices?.forEach { device ->
+            val deviceName = device.name
+            val deviceHardwareAddress = device.address // MAC address
+            println("Device: $deviceName, $deviceHardwareAddress")
         }
 
 
