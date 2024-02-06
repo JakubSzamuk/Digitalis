@@ -26,9 +26,9 @@ class DigitalisShareModule : Module() {
 
     // Defines a JavaScript synchronous function that runs the native code on the JavaScript thread.
     Function("initialise") {
-      val bluetooth_hook = BluetoothSetup()
-      bluetooth_hook.onCreate(appContext);
-      bluetooth_hook.startDiscovery()
+       val bluetooth_hook = BluetoothSetup()
+       bluetooth_hook.onCreate(appContext);
+       bluetooth_hook.startDiscovery()
 
       "hello world"
     }

@@ -1,0 +1,876 @@
+Loaded "env" configuration for the "development" profile: no environment variables specified. Learn more: https://docs.expo.dev/build-reference/variables/
+Specified value for "android.package" in app.json is ignored because an android directory was detected in the project.
+EAS Build will use the value found in the native code.
+✔ Using remote Android credentials (Expo server)
+ANDROID_NDK_HOME environment variable was not specified, continuing build without NDK
+[SETUP_WORKINGDIR] Preparing workingdir /tmp/jakubszamuk/eas-build-local-nodejs/b02b65a8-cc08-4b71-b4f4-9098b1384765
+[START_BUILD] Starting build
+  "job": {
+    "type": "generic",
+    "platform": "android",
+    "projectRootDirectory": "digitalis",
+    "projectArchive": {
+      "type": "PATH",
+      "path": "/tmp/jakubszamuk/eas-cli-nodejs/4b428d17-7634-4e9a-a181-59310b4dccdd.tar.gz"
+    },
+    "builderEnvironment": {},
+    "cache": {
+      "disabled": false,
+      "paths": [],
+      "clear": false
+    },
+    "updates": {},
+    "developmentClient": true,
+    "buildType": "apk",
+    "username": "dieseldev",
+    "experimental": {},
+    "mode": "build",
+    "triggeredBy": "EAS_CLI"
+  }
+[READ_PACKAGE_JSON] Using package.json:
+[READ_PACKAGE_JSON] {
+  "name": "digitalis",
+  "main": "expo-router/entry",
+  "version": "1.0.0",
+  "scripts": {
+    "start": "expo start",
+    "android": "expo run:android",
+    "ios": "expo run:ios",
+    "web": "expo start --web",
+    "test": "jest --watchAll"
+  },
+  "jest": {
+    "preset": "jest-expo"
+  },
+  "dependencies": {
+    "@expo/vector-icons": "^14.0.0",
+    "@react-navigation/native": "^6.0.2",
+    "axios": "^1.6.7",
+    "dotenv": "^16.4.1",
+    "expo": "^50.0.0",
+    "expo-crypto": "~12.8.0",
+    "expo-dev-client": "3.3.8",
+    "expo-font": "~11.10.2",
+    "expo-linear-gradient": "~12.7.1",
+    "expo-linking": "~6.2.2",
+    "expo-router": "~3.4.6",
+    "expo-secure-store": "~12.8.1",
+    "expo-splash-screen": "~0.26.4",
+    "expo-status-bar": "~1.11.1",
+    "expo-system-ui": "~2.9.3",
+    "expo-web-browser": "~12.8.2",
+    "phosphor-react-native": "^2.0.0",
+    "react": "18.2.0",
+    "react-dom": "18.2.0",
+    "react-native": "0.73.2",
+    "react-native-qrcode-svg": "^6.2.0",
+    "react-native-safe-area-context": "4.8.2",
+    "react-native-screens": "~3.29.0",
+    "react-native-svg": "14.1.0",
+    "react-native-web": "~0.19.6",
+    "zustand": "^4.5.0"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.20.0",
+    "@types/react": "~18.2.45",
+    "jest": "^29.2.1",
+    "jest-expo": "~50.0.1",
+    "react-test-renderer": "18.2.0",
+    "typescript": "^5.1.3"
+  },
+  "private": true
+}
+[INSTALL_DEPENDENCIES] Running "yarn install" in /tmp/jakubszamuk/eas-build-local-nodejs/b02b65a8-cc08-4b71-b4f4-9098b1384765/build/digitalis directory
+[INSTALL_DEPENDENCIES] yarn install v1.22.19
+[INSTALL_DEPENDENCIES] [1/4] Resolving packages...
+[INSTALL_DEPENDENCIES] [2/4] Fetching packages...
+[INSTALL_DEPENDENCIES] [3/4] Linking dependencies...
+[INSTALL_DEPENDENCIES] [4/4] Building fresh packages...
+[INSTALL_DEPENDENCIES] Done in 17.61s.
+env: load .env
+env: export BACKEND_URL TEMP_APP_KEY
+[READ_APP_CONFIG] Using app configuration:
+[READ_APP_CONFIG] {
+  "name": "Digitalis",
+  "slug": "digitalis",
+  "version": "1.0.0",
+  "orientation": "portrait",
+  "icon": "./assets/images/icon.png",
+  "scheme": "myapp",
+  "userInterfaceStyle": "automatic",
+  "splash": {
+    "image": "./assets/images/splash.png",
+    "resizeMode": "contain",
+    "backgroundColor": "#ffffff"
+  },
+  "assetBundlePatterns": [
+    "**/*"
+  ],
+  "ios": {
+    "supportsTablet": true,
+    "bundleIdentifier": "com.digitalis.digitalis"
+  },
+  "android": {
+    "adaptiveIcon": {
+      "foregroundImage": "./assets/images/adaptive-icon.png",
+      "backgroundColor": "#ffffff"
+    },
+    "package": "com.digitalis.digitalis",
+    "versionCode": 1
+  },
+  "web": {
+    "bundler": "metro",
+    "output": "static",
+    "favicon": "./assets/images/favicon.png"
+  },
+  "plugins": [
+    "expo-router",
+    "expo-secure-store"
+  ],
+  "experiments": {
+    "typedRoutes": true
+  },
+  "extra": {
+    "router": {
+      "origin": false
+    },
+    "eas": {
+      "projectId": "92fab512-c97b-4fb5-b40a-8d349a45373b"
+    }
+  },
+  "sdkVersion": "50.0.0",
+  "platforms": [
+    "ios",
+    "android",
+    "web"
+  ]
+}
+[RUN_EXPO_DOCTOR] Running "expo doctor"
+[RUN_EXPO_DOCTOR] Running 11 checks on your project...
+[RUN_EXPO_DOCTOR] ✔ Check Expo config for common issues
+[RUN_EXPO_DOCTOR] ✔ Check package.json for common issues
+[RUN_EXPO_DOCTOR] ✔ Check dependencies for packages that should not be installed directly
+[RUN_EXPO_DOCTOR] ✖ Check for common project setup issues
+[RUN_EXPO_DOCTOR] ✔ Check for issues with metro config
+[RUN_EXPO_DOCTOR] ✔ Check npm/ yarn versions
+[RUN_EXPO_DOCTOR] ✔ Check Expo config (app.json/ app.config.js) schema
+[RUN_EXPO_DOCTOR] ✖ Check that packages match versions required by installed Expo SDK
+[RUN_EXPO_DOCTOR] ✔ Check that native modules do not use incompatible support packages
+[RUN_EXPO_DOCTOR] ✔ Check for legacy global CLI installed locally
+[RUN_EXPO_DOCTOR] ✔ Check that native modules use compatible support package versions for installed Expo SDK
+[RUN_EXPO_DOCTOR] Detailed check results:
+[RUN_EXPO_DOCTOR] Advice: Use 'npx expo install --check' to review and upgrade your dependencies.
+[PREBUILD] Skipped running "expo prebuild" because the "android" directory already exists. Learn more about the build process: https://docs.expo.dev/build-reference/android-builds/
+[PREPARE_CREDENTIALS] Writing secrets to the project's directory
+[PREPARE_CREDENTIALS] Injecting signing config into build.gradle
+[RUN_GRADLEW] Running 'gradlew :app:assembleDebug' in /tmp/jakubszamuk/eas-build-local-nodejs/b02b65a8-cc08-4b71-b4f4-9098b1384765/build/digitalis/android
+[RUN_GRADLEW] > Task :expo-dev-launcher-gradle-plugin:pluginDescriptors
+[RUN_GRADLEW] > Task :expo-dev-launcher-gradle-plugin:processResources
+[RUN_GRADLEW] > Task :gradle-plugin:pluginDescriptors
+[RUN_GRADLEW] > Task :gradle-plugin:processResources
+[RUN_GRADLEW] > Task :expo-dev-launcher-gradle-plugin:compileKotlin
+[RUN_GRADLEW] > Task :expo-dev-launcher-gradle-plugin:compileJava NO-SOURCE
+[RUN_GRADLEW] > Task :expo-dev-launcher-gradle-plugin:classes
+[RUN_GRADLEW] > Task :expo-dev-launcher-gradle-plugin:jar
+[RUN_GRADLEW] > Task :expo-dev-launcher-gradle-plugin:inspectClassesForKotlinIC
+[RUN_GRADLEW] > Task :gradle-plugin:compileKotlin
+[RUN_GRADLEW] > Task :gradle-plugin:compileJava NO-SOURCE
+[RUN_GRADLEW] > Task :gradle-plugin:classes
+[RUN_GRADLEW] > Task :gradle-plugin:jar
+[RUN_GRADLEW] > Task :gradle-plugin:inspectClassesForKotlinIC
+[RUN_GRADLEW] > Configure project :app
+[RUN_GRADLEW]  ℹ️  [33mApplying gradle plugin[0m '[32mexpo-dev-launcher-gradle-plugin[0m' (expo-dev-launcher@3.6.6)
+[RUN_GRADLEW] > Configure project :expo
+[RUN_GRADLEW] Using expo modules
+[RUN_GRADLEW]   - [32mdigitalis-share[0m (UNVERSIONED)
+[RUN_GRADLEW]   - [32mexpo-constants[0m (15.4.5)
+[RUN_GRADLEW]   - [32mexpo-crypto[0m (12.8.0)
+[RUN_GRADLEW]   - [32mexpo-dev-client[0m (3.3.8)
+[RUN_GRADLEW] - [32mexpo-dev-launcher[0m (3.6.6)
+[RUN_GRADLEW]   - [32mexpo-dev-menu[0m (4.5.5)
+[RUN_GRADLEW]   - [32mexpo-file-system[0m (16.0.5)
+[RUN_GRADLEW]   - [32mexpo-font[0m (11.10.2)
+[RUN_GRADLEW]   - [32mexpo-json-utils[0m (0.12.3)
+[RUN_GRADLEW]   - [32mexpo-keep-awake[0m (12.8.2)
+[RUN_GRADLEW]   - [32mexpo-linear-gradient[0m (12.7.1)
+[RUN_GRADLEW]   - [32mexpo-manifests[0m (0.13.2)
+[RUN_GRADLEW]   - [32mexpo-modules-core[0m (1.11.8)
+[RUN_GRADLEW]   - [32mexpo-modules-core$android-annotation-processor[0m (1.11.8)
+[RUN_GRADLEW]   - [32mexpo-modules-core$android-annotation[0m (1.11.8)
+[RUN_GRADLEW]   - [32mexpo-secure-store[0m (12.8.1)
+[RUN_GRADLEW]   - [32mexpo-splash-screen[0m (0.26.4)
+[RUN_GRADLEW]   - [32mexpo-system-ui[0m (2.9.3)
+[RUN_GRADLEW]   - [32mexpo-web-browser[0m (12.8.2)
+[RUN_GRADLEW] > Task :app:generateCodegenSchemaFromJavaScript SKIPPED
+[RUN_GRADLEW] > Task :app:generateCodegenArtifactsFromSchema SKIPPED
+[RUN_GRADLEW] > Task :app:generatePackageList
+[RUN_GRADLEW] > Task :app:preBuild
+[RUN_GRADLEW] > Task :app:preDebugBuild
+[RUN_GRADLEW] > Task :app:mergeDebugNativeDebugMetadata NO-SOURCE
+[RUN_GRADLEW] > Task :expo-modules-core$android-annotation-processor:processResources
+[RUN_GRADLEW] > Task :expo-modules-core$android-annotation:processResources NO-SOURCE
+[RUN_GRADLEW] > Task :app:generateDebugBuildConfig
+[RUN_GRADLEW] > Task :digitalis-share:preBuild UP-TO-DATE
+[RUN_GRADLEW] > Task :digitalis-share:preDebugBuild UP-TO-DATE
+[RUN_GRADLEW] > Task :digitalis-share:writeDebugAarMetadata
+[RUN_GRADLEW] > Task :expo-modules-core$android-annotation:compileKotlin
+[RUN_GRADLEW] > Task :expo:generateExpoModulesPackageList
+[RUN_GRADLEW] > Task :expo-modules-core$android-annotation:compileJava NO-SOURCE
+[RUN_GRADLEW] > Task :expo-modules-core$android-annotation:classes UP-TO-DATE
+[RUN_GRADLEW] > Task :expo-modules-core$android-annotation:jar
+[RUN_GRADLEW] > Task :expo-modules-core$android-annotation:inspectClassesForKotlinIC
+[RUN_GRADLEW] > Task :expo:preBuild
+[RUN_GRADLEW] > Task :expo:preDebugBuild
+[RUN_GRADLEW] > Task :expo:writeDebugAarMetadata
+[RUN_GRADLEW] > Task :expo-constants:createExpoConfig
+[RUN_GRADLEW] > Task :expo-constants:preBuild
+[RUN_GRADLEW] > Task :expo-constants:preDebugBuild
+[RUN_GRADLEW] > Task :expo-crypto:preBuild UP-TO-DATE
+[RUN_GRADLEW] > Task :expo-crypto:preDebugBuild UP-TO-DATE
+[RUN_GRADLEW] > Task :expo-constants:writeDebugAarMetadata
+[RUN_GRADLEW] > Task :expo-crypto:writeDebugAarMetadata
+[RUN_GRADLEW] > Task :expo-dev-client:preBuild UP-TO-DATE
+[RUN_GRADLEW] > Task :expo-dev-client:preDebugBuild UP-TO-DATE
+[RUN_GRADLEW] > Task :expo-dev-launcher:preBuild UP-TO-DATE
+[RUN_GRADLEW] > Task :expo-dev-launcher:preDebugBuild UP-TO-DATE
+[RUN_GRADLEW] > Task :expo-dev-client:writeDebugAarMetadata
+[RUN_GRADLEW] > Task :expo-dev-menu:preBuild UP-TO-DATE
+[RUN_GRADLEW] > Task :expo-dev-menu:preDebugBuild UP-TO-DATE
+[RUN_GRADLEW] > Task :expo-dev-launcher:writeDebugAarMetadata
+[RUN_GRADLEW] > Task :expo-dev-menu-interface:preBuild UP-TO-DATE
+[RUN_GRADLEW] > Task :expo-dev-menu:writeDebugAarMetadata
+[RUN_GRADLEW] > Task :expo-dev-menu-interface:preDebugBuild UP-TO-DATE
+[RUN_GRADLEW] > Task :expo-file-system:preBuild UP-TO-DATE
+[RUN_GRADLEW] > Task :expo-file-system:preDebugBuild UP-TO-DATE
+[RUN_GRADLEW] > Task :expo-dev-menu-interface:writeDebugAarMetadata
+[RUN_GRADLEW] > Task :expo-font:preBuild UP-TO-DATE
+[RUN_GRADLEW] > Task :expo-file-system:writeDebugAarMetadata
+[RUN_GRADLEW] > Task :expo-font:preDebugBuild UP-TO-DATE
+[RUN_GRADLEW] > Task :expo-json-utils:preBuild UP-TO-DATE
+[RUN_GRADLEW] > Task :expo-json-utils:preDebugBuild UP-TO-DATE
+[RUN_GRADLEW] > Task :expo-font:writeDebugAarMetadata
+[RUN_GRADLEW] > Task :expo-keep-awake:preBuild UP-TO-DATE
+[RUN_GRADLEW] > Task :expo-keep-awake:preDebugBuild
+[RUN_GRADLEW] UP-TO-DATE
+[RUN_GRADLEW] > Task :expo-json-utils:writeDebugAarMetadata
+[RUN_GRADLEW] > Task :expo-linear-gradient:preBuild UP-TO-DATE
+[RUN_GRADLEW] > Task :expo-linear-gradient:preDebugBuild UP-TO-DATE
+[RUN_GRADLEW] > Task :expo-keep-awake:writeDebugAarMetadata
+[RUN_GRADLEW] > Task :expo-manifests:preBuild UP-TO-DATE
+[RUN_GRADLEW] > Task :expo-manifests:preDebugBuild UP-TO-DATE
+[RUN_GRADLEW] > Task :expo-linear-gradient:writeDebugAarMetadata
+[RUN_GRADLEW] > Task :expo-modules-core:preBuild UP-TO-DATE
+[RUN_GRADLEW] > Task :expo-modules-core:preDebugBuild UP-TO-DATE
+[RUN_GRADLEW] > Task :expo-manifests:writeDebugAarMetadata
+[RUN_GRADLEW] > Task :expo-secure-store:preBuild UP-TO-DATE
+[RUN_GRADLEW] > Task :expo-secure-store:preDebugBuild UP-TO-DATE
+[RUN_GRADLEW] > Task :expo-modules-core:writeDebugAarMetadata
+[RUN_GRADLEW] > Task :expo-splash-screen:preBuild UP-TO-DATE
+[RUN_GRADLEW] > Task :expo-splash-screen:preDebugBuild UP-TO-DATE
+[RUN_GRADLEW] > Task :expo-system-ui:preBuild UP-TO-DATE
+[RUN_GRADLEW] > Task :expo-system-ui:preDebugBuild UP-TO-DATE
+[RUN_GRADLEW] > Task :expo-splash-screen:writeDebugAarMetadata
+[RUN_GRADLEW] > Task :expo-secure-store:writeDebugAarMetadata
+[RUN_GRADLEW] > Task :expo-updates-interface:preBuild UP-TO-DATE
+[RUN_GRADLEW] > Task :expo-updates-interface:preDebugBuild UP-TO-DATE
+[RUN_GRADLEW] > Task :expo-system-ui:writeDebugAarMetadata
+[RUN_GRADLEW] > Task :expo-web-browser:preBuild UP-TO-DATE
+[RUN_GRADLEW] > Task :expo-web-browser:preDebugBuild UP-TO-DATE
+[RUN_GRADLEW] > Task :expo-updates-interface:writeDebugAarMetadata
+[RUN_GRADLEW] > Task :react-native-safe-area-context:preBuild UP-TO-DATE
+[RUN_GRADLEW] > Task :react-native-safe-area-context:preDebugBuild UP-TO-DATE
+[RUN_GRADLEW] > Task :expo-web-browser:writeDebugAarMetadata
+[RUN_GRADLEW] > Task :react-native-screens:preBuild UP-TO-DATE
+[RUN_GRADLEW] > Task :react-native-screens:preDebugBuild UP-TO-DATE
+[RUN_GRADLEW] > Task :react-native-safe-area-context:writeDebugAarMetadata
+[RUN_GRADLEW] > Task :react-native-svg:preBuild UP-TO-DATE
+[RUN_GRADLEW] > Task :react-native-screens:writeDebugAarMetadata
+[RUN_GRADLEW] > Task :react-native-svg:preDebugBuild UP-TO-DATE
+[RUN_GRADLEW] > Task :react-native-svg:writeDebugAarMetadata
+[RUN_GRADLEW] > Task :expo-modules-core$android-annotation-processor:compileKotlin
+[RUN_GRADLEW] > Task :app:generateDebugResValues
+[RUN_GRADLEW] > Task :expo-modules-core$android-annotation-processor:compileJava NO-SOURCE
+[RUN_GRADLEW] > Task :expo-modules-core$android-annotation-processor:classes
+[RUN_GRADLEW] > Task :expo-modules-core$android-annotation-processor:jar
+[RUN_GRADLEW] > Task :expo-modules-core$android-annotation-processor:inspectClassesForKotlinIC
+[RUN_GRADLEW] > Task :digitalis-share:generateDebugResValues
+[RUN_GRADLEW] > Task :digitalis-share:generateDebugResources
+[RUN_GRADLEW] > Task :app:checkDebugAarMetadata
+[RUN_GRADLEW] > Task :digitalis-share:packageDebugResources
+[RUN_GRADLEW] > Task :expo:generateDebugResValues
+[RUN_GRADLEW] > Task :expo:generateDebugResources
+[RUN_GRADLEW] > Task :expo:packageDebugResources
+[RUN_GRADLEW] > Task :expo-constants:generateDebugResValues
+[RUN_GRADLEW] > Task :expo-constants:generateDebugResources
+[RUN_GRADLEW] > Task :expo-constants:packageDebugResources
+[RUN_GRADLEW] > Task :expo-crypto:generateDebugResValues
+[RUN_GRADLEW] > Task :expo-crypto:generateDebugResources
+[RUN_GRADLEW] > Task :expo-crypto:packageDebugResources
+[RUN_GRADLEW] > Task :expo-dev-client:generateDebugResValues
+[RUN_GRADLEW] > Task :expo-dev-client:generateDebugResources
+[RUN_GRADLEW] > Task :expo-dev-client:packageDebugResources
+[RUN_GRADLEW] > Task :expo-dev-launcher:generateDebugResValues
+[RUN_GRADLEW] > Task :expo-dev-launcher:generateDebugResources
+[RUN_GRADLEW] > Task :expo-dev-launcher:packageDebugResources
+[RUN_GRADLEW] > Task :expo-dev-menu:generateDebugResValues
+[RUN_GRADLEW] > Task :expo-dev-menu:generateDebugResources
+[RUN_GRADLEW] > Task :expo-dev-menu:packageDebugResources
+[RUN_GRADLEW] > Task :expo-dev-menu-interface:generateDebugResValues
+[RUN_GRADLEW] > Task :expo-dev-menu-interface:generateDebugResources
+[RUN_GRADLEW] > Task :expo-dev-menu-interface:packageDebugResources
+[RUN_GRADLEW] > Task :expo-file-system:generateDebugResValues
+[RUN_GRADLEW] > Task :expo-file-system:generateDebugResources
+[RUN_GRADLEW] > Task :expo-file-system:packageDebugResources
+[RUN_GRADLEW] > Task :expo-font:generateDebugResValues
+[RUN_GRADLEW] > Task :expo-font:generateDebugResources
+[RUN_GRADLEW] > Task :expo-font:packageDebugResources
+[RUN_GRADLEW] > Task :expo-json-utils:generateDebugResValues
+[RUN_GRADLEW] > Task :expo-json-utils:generateDebugResources
+[RUN_GRADLEW] > Task :expo-json-utils:packageDebugResources
+[RUN_GRADLEW] > Task :expo-keep-awake:generateDebugResValues
+[RUN_GRADLEW] > Task :expo-keep-awake:generateDebugResources
+[RUN_GRADLEW] > Task :expo-keep-awake:packageDebugResources
+[RUN_GRADLEW] > Task :expo-linear-gradient:generateDebugResValues
+[RUN_GRADLEW] > Task :expo-linear-gradient:generateDebugResources
+[RUN_GRADLEW] > Task :expo-linear-gradient:packageDebugResources
+[RUN_GRADLEW] > Task :expo-manifests:generateDebugResValues
+[RUN_GRADLEW] > Task :expo-manifests:generateDebugResources
+[RUN_GRADLEW] > Task :expo-manifests:packageDebugResources
+[RUN_GRADLEW] > Task :expo-modules-core:generateDebugResValues
+[RUN_GRADLEW] > Task :expo-modules-core:generateDebugResources
+[RUN_GRADLEW] > Task :expo-modules-core:packageDebugResources
+[RUN_GRADLEW] > Task :expo-secure-store:generateDebugResValues
+[RUN_GRADLEW] > Task :expo-secure-store:generateDebugResources
+[RUN_GRADLEW] > Task :expo-secure-store:packageDebugResources
+[RUN_GRADLEW] > Task :expo-splash-screen:generateDebugResValues
+[RUN_GRADLEW] > Task :expo-splash-screen:generateDebugResources
+[RUN_GRADLEW] > Task :expo-splash-screen:packageDebugResources
+[RUN_GRADLEW] > Task :expo-system-ui:generateDebugResValues
+[RUN_GRADLEW] > Task :expo-system-ui:generateDebugResources
+[RUN_GRADLEW] > Task :expo-system-ui:packageDebugResources
+[RUN_GRADLEW] > Task :expo-updates-interface:generateDebugResValues
+[RUN_GRADLEW] > Task :expo-updates-interface:generateDebugResources
+[RUN_GRADLEW] > Task :expo-updates-interface:packageDebugResources
+[RUN_GRADLEW] > Task :expo-web-browser:generateDebugResValues
+[RUN_GRADLEW] > Task :expo-web-browser:generateDebugResources
+[RUN_GRADLEW] > Task :expo-web-browser:packageDebugResources
+[RUN_GRADLEW] > Task :react-native-safe-area-context:generateDebugResValues
+[RUN_GRADLEW] > Task :react-native-safe-area-context:generateDebugResources
+[RUN_GRADLEW] > Task :react-native-safe-area-context:packageDebugResources
+[RUN_GRADLEW] > Task :react-native-screens:generateDebugResValues
+[RUN_GRADLEW] > Task :react-native-screens:generateDebugResources
+[RUN_GRADLEW] > Task :react-native-screens:packageDebugResources
+[RUN_GRADLEW] > Task :react-native-svg:generateDebugResValues
+[RUN_GRADLEW] > Task :react-native-svg:generateDebugResources
+[RUN_GRADLEW] > Task :react-native-svg:packageDebugResources
+[RUN_GRADLEW] > Task :app:mapDebugSourceSetPaths
+[RUN_GRADLEW] > Task :app:generateDebugResources
+[RUN_GRADLEW] > Task :app:packageDebugResources
+[RUN_GRADLEW] > Task :app:createDebugCompatibleScreenManifests
+[RUN_GRADLEW] > Task :app:extractDeepLinksDebug
+[RUN_GRADLEW] > Task :digitalis-share:extractDeepLinksDebug
+[RUN_GRADLEW] > Task :expo:extractDeepLinksDebug
+[RUN_GRADLEW] > Task :expo-constants:extractDeepLinksDebug
+[RUN_GRADLEW] > Task :expo-crypto:extractDeepLinksDebug
+[RUN_GRADLEW] > Task :expo-dev-client:extractDeepLinksDebug
+[RUN_GRADLEW] > Task :expo-dev-launcher:extractDeepLinksDebug
+[RUN_GRADLEW] > Task :expo-dev-menu:extractDeepLinksDebug
+[RUN_GRADLEW] > Task :expo-dev-menu-interface:extractDeepLinksDebug
+[RUN_GRADLEW] > Task :expo-file-system:extractDeepLinksDebug
+[RUN_GRADLEW] > Task :expo-font:extractDeepLinksDebug
+[RUN_GRADLEW] > Task :app:parseDebugLocalResources
+[RUN_GRADLEW] > Task :expo-json-utils:extractDeepLinksDebug
+[RUN_GRADLEW] > Task :expo-crypto:processDebugManifest
+[RUN_GRADLEW] > Task :expo-dev-launcher:processDebugManifest
+[RUN_GRADLEW] > Task :expo-dev-menu-interface:processDebugManifest
+[RUN_GRADLEW] > Task :expo-dev-client:processDebugManifest
+[RUN_GRADLEW] > Task :expo-dev-menu:processDebugManifest
+[RUN_GRADLEW] > Task :expo:processDebugManifest
+[RUN_GRADLEW] > Task :expo-font:processDebugManifest
+[RUN_GRADLEW] > Task :expo-file-system:processDebugManifest
+[RUN_GRADLEW] /tmp/jakubszamuk/eas-build-local-nodejs/b02b65a8-cc08-4b71-b4f4-9098b1384765/build/digitalis/node_modules/expo-file-system/android/src/main/AndroidManifest.xml:6:9-8:20 Warning:
+[RUN_GRADLEW] 	provider#expo.modules.filesystem.FileSystemFileProvider@android:authorities was tagged at AndroidManifest.xml:6 to replace other declarations but no other declaration present
+[RUN_GRADLEW] > Task :digitalis-share:processDebugManifest
+[RUN_GRADLEW] > Task :expo-constants:processDebugManifest
+[RUN_GRADLEW] > Task :expo-keep-awake:extractDeepLinksDebug
+[RUN_GRADLEW] > Task :expo-linear-gradient:extractDeepLinksDebug
+[RUN_GRADLEW] > Task :expo-manifests:extractDeepLinksDebug
+[RUN_GRADLEW] > Task :expo-json-utils:processDebugManifest
+[RUN_GRADLEW] > Task :expo-modules-core:extractDeepLinksDebug
+[RUN_GRADLEW] > Task :expo-keep-awake:processDebugManifest
+[RUN_GRADLEW] > Task :expo-linear-gradient:processDebugManifest
+[RUN_GRADLEW] > Task :expo-manifests:processDebugManifest
+[RUN_GRADLEW] > Task :expo-secure-store:extractDeepLinksDebug
+[RUN_GRADLEW] > Task :expo-modules-core:processDebugManifest
+[RUN_GRADLEW] /tmp/jakubszamuk/eas-build-local-nodejs/b02b65a8-cc08-4b71-b4f4-9098b1384765/build/digitalis/node_modules/expo-modules-core/android/src/main/AndroidManifest.xml:8:9-11:45 Warning:
+[RUN_GRADLEW] 	meta-data#com.facebook.soloader.enabled@android:value was tagged at AndroidManifest.xml:8 to replace other declarations but no other declaration present
+[RUN_GRADLEW] > Task :expo-splash-screen:extractDeepLinksDebug
+[RUN_GRADLEW] > Task :expo-secure-store:processDebugManifest
+[RUN_GRADLEW] > Task :expo-system-ui:extractDeepLinksDebug
+[RUN_GRADLEW] > Task :expo-splash-screen:processDebugManifest
+[RUN_GRADLEW] > Task :expo-updates-interface:extractDeepLinksDebug
+[RUN_GRADLEW] > Task :expo-system-ui:processDebugManifest
+[RUN_GRADLEW] > Task :expo-web-browser:extractDeepLinksDebug
+[RUN_GRADLEW] > Task :expo-updates-interface:processDebugManifest
+[RUN_GRADLEW] > Task :react-native-safe-area-context:extractDeepLinksDebug
+[RUN_GRADLEW] > Task :expo-web-browser:processDebugManifest
+[RUN_GRADLEW] > Task :react-native-screens:extractDeepLinksDebug
+[RUN_GRADLEW] > Task :react-native-safe-area-context:processDebugManifest
+[RUN_GRADLEW] package="com.th3rdwave.safeareacontext" found in source AndroidManifest.xml: /tmp/jakubszamuk/eas-build-local-nodejs/b02b65a8-cc08-4b71-b4f4-9098b1384765/build/digitalis/node_modules/react-native-safe-area-context/android/src/main/AndroidManifest.xml.
+[RUN_GRADLEW] Setting the namespace via the package attribute in the source AndroidManifest.xml is no longer supported, and the value is ignored.
+[RUN_GRADLEW] Recommendation: remove package="com.th3rdwave.safeareacontext" from the source AndroidManifest.xml: /tmp/jakubszamuk/eas-build-local-nodejs/b02b65a8-cc08-4b71-b4f4-9098b1384765/build/digitalis/node_modules/react-native-safe-area-context/android/src/main/AndroidManifest.xml.
+[RUN_GRADLEW] > Task :react-native-svg:extractDeepLinksDebug
+[RUN_GRADLEW] > Task :react-native-screens:processDebugManifest
+[RUN_GRADLEW] package="com.swmansion.rnscreens" found in source AndroidManifest.xml: /tmp/jakubszamuk/eas-build-local-nodejs/b02b65a8-cc08-4b71-b4f4-9098b1384765/build/digitalis/node_modules/react-native-screens/android/src/main/AndroidManifest.xml.
+[RUN_GRADLEW] Setting the namespace via the package attribute in the source AndroidManifest.xml is no longer supported, and the value is ignored.
+[RUN_GRADLEW] Recommendation: remove package="com.swmansion.rnscreens" from the source AndroidManifest.xml: /tmp/jakubszamuk/eas-build-local-nodejs/b02b65a8-cc08-4b71-b4f4-9098b1384765/build/digitalis/node_modules/react-native-screens/android/src/main/AndroidManifest.xml.
+[RUN_GRADLEW] > Task :react-native-svg:processDebugManifest
+[RUN_GRADLEW] package="com.horcrux.svg" found in source AndroidManifest.xml: /tmp/jakubszamuk/eas-build-local-nodejs/b02b65a8-cc08-4b71-b4f4-9098b1384765/build/digitalis/node_modules/react-native-svg/android/src/main/AndroidManifest.xml.
+[RUN_GRADLEW] Setting the namespace via the package attribute in the source AndroidManifest.xml is no longer supported, and the value is ignored.
+[RUN_GRADLEW] Recommendation: remove package="com.horcrux.svg" from the source AndroidManifest.xml: /tmp/jakubszamuk/eas-build-local-nodejs/b02b65a8-cc08-4b71-b4f4-9098b1384765/build/digitalis/node_modules/react-native-svg/android/src/main/AndroidManifest.xml.
+[RUN_GRADLEW] > Task :digitalis-share:compileDebugLibraryResources
+[RUN_GRADLEW] > Task :app:processDebugMainManifest
+[RUN_GRADLEW] /tmp/jakubszamuk/eas-build-local-nodejs/b02b65a8-cc08-4b71-b4f4-9098b1384765/build/digitalis/android/app/src/debug/AndroidManifest.xml:6:5-162 Warning:
+[RUN_GRADLEW] 	application@android:usesCleartextTraffic was tagged at AndroidManifest.xml:6 to replace other declarations but no other declaration present
+[RUN_GRADLEW] /tmp/jakubszamuk/eas-build-local-nodejs/b02b65a8-cc08-4b71-b4f4-9098b1384765/build/digitalis/android/app/src/debug/AndroidManifest.xml Warning:
+[RUN_GRADLEW] 	provider#expo.modules.filesystem.FileSystemFileProvider@android:authorities was tagged at AndroidManifest.xml:0 to replace other declarations but no other declaration present
+[RUN_GRADLEW] > Task :app:mergeDebugResources
+[RUN_GRADLEW] > Task :app:processDebugManifest
+[RUN_GRADLEW] > Task :expo:compileDebugLibraryResources
+[RUN_GRADLEW] > Task :digitalis-share:parseDebugLocalResources
+[RUN_GRADLEW] > Task :expo-constants:compileDebugLibraryResources
+[RUN_GRADLEW] > Task :expo:parseDebugLocalResources
+[RUN_GRADLEW] > Task :expo-crypto:compileDebugLibraryResources
+[RUN_GRADLEW] > Task :expo-dev-client:compileDebugLibraryResources
+[RUN_GRADLEW] > Task :expo-constants:parseDebugLocalResources
+[RUN_GRADLEW] > Task :expo-crypto:parseDebugLocalResources
+[RUN_GRADLEW] > Task :app:processDebugManifestForPackage
+[RUN_GRADLEW] > Task :expo-dev-client:parseDebugLocalResources
+[RUN_GRADLEW] > Task :expo-dev-menu-interface:compileDebugLibraryResources
+[RUN_GRADLEW] > Task :expo-dev-menu-interface:parseDebugLocalResources
+[RUN_GRADLEW] > Task :expo-dev-menu:parseDebugLocalResources
+[RUN_GRADLEW] > Task :expo-dev-launcher:parseDebugLocalResources
+[RUN_GRADLEW] > Task :expo:generateDebugRFile
+[RUN_GRADLEW] > Task :digitalis-share:generateDebugRFile
+[RUN_GRADLEW] > Task :expo-crypto:generateDebugRFile
+[RUN_GRADLEW] > Task :expo-constants:generateDebugRFile
+[RUN_GRADLEW] > Task :expo-dev-client:generateDebugRFile
+[RUN_GRADLEW] > Task :expo-dev-menu:compileDebugLibraryResources
+[RUN_GRADLEW] > Task :expo-dev-launcher:compileDebugLibraryResources
+[RUN_GRADLEW] > Task :expo-file-system:compileDebugLibraryResources
+[RUN_GRADLEW] > Task :expo-dev-menu:generateDebugRFile
+[RUN_GRADLEW] > Task :expo-dev-launcher:generateDebugRFile
+[RUN_GRADLEW] > Task :expo-dev-menu-interface:generateDebugRFile
+[RUN_GRADLEW] > Task :expo-font:compileDebugLibraryResources
+[RUN_GRADLEW] > Task :expo-file-system:parseDebugLocalResources
+[RUN_GRADLEW] > Task :expo-font:parseDebugLocalResources
+[RUN_GRADLEW] > Task :expo-json-utils:compileDebugLibraryResources
+[RUN_GRADLEW] > Task :expo-file-system:generateDebugRFile
+[RUN_GRADLEW] > Task :expo-keep-awake:compileDebugLibraryResources
+[RUN_GRADLEW] > Task :expo-font:generateDebugRFile
+[RUN_GRADLEW] > Task :expo-json-utils:parseDebugLocalResources
+[RUN_GRADLEW] > Task :expo-keep-awake:parseDebugLocalResources
+[RUN_GRADLEW] > Task :expo-linear-gradient:compileDebugLibraryResources
+[RUN_GRADLEW] > Task :expo-json-utils:generateDebugRFile
+[RUN_GRADLEW] > Task :expo-keep-awake:generateDebugRFile
+[RUN_GRADLEW] > Task :expo-manifests:compileDebugLibraryResources
+[RUN_GRADLEW] > Task :expo-linear-gradient:parseDebugLocalResources
+[RUN_GRADLEW] > Task :expo-manifests:parseDebugLocalResources
+[RUN_GRADLEW] > Task :expo-modules-core:compileDebugLibraryResources
+[RUN_GRADLEW] > Task :expo-linear-gradient:generateDebugRFile
+[RUN_GRADLEW] > Task :expo-modules-core:parseDebugLocalResources
+[RUN_GRADLEW] > Task :expo-secure-store:compileDebugLibraryResources
+[RUN_GRADLEW] > Task :expo-manifests:generateDebugRFile
+[RUN_GRADLEW] > Task :expo-modules-core:generateDebugRFile
+[RUN_GRADLEW] > Task :expo-secure-store:parseDebugLocalResources
+[RUN_GRADLEW] > Task :expo-splash-screen:compileDebugLibraryResources
+[RUN_GRADLEW] > Task :expo-system-ui:compileDebugLibraryResources
+[RUN_GRADLEW] > Task :expo-splash-screen:parseDebugLocalResources
+[RUN_GRADLEW] > Task :expo-secure-store:generateDebugRFile
+[RUN_GRADLEW] > Task :expo-system-ui:parseDebugLocalResources
+[RUN_GRADLEW] > Task :expo-updates-interface:compileDebugLibraryResources
+[RUN_GRADLEW] > Task :expo-splash-screen:generateDebugRFile
+[RUN_GRADLEW] > Task :expo-system-ui:generateDebugRFile
+[RUN_GRADLEW] > Task :expo-web-browser:compileDebugLibraryResources
+[RUN_GRADLEW] > Task :expo-updates-interface:parseDebugLocalResources
+[RUN_GRADLEW] > Task :expo-web-browser:parseDebugLocalResources
+[RUN_GRADLEW] > Task :react-native-safe-area-context:compileDebugLibraryResources
+[RUN_GRADLEW] > Task :expo-updates-interface:generateDebugRFile
+[RUN_GRADLEW] > Task :react-native-safe-area-context:parseDebugLocalResources
+[RUN_GRADLEW] > Task :expo-web-browser:generateDebugRFile
+[RUN_GRADLEW] > Task :react-native-screens:compileDebugLibraryResources
+[RUN_GRADLEW] > Task :react-native-screens:parseDebugLocalResources
+[RUN_GRADLEW] > Task :react-native-svg:compileDebugLibraryResources
+[RUN_GRADLEW] > Task :react-native-safe-area-context:generateDebugRFile
+[RUN_GRADLEW] > Task :react-native-screens:generateDebugRFile
+[RUN_GRADLEW] > Task :digitalis-share:generateDebugBuildConfig
+[RUN_GRADLEW] > Task :react-native-svg:parseDebugLocalResources
+[RUN_GRADLEW] > Task :expo-modules-core:generateDebugBuildConfig
+[RUN_GRADLEW] > Task :react-native-svg:generateDebugRFile
+[RUN_GRADLEW] > Task :expo-modules-core:javaPreCompileDebug
+[RUN_GRADLEW] > Task :expo:generateDebugBuildConfig
+[RUN_GRADLEW] > Task :digitalis-share:javaPreCompileDebug
+[RUN_GRADLEW] > Task :expo-constants:generateDebugBuildConfig
+[RUN_GRADLEW] > Task :expo-constants:javaPreCompileDebug
+[RUN_GRADLEW] > Task :expo-crypto:generateDebugBuildConfig
+[RUN_GRADLEW] > Task :expo-crypto:javaPreCompileDebug
+[RUN_GRADLEW] > Task :expo-dev-client:generateDebugBuildConfig
+[RUN_GRADLEW] > Task :expo-dev-client:dataBindingMergeDependencyArtifactsDebug
+[RUN_GRADLEW] > Task :expo-dev-client:javaPreCompileDebug
+[RUN_GRADLEW] > Task :expo-dev-launcher:dataBindingMergeDependencyArtifactsDebug
+[RUN_GRADLEW] > Task :expo-dev-client:dataBindingGenBaseClassesDebug
+[RUN_GRADLEW] > Task :expo-dev-client:compileDebugKotlin NO-SOURCE
+[RUN_GRADLEW] > Task :expo-dev-client:compileDebugJavaWithJavac
+[RUN_GRADLEW] > Task :expo-dev-client:bundleLibCompileToJarDebug
+[RUN_GRADLEW] > Task :expo-dev-launcher:dataBindingGenBaseClassesDebug
+[RUN_GRADLEW] > Task :expo-dev-launcher:generateDebugBuildConfig
+[RUN_GRADLEW] > Task :expo-dev-menu:generateDebugBuildConfig
+[RUN_GRADLEW] > Task :expo-dev-menu-interface:generateDebugBuildConfig
+[RUN_GRADLEW] > Task :expo-dev-menu-interface:javaPreCompileDebug
+[RUN_GRADLEW] > Task :expo-json-utils:generateDebugBuildConfig
+[RUN_GRADLEW] > Task :expo-json-utils:javaPreCompileDebug
+[RUN_GRADLEW] > Task :expo-manifests:generateDebugBuildConfig
+[RUN_GRADLEW] > Task :expo-manifests:javaPreCompileDebug
+[RUN_GRADLEW] > Task :expo-dev-menu:javaPreCompileDebug
+[RUN_GRADLEW] > Task :expo-updates-interface:generateDebugBuildConfig
+[RUN_GRADLEW] > Task :expo-updates-interface:compileDebugKotlin NO-SOURCE
+[RUN_GRADLEW] > Task :expo-dev-launcher:javaPreCompileDebug
+[RUN_GRADLEW] > Task :expo-updates-interface:javaPreCompileDebug
+[RUN_GRADLEW] > Task :expo-updates-interface:compileDebugJavaWithJavac
+[RUN_GRADLEW] > Task :expo-file-system:generateDebugBuildConfig
+[RUN_GRADLEW] > Task :expo-file-system:javaPreCompileDebug
+[RUN_GRADLEW] > Task :expo-updates-interface:bundleLibCompileToJarDebug
+[RUN_GRADLEW] > Task :expo-font:generateDebugBuildConfig
+[RUN_GRADLEW] > Task :expo-font:javaPreCompileDebug
+[RUN_GRADLEW] > Task :expo-keep-awake:generateDebugBuildConfig
+[RUN_GRADLEW] > Task :expo-keep-awake:javaPreCompileDebug
+[RUN_GRADLEW] > Task :expo-linear-gradient:generateDebugBuildConfig
+[RUN_GRADLEW] > Task :expo-secure-store:generateDebugBuildConfig
+[RUN_GRADLEW] > Task :expo-splash-screen:generateDebugBuildConfig
+[RUN_GRADLEW] > Task :expo-linear-gradient:javaPreCompileDebug
+[RUN_GRADLEW] > Task :expo-secure-store:javaPreCompileDebug
+[RUN_GRADLEW] > Task :expo-splash-screen:javaPreCompileDebug
+[RUN_GRADLEW] > Task :expo-system-ui:generateDebugBuildConfig
+[RUN_GRADLEW] > Task :expo-system-ui:javaPreCompileDebug
+[RUN_GRADLEW] > Task :expo-web-browser:generateDebugBuildConfig
+[RUN_GRADLEW] > Task :expo-web-browser:javaPreCompileDebug
+[RUN_GRADLEW] > Task :expo:javaPreCompileDebug
+[RUN_GRADLEW] > Task :react-native-safe-area-context:generateDebugBuildConfig
+[RUN_GRADLEW] > Task :expo-json-utils:compileDebugKotlin
+[RUN_GRADLEW] > Task :expo-json-utils:compileDebugJavaWithJavac
+[RUN_GRADLEW] > Task :react-native-safe-area-context:javaPreCompileDebug
+[RUN_GRADLEW] > Task :expo-json-utils:bundleLibCompileToJarDebug
+[RUN_GRADLEW] > Task :react-native-screens:generateDebugBuildConfig
+[RUN_GRADLEW] > Task :react-native-screens:javaPreCompileDebug
+[RUN_GRADLEW] > Task :react-native-svg:generateDebugBuildConfig
+[RUN_GRADLEW] > Task :react-native-svg:javaPreCompileDebug
+[RUN_GRADLEW] > Task :app:javaPreCompileDebug
+[RUN_GRADLEW] > Task :app:mergeDebugShaders
+[RUN_GRADLEW] > Task :app:processDebugResources
+[RUN_GRADLEW] > Task :expo-dev-menu-interface:compileDebugKotlin
+[RUN_GRADLEW] > Task :expo-manifests:compileDebugKotlin
+[RUN_GRADLEW] w: file:///tmp/jakubszamuk/eas-build-local-nodejs/b02b65a8-cc08-4b71-b4f4-9098b1384765/build/digitalis/node_modules/expo-manifests/android/src/main/java/expo/modules/manifests/core/BaseLegacyManifest.kt:10:16 This declaration overrides deprecated member but not marked as deprecated itself. This deprecation won't be inherited in future releases. Please add @Deprecated annotation or suppress. See https://youtrack.jetbrains.com/issue/KT-47902 for details
+[RUN_GRADLEW] w: file:///tmp/jakubszamuk/eas-build-local-nodejs/b02b65a8-cc08-4b71-b4f4-9098b1384765/build/digitalis/node_modules/expo-manifests/android/src/main/java/expo/modules/manifests/core/BaseLegacyManifest.kt:10:86 'getLegacyID(): String' is deprecated. Prefer scopeKey or projectId depending on use case
+[RUN_GRADLEW] w: file:///tmp/jakubszamuk/eas-build-local-nodejs/b02b65a8-cc08-4b71-b4f4-9098b1384765/build/digitalis/node_modules/expo-manifests/android/src/main/java/expo/modules/manifests/core/BaseLegacyManifest.kt:12:72 'getStableLegacyID(): String?' is deprecated. Overrides deprecated member in 'expo.modules.manifests.core.Manifest'. Prefer scopeKey or projectId depending on use case
+[RUN_GRADLEW] w: file:///tmp/jakubszamuk/eas-build-local-nodejs/b02b65a8-cc08-4b71-b4f4-9098b1384765/build/digitalis/node_modules/expo-manifests/android/src/main/java/expo/modules/manifests/core/Manifest.kt:28:12 'getRawJson(): JSONObject' is deprecated. Prefer to use specific field getters
+[RUN_GRADLEW] w: file:///tmp/jakubszamuk/eas-build-local-nodejs/b02b65a8-cc08-4b71-b4f4-9098b1384765/build/digitalis/node_modules/expo-manifests/android/src/main/java/expo/modules/manifests/core/Manifest.kt:238:65 Elvis operator (?:) always returns the left operand of non-nullable type List<PluginType>
+[RUN_GRADLEW] w: file:///tmp/jakubszamuk/eas-build-local-nodejs/b02b65a8-cc08-4b71-b4f4-9098b1384765/build/digitalis/node_modules/expo-manifests/android/src/main/java/expo/modules/manifests/core/NewManifest.kt:18:16 This declaration overrides deprecated member but not marked as deprecated itself. This deprecation won't be inherited in future releases. Please add @Deprecated annotation or suppress. See https://youtrack.jetbrains.com/issue/KT-47902 for details
+[RUN_GRADLEW] w: file:///tmp/jakubszamuk/eas-build-local-nodejs/b02b65a8-cc08-4b71-b4f4-9098b1384765/build/digitalis/node_modules/expo-manifests/android/src/main/java/expo/modules/manifests/core/NewManifest.kt:52:72 'getSDKVersionFromRuntimeVersion(): String?' is deprecated. exposdk:... runtime version is deprecated
+[RUN_GRADLEW] > Task :react-native-svg:compileDebugJavaWithJavac
+[RUN_GRADLEW] > Task :expo-dev-menu-interface:compileDebugJavaWithJavac
+[RUN_GRADLEW] > Task :expo-dev-menu-interface:bundleLibCompileToJarDebug
+[RUN_GRADLEW] > Task :react-native-safe-area-context:compileDebugKotlin
+[RUN_GRADLEW] w: file:///tmp/jakubszamuk/eas-build-local-nodejs/b02b65a8-cc08-4b71-b4f4-9098b1384765/build/digitalis/node_modules/react-native-safe-area-context/android/src/main/java/com/th3rdwave/safeareacontext/SafeAreaContextModule.kt:7:46 'ReactModule' is deprecated. Deprecated in Java
+[RUN_GRADLEW] w: file:///tmp/jakubszamuk/eas-build-local-nodejs/b02b65a8-cc08-4b71-b4f4-9098b1384765/build/digitalis/node_modules/react-native-safe-area-context/android/src/main/java/com/th3rdwave/safeareacontext/SafeAreaContextModule.kt:9:2 'ReactModule' is deprecated. Deprecated in Java
+[RUN_GRADLEW] w: file:///tmp/jakubszamuk/eas-build-local-nodejs/b02b65a8-cc08-4b71-b4f4-9098b1384765/build/digitalis/node_modules/react-native-safe-area-context/android/src/main/java/com/th3rdwave/safeareacontext/SafeAreaContextPackage.kt:6:46 'ReactModule' is deprecated. Deprecated in Java
+[RUN_GRADLEW] w: file:///tmp/jakubszamuk/eas-build-local-nodejs/b02b65a8-cc08-4b71-b4f4-9098b1384765/build/digitalis/node_modules/react-native-safe-area-context/android/src/main/java/com/th3rdwave/safeareacontext/SafeAreaContextPackage.kt:26:51 'ReactModule' is deprecated. Deprecated in Java
+[RUN_GRADLEW] w: file:///tmp/jakubszamuk/eas-build-local-nodejs/b02b65a8-cc08-4b71-b4f4-9098b1384765/build/digitalis/node_modules/react-native-safe-area-context/android/src/main/java/com/th3rdwave/safeareacontext/SafeAreaContextPackage.kt:28:11 'constructor ReactModuleInfo(String!, String!, Boolean, Boolean, Boolean, Boolean, Boolean)' is deprecated. Deprecated in Java
+[RUN_GRADLEW] w: file:///tmp/jakubszamuk/eas-build-local-nodejs/b02b65a8-cc08-4b71-b4f4-9098b1384765/build/digitalis/node_modules/react-native-safe-area-context/android/src/main/java/com/th3rdwave/safeareacontext/SafeAreaContextPackage.kt:34:27 'hasConstants: Boolean' is deprecated. Deprecated in Java
+[RUN_GRADLEW] w: file:///tmp/jakubszamuk/eas-build-local-nodejs/b02b65a8-cc08-4b71-b4f4-9098b1384765/build/digitalis/node_modules/react-native-safe-area-context/android/src/main/java/com/th3rdwave/safeareacontext/SafeAreaProviderManager.kt:4:46 'ReactModule' is deprecated. Deprecated in Java
+[RUN_GRADLEW] w: file:///tmp/jakubszamuk/eas-build-local-nodejs/b02b65a8-cc08-4b71-b4f4-9098b1384765/build/digitalis/node_modules/react-native-safe-area-context/android/src/main/java/com/th3rdwave/safeareacontext/SafeAreaProviderManager.kt:11:2 'ReactModule' is deprecated. Deprecated in Java
+[RUN_GRADLEW] w: file:///tmp/jakubszamuk/eas-build-local-nodejs/b02b65a8-cc08-4b71-b4f4-9098b1384765/build/digitalis/node_modules/react-native-safe-area-context/android/src/main/java/com/th3rdwave/safeareacontext/SafeAreaView.kt:59:23 'getter for uiImplementation: UIImplementation!' is deprecated. Deprecated in Java
+[RUN_GRADLEW] w: file:///tmp/jakubszamuk/eas-build-local-nodejs/b02b65a8-cc08-4b71-b4f4-9098b1384765/build/digitalis/node_modules/react-native-safe-area-context/android/src/main/java/com/th3rdwave/safeareacontext/SafeAreaViewManager.kt:4:46 'ReactModule' is deprecated. Deprecated in Java
+[RUN_GRADLEW] w: file:///tmp/jakubszamuk/eas-build-local-nodejs/b02b65a8-cc08-4b71-b4f4-9098b1384765/build/digitalis/node_modules/react-native-safe-area-context/android/src/main/java/com/th3rdwave/safeareacontext/SafeAreaViewManager.kt:14:2 'ReactModule' is deprecated. Deprecated in Java
+[RUN_GRADLEW] > Task :expo-manifests:compileDebugJavaWithJavac
+[RUN_GRADLEW] > Task :expo-manifests:bundleLibCompileToJarDebug
+[RUN_GRADLEW] > Task :react-native-safe-area-context:compileDebugJavaWithJavac
+[RUN_GRADLEW] > Task :react-native-safe-area-context:bundleLibCompileToJarDebug
+[RUN_GRADLEW] > Task :app:compileDebugShaders NO-SOURCE
+[RUN_GRADLEW] > Task :app:generateDebugAssets UP-TO-DATE
+[RUN_GRADLEW] > Task :digitalis-share:mergeDebugShaders
+[RUN_GRADLEW] > Task :digitalis-share:compileDebugShaders NO-SOURCE
+[RUN_GRADLEW] > Task :digitalis-share:generateDebugAssets UP-TO-DATE
+[RUN_GRADLEW] > Task :react-native-svg:bundleLibCompileToJarDebug
+[RUN_GRADLEW] > Task :digitalis-share:packageDebugAssets
+[RUN_GRADLEW] > Task :expo:mergeDebugShaders
+[RUN_GRADLEW] > Task :expo:compileDebugShaders NO-SOURCE
+[RUN_GRADLEW] > Task :expo:generateDebugAssets UP-TO-DATE
+[RUN_GRADLEW] > Task :expo:packageDebugAssets
+[RUN_GRADLEW] > Task :expo-constants:mergeDebugShaders
+[RUN_GRADLEW] > Task :expo-constants:compileDebugShaders NO-SOURCE
+[RUN_GRADLEW] > Task :expo-constants:generateDebugAssets UP-TO-DATE
+[RUN_GRADLEW] > Task :expo-constants:packageDebugAssets
+[RUN_GRADLEW] > Task :expo-crypto:mergeDebugShaders
+[RUN_GRADLEW] > Task :expo-crypto:compileDebugShaders NO-SOURCE
+[RUN_GRADLEW] > Task :expo-crypto:generateDebugAssets UP-TO-DATE
+[RUN_GRADLEW] > Task :expo-crypto:packageDebugAssets
+[RUN_GRADLEW] > Task :expo-dev-client:mergeDebugShaders
+[RUN_GRADLEW] > Task :expo-dev-client:compileDebugShaders NO-SOURCE
+[RUN_GRADLEW] > Task :expo-dev-client:generateDebugAssets UP-TO-DATE
+[RUN_GRADLEW] > Task :expo-dev-client:packageDebugAssets
+[RUN_GRADLEW] > Task :expo-dev-launcher:mergeDebugShaders
+[RUN_GRADLEW] > Task :expo-dev-launcher:compileDebugShaders NO-SOURCE
+[RUN_GRADLEW] > Task :expo-dev-launcher:generateDebugAssets UP-TO-DATE
+[RUN_GRADLEW] > Task :expo-dev-launcher:packageDebugAssets
+[RUN_GRADLEW] > Task :expo-dev-menu:mergeDebugShaders
+[RUN_GRADLEW] > Task :expo-dev-menu:compileDebugShaders NO-SOURCE
+[RUN_GRADLEW] > Task :expo-dev-menu:clenupAssets UP-TO-DATE
+[RUN_GRADLEW] > Task :expo-dev-menu:copyAssets
+[RUN_GRADLEW] > Task :expo-dev-menu:generateDebugAssets UP-TO-DATE
+[RUN_GRADLEW] > Task :expo-dev-menu:packageDebugAssets
+[RUN_GRADLEW] > Task :expo-dev-menu-interface:mergeDebugShaders
+[RUN_GRADLEW] > Task :expo-dev-menu-interface:compileDebugShaders NO-SOURCE
+[RUN_GRADLEW] > Task :expo-dev-menu-interface:generateDebugAssets UP-TO-DATE
+[RUN_GRADLEW] > Task :expo-dev-menu-interface:packageDebugAssets
+[RUN_GRADLEW] > Task :expo-file-system:mergeDebugShaders
+[RUN_GRADLEW] > Task :expo-file-system:compileDebugShaders NO-SOURCE
+[RUN_GRADLEW] > Task :expo-file-system:generateDebugAssets UP-TO-DATE
+[RUN_GRADLEW] > Task :expo-file-system:packageDebugAssets
+[RUN_GRADLEW] > Task :expo-font:mergeDebugShaders
+[RUN_GRADLEW] > Task :expo-font:compileDebugShaders NO-SOURCE
+[RUN_GRADLEW] > Task :expo-font:generateDebugAssets UP-TO-DATE
+[RUN_GRADLEW] > Task :expo-font:packageDebugAssets
+[RUN_GRADLEW] > Task :expo-json-utils:mergeDebugShaders
+[RUN_GRADLEW] > Task :expo-json-utils:compileDebugShaders NO-SOURCE
+[RUN_GRADLEW] > Task :expo-json-utils:generateDebugAssets UP-TO-DATE
+[RUN_GRADLEW] > Task :expo-json-utils:packageDebugAssets
+[RUN_GRADLEW] > Task :expo-keep-awake:mergeDebugShaders
+[RUN_GRADLEW] > Task :expo-keep-awake:compileDebugShaders NO-SOURCE
+[RUN_GRADLEW] > Task :expo-keep-awake:generateDebugAssets UP-TO-DATE
+[RUN_GRADLEW] > Task :expo-keep-awake:packageDebugAssets
+[RUN_GRADLEW] > Task :expo-linear-gradient:mergeDebugShaders
+[RUN_GRADLEW] > Task :expo-linear-gradient:compileDebugShaders NO-SOURCE
+[RUN_GRADLEW] > Task :expo-linear-gradient:generateDebugAssets UP-TO-DATE
+[RUN_GRADLEW] > Task :expo-linear-gradient:packageDebugAssets
+[RUN_GRADLEW] > Task :expo-manifests:mergeDebugShaders
+[RUN_GRADLEW] > Task :expo-manifests:compileDebugShaders NO-SOURCE
+[RUN_GRADLEW] > Task :expo-manifests:generateDebugAssets UP-TO-DATE
+[RUN_GRADLEW] > Task :expo-manifests:packageDebugAssets
+[RUN_GRADLEW] > Task :expo-modules-core:mergeDebugShaders
+[RUN_GRADLEW] > Task :expo-modules-core:compileDebugShaders NO-SOURCE
+[RUN_GRADLEW] > Task :expo-modules-core:generateDebugAssets UP-TO-DATE
+[RUN_GRADLEW] > Task :expo-modules-core:packageDebugAssets
+[RUN_GRADLEW] > Task :expo-secure-store:mergeDebugShaders
+[RUN_GRADLEW] > Task :expo-secure-store:compileDebugShaders NO-SOURCE
+[RUN_GRADLEW] > Task :expo-secure-store:generateDebugAssets UP-TO-DATE
+[RUN_GRADLEW] > Task :expo-secure-store:packageDebugAssets
+[RUN_GRADLEW] > Task :expo-splash-screen:mergeDebugShaders
+[RUN_GRADLEW] > Task :expo-splash-screen:compileDebugShaders NO-SOURCE
+[RUN_GRADLEW] > Task :expo-splash-screen:generateDebugAssets UP-TO-DATE
+[RUN_GRADLEW] > Task :expo-splash-screen:packageDebugAssets
+[RUN_GRADLEW] > Task :expo-system-ui:mergeDebugShaders
+[RUN_GRADLEW] > Task :expo-system-ui:compileDebugShaders NO-SOURCE
+[RUN_GRADLEW] > Task :expo-system-ui:generateDebugAssets UP-TO-DATE
+[RUN_GRADLEW] > Task :expo-system-ui:packageDebugAssets
+[RUN_GRADLEW] > Task :expo-updates-interface:mergeDebugShaders
+[RUN_GRADLEW] > Task :expo-updates-interface:compileDebugShaders NO-SOURCE
+[RUN_GRADLEW] > Task :expo-updates-interface:generateDebugAssets UP-TO-DATE
+[RUN_GRADLEW] > Task :expo-updates-interface:packageDebugAssets
+[RUN_GRADLEW] > Task :expo-web-browser:mergeDebugShaders
+[RUN_GRADLEW] > Task :expo-web-browser:compileDebugShaders NO-SOURCE
+[RUN_GRADLEW] > Task :expo-web-browser:generateDebugAssets UP-TO-DATE
+[RUN_GRADLEW] > Task :expo-web-browser:packageDebugAssets
+[RUN_GRADLEW] > Task :react-native-safe-area-context:mergeDebugShaders
+[RUN_GRADLEW] > Task :react-native-safe-area-context:compileDebugShaders NO-SOURCE
+[RUN_GRADLEW] > Task :react-native-safe-area-context:generateDebugAssets UP-TO-DATE
+[RUN_GRADLEW] > Task :react-native-safe-area-context:packageDebugAssets
+[RUN_GRADLEW] > Task :react-native-screens:mergeDebugShaders
+[RUN_GRADLEW] > Task :react-native-screens:compileDebugShaders NO-SOURCE
+[RUN_GRADLEW] > Task :react-native-screens:generateDebugAssets UP-TO-DATE
+[RUN_GRADLEW] > Task :react-native-screens:packageDebugAssets
+[RUN_GRADLEW] > Task :react-native-svg:mergeDebugShaders
+[RUN_GRADLEW] > Task :react-native-svg:compileDebugShaders NO-SOURCE
+[RUN_GRADLEW] > Task :react-native-svg:generateDebugAssets UP-TO-DATE
+[RUN_GRADLEW] > Task :react-native-svg:packageDebugAssets
+[RUN_GRADLEW] > Task :app:mergeDebugAssets
+[RUN_GRADLEW] > Task :expo-dev-client:bundleLibRuntimeToJarDebug
+[RUN_GRADLEW] > Task :expo-dev-menu-interface:bundleLibRuntimeToJarDebug
+[RUN_GRADLEW] > Task :expo-json-utils:bundleLibRuntimeToJarDebug
+[RUN_GRADLEW] > Task :expo-manifests:bundleLibRuntimeToJarDebug
+[RUN_GRADLEW] > Task :expo-updates-interface:bundleLibRuntimeToJarDebug
+[RUN_GRADLEW] > Task :react-native-safe-area-context:bundleLibRuntimeToJarDebug
+[RUN_GRADLEW] > Task :app:desugarDebugFileDependencies
+[RUN_GRADLEW] > Task :react-native-svg:bundleLibRuntimeToJarDebug
+[RUN_GRADLEW] > Task :expo-dev-client:processDebugJavaRes NO-SOURCE
+[RUN_GRADLEW] > Task :app:compressDebugAssets
+[RUN_GRADLEW] > Task :expo-dev-menu-interface:processDebugJavaRes
+[RUN_GRADLEW] > Task :expo-json-utils:processDebugJavaRes
+[RUN_GRADLEW] > Task :expo-manifests:processDebugJavaRes
+[RUN_GRADLEW] > Task :expo-updates-interface:processDebugJavaRes NO-SOURCE
+[RUN_GRADLEW] > Task :react-native-safe-area-context:processDebugJavaRes
+[RUN_GRADLEW] > Task :react-native-svg:processDebugJavaRes NO-SOURCE
+[RUN_GRADLEW] > Task :app:mergeDebugJniLibFolders
+[RUN_GRADLEW] > Task :digitalis-share:mergeDebugJniLibFolders
+[RUN_GRADLEW] > Task :digitalis-share:mergeDebugNativeLibs NO-SOURCE
+[RUN_GRADLEW] > Task :app:checkDebugDuplicateClasses
+[RUN_GRADLEW] > Task :digitalis-share:copyDebugJniLibsProjectOnly
+[RUN_GRADLEW] > Task :expo:mergeDebugJniLibFolders
+[RUN_GRADLEW] > Task :expo:mergeDebugNativeLibs NO-SOURCE
+[RUN_GRADLEW] > Task :expo:copyDebugJniLibsProjectOnly
+[RUN_GRADLEW] > Task :expo-constants:mergeDebugJniLibFolders
+[RUN_GRADLEW] > Task :expo-constants:mergeDebugNativeLibs NO-SOURCE
+[RUN_GRADLEW] > Task :expo-constants:copyDebugJniLibsProjectOnly
+[RUN_GRADLEW] > Task :expo-crypto:mergeDebugJniLibFolders
+[RUN_GRADLEW] > Task :expo-crypto:mergeDebugNativeLibs NO-SOURCE
+[RUN_GRADLEW] > Task :expo-crypto:copyDebugJniLibsProjectOnly
+[RUN_GRADLEW] > Task :expo-dev-client:mergeDebugJniLibFolders
+[RUN_GRADLEW] > Task :expo-dev-client:mergeDebugNativeLibs NO-SOURCE
+[RUN_GRADLEW] > Task :expo-dev-client:copyDebugJniLibsProjectOnly
+[RUN_GRADLEW] > Task :expo-dev-launcher:mergeDebugJniLibFolders
+[RUN_GRADLEW] > Task :expo-dev-launcher:mergeDebugNativeLibs NO-SOURCE
+[RUN_GRADLEW] > Task :expo-dev-launcher:copyDebugJniLibsProjectOnly
+[RUN_GRADLEW] > Task :expo-dev-menu:mergeDebugJniLibFolders
+[RUN_GRADLEW] > Task :expo-dev-menu:mergeDebugNativeLibs NO-SOURCE
+[RUN_GRADLEW] > Task :expo-dev-menu:copyDebugJniLibsProjectOnly
+[RUN_GRADLEW] > Task :expo-dev-menu-interface:mergeDebugJniLibFolders
+[RUN_GRADLEW] > Task :expo-dev-menu-interface:mergeDebugNativeLibs NO-SOURCE
+[RUN_GRADLEW] > Task :expo-dev-menu-interface:copyDebugJniLibsProjectOnly
+[RUN_GRADLEW] > Task :expo-file-system:mergeDebugJniLibFolders
+[RUN_GRADLEW] > Task :expo-file-system:mergeDebugNativeLibs NO-SOURCE
+[RUN_GRADLEW] > Task :expo-file-system:copyDebugJniLibsProjectOnly
+[RUN_GRADLEW] > Task :expo-font:mergeDebugJniLibFolders
+[RUN_GRADLEW] > Task :expo-font:mergeDebugNativeLibs NO-SOURCE
+[RUN_GRADLEW] > Task :expo-font:copyDebugJniLibsProjectOnly
+[RUN_GRADLEW] > Task :expo-json-utils:mergeDebugJniLibFolders
+[RUN_GRADLEW] > Task :expo-json-utils:mergeDebugNativeLibs NO-SOURCE
+[RUN_GRADLEW] > Task :expo-json-utils:copyDebugJniLibsProjectOnly
+[RUN_GRADLEW] > Task :expo-keep-awake:mergeDebugJniLibFolders
+[RUN_GRADLEW] > Task :expo-keep-awake:mergeDebugNativeLibs NO-SOURCE
+[RUN_GRADLEW] > Task :expo-keep-awake:copyDebugJniLibsProjectOnly
+[RUN_GRADLEW] > Task :expo-linear-gradient:mergeDebugJniLibFolders
+[RUN_GRADLEW] > Task :expo-linear-gradient:mergeDebugNativeLibs NO-SOURCE
+[RUN_GRADLEW] > Task :expo-linear-gradient:copyDebugJniLibsProjectOnly
+[RUN_GRADLEW] > Task :expo-manifests:mergeDebugJniLibFolders
+[RUN_GRADLEW] > Task :expo-manifests:mergeDebugNativeLibs NO-SOURCE
+[RUN_GRADLEW] > Task :expo-manifests:copyDebugJniLibsProjectOnly
+[RUN_GRADLEW] > Task :expo-modules-core:configureCMakeDebug[arm64-v8a]
+[RUN_GRADLEW] > Task :react-native-screens:compileDebugKotlin
+[RUN_GRADLEW] w: file:///tmp/jakubszamuk/eas-build-local-nodejs/b02b65a8-cc08-4b71-b4f4-9098b1384765/build/digitalis/node_modules/react-native-screens/android/src/main/java/com/swmansion/rnscreens/ScreenContainerViewManager.kt:5:46 'ReactModule' is deprecated. Deprecated in Java
+[RUN_GRADLEW] w: file:///tmp/jakubszamuk/eas-build-local-nodejs/b02b65a8-cc08-4b71-b4f4-9098b1384765/build/digitalis/node_modules/react-native-screens/android/src/main/java/com/swmansion/rnscreens/ScreenContainerViewManager.kt:10:2 'ReactModule' is deprecated. Deprecated in Java
+[RUN_GRADLEW] w: file:///tmp/jakubszamuk/eas-build-local-nodejs/b02b65a8-cc08-4b71-b4f4-9098b1384765/build/digitalis/node_modules/react-native-screens/android/src/main/java/com/swmansion/rnscreens/ScreenStackFragment.kt:65:28 'setter for targetElevation: Float' is deprecated. Deprecated in Java
+[RUN_GRADLEW] w: file:///tmp/jakubszamuk/eas-build-local-nodejs/b02b65a8-cc08-4b71-b4f4-9098b1384765/build/digitalis/node_modules/react-native-screens/android/src/main/java/com/swmansion/rnscreens/ScreenStackFragment.kt:128:28 'setter for targetElevation: Float' is deprecated. Deprecated in Java
+[RUN_GRADLEW] w: file:///tmp/jakubszamuk/eas-build-local-nodejs/b02b65a8-cc08-4b71-b4f4-9098b1384765/build/digitalis/node_modules/react-native-screens/android/src/main/java/com/swmansion/rnscreens/ScreenStackHeaderConfig.kt:86:34 'getter for systemWindowInsetTop: Int' is deprecated. Deprecated in Java
+[RUN_GRADLEW] w: file:///tmp/jakubszamuk/eas-build-local-nodejs/b02b65a8-cc08-4b71-b4f4-9098b1384765/build/digitalis/node_modules/react-native-screens/android/src/main/java/com/swmansion/rnscreens/ScreenStackHeaderConfig.kt:229:37 'setColorFilter(Int, PorterDuff.Mode): Unit' is deprecated. Deprecated in Java
+[RUN_GRADLEW] w: file:///tmp/jakubszamuk/eas-build-local-nodejs/b02b65a8-cc08-4b71-b4f4-9098b1384765/build/digitalis/node_modules/react-native-screens/android/src/main/java/com/swmansion/rnscreens/ScreenStackHeaderConfigViewManager.kt:7:46 'ReactModule' is deprecated. Deprecated in Java
+[RUN_GRADLEW] w: file:///tmp/jakubszamuk/eas-build-local-nodejs/b02b65a8-cc08-4b71-b4f4-9098b1384765/build/digitalis/node_modules/react-native-screens/android/src/main/java/com/swmansion/rnscreens/ScreenStackHeaderConfigViewManager.kt:18:2 'ReactModule' is deprecated. Deprecated in Java
+[RUN_GRADLEW] w: file:///tmp/jakubszamuk/eas-build-local-nodejs/b02b65a8-cc08-4b71-b4f4-9098b1384765/build/digitalis/node_modules/react-native-screens/android/src/main/java/com/swmansion/rnscreens/ScreenStackHeaderSubviewManager.kt:4:46 'ReactModule' is deprecated. Deprecated in Java
+[RUN_GRADLEW] w: file:///tmp/jakubszamuk/eas-build-local-nodejs/b02b65a8-cc08-4b71-b4f4-9098b1384765/build/digitalis/node_modules/react-native-screens/android/src/main/java/com/swmansion/rnscreens/ScreenStackHeaderSubviewManager.kt:12:2 'ReactModule' is deprecated. Deprecated in Java
+[RUN_GRADLEW] w: file:///tmp/jakubszamuk/eas-build-local-nodejs/b02b65a8-cc08-4b71-b4f4-9098b1384765/build/digitalis/node_modules/react-native-screens/android/src/main/java/com/swmansion/rnscreens/ScreenStackViewManager.kt:6:46 'ReactModule' is deprecated. Deprecated in Java
+[RUN_GRADLEW] w: file:///tmp/jakubszamuk/eas-build-local-nodejs/b02b65a8-cc08-4b71-b4f4-9098b1384765/build/digitalis/node_modules/react-native-screens/android/src/main/java/com/swmansion/rnscreens/ScreenStackViewManager.kt:15:2 'ReactModule' is deprecated. Deprecated in Java
+[RUN_GRADLEW] w: file:///tmp/jakubszamuk/eas-build-local-nodejs/b02b65a8-cc08-4b71-b4f4-9098b1384765/build/digitalis/node_modules/react-native-screens/android/src/main/java/com/swmansion/rnscreens/ScreenViewManager.kt:6:46 'ReactModule' is deprecated. Deprecated in Java
+[RUN_GRADLEW] w: file:///tmp/jakubszamuk/eas-build-local-nodejs/b02b65a8-cc08-4b71-b4f4-9098b1384765/build/digitalis/node_modules/react-native-screens/android/src/main/java/com/swmansion/rnscreens/ScreenViewManager.kt:24:2 'ReactModule' is deprecated. Deprecated in Java
+[RUN_GRADLEW] w: file:///tmp/jakubszamuk/eas-build-local-nodejs/b02b65a8-cc08-4b71-b4f4-9098b1384765/build/digitalis/node_modules/react-native-screens/android/src/main/java/com/swmansion/rnscreens/ScreenViewManager.kt:47:42 'setStateWrapper(StateWrapper!): Unit' is deprecated. Deprecated in Java
+[RUN_GRADLEW] w: file:///tmp/jakubszamuk/eas-build-local-nodejs/b02b65a8-cc08-4b71-b4f4-9098b1384765/build/digitalis/node_modules/react-native-screens/android/src/main/java/com/swmansion/rnscreens/ScreenWindowTraits.kt:137:47 'replaceSystemWindowInsets(Int, Int, Int, Int): WindowInsetsCompat' is deprecated. Deprecated in Java
+[RUN_GRADLEW] w: file:///tmp/jakubszamuk/eas-build-local-nodejs/b02b65a8-cc08-4b71-b4f4-9098b1384765/build/digitalis/node_modules/react-native-screens/android/src/main/java/com/swmansion/rnscreens/ScreenWindowTraits.kt:138:51 'getter for systemWindowInsetLeft: Int' is deprecated. Deprecated in Java
+[RUN_GRADLEW] w: file:///tmp/jakubszamuk/eas-build-local-nodejs/b02b65a8-cc08-4b71-b4f4-9098b1384765/build/digitalis/node_modules/react-native-screens/android/src/main/java/com/swmansion/rnscreens/ScreenWindowTraits.kt:140:51 'getter for systemWindowInsetRight: Int' is deprecated. Deprecated in Java
+[RUN_GRADLEW] w: file:///tmp/jakubszamuk/eas-build-local-nodejs/b02b65a8-cc08-4b71-b4f4-9098b1384765/build/digitalis/node_modules/react-native-screens/android/src/main/java/com/swmansion/rnscreens/ScreenWindowTraits.kt:141:51 'getter for systemWindowInsetBottom: Int' is deprecated. Deprecated in Java
+[RUN_GRADLEW] w: file:///tmp/jakubszamuk/eas-build-local-nodejs/b02b65a8-cc08-4b71-b4f4-9098b1384765/build/digitalis/node_modules/react-native-screens/android/src/main/java/com/swmansion/rnscreens/SearchBarManager.kt:6:46 'ReactModule' is deprecated. Deprecated in Java
+[RUN_GRADLEW] w: file:///tmp/jakubszamuk/eas-build-local-nodejs/b02b65a8-cc08-4b71-b4f4-9098b1384765/build/digitalis/node_modules/react-native-screens/android/src/main/java/com/swmansion/rnscreens/SearchBarManager.kt:17:2 'ReactModule' is deprecated. Deprecated in Java
+[RUN_GRADLEW] w: file:///tmp/jakubszamuk/eas-build-local-nodejs/b02b65a8-cc08-4b71-b4f4-9098b1384765/build/digitalis/node_modules/react-native-screens/android/src/main/java/com/swmansion/rnscreens/SearchBarManager.kt:100:22 Parameter 'view' is never used
+[RUN_GRADLEW] w: file:///tmp/jakubszamuk/eas-build-local-nodejs/b02b65a8-cc08-4b71-b4f4-9098b1384765/build/digitalis/node_modules/react-native-screens/android/src/main/java/com/swmansion/rnscreens/SearchBarManager.kt:100:43 Parameter 'placeholder' is never used
+[RUN_GRADLEW] w: file:///tmp/jakubszamuk/eas-build-local-nodejs/b02b65a8-cc08-4b71-b4f4-9098b1384765/build/digitalis/node_modules/react-native-screens/android/src/main/java/com/swmansion/rnscreens/SearchBarView.kt:147:43 Parameter 'flag' is never used
+[RUN_GRADLEW] w: file:///tmp/jakubszamuk/eas-build-local-nodejs/b02b65a8-cc08-4b71-b4f4-9098b1384765/build/digitalis/node_modules/react-native-screens/android/src/main/java/com/swmansion/rnscreens/events/HeaderHeightChangeEvent.kt:5:44 'RCTEventEmitter' is deprecated. Deprecated in Java
+[RUN_GRADLEW] w: file:///tmp/jakubszamuk/eas-build-local-nodejs/b02b65a8-cc08-4b71-b4f4-9098b1384765/build/digitalis/node_modules/react-native-screens/android/src/main/java/com/swmansion/rnscreens/events/HeaderHeightChangeEvent.kt:10:5 'constructor Event<T : Event<(raw) Event<*>>!>(Int)' is deprecated. Deprecated in Java
+[RUN_GRADLEW] w: file:///tmp/jakubszamuk/eas-build-local-nodejs/b02b65a8-cc08-4b71-b4f4-9098b1384765/build/digitalis/node_modules/react-native-screens/android/src/main/java/com/swmansion/rnscreens/events/HeaderHeightChangeEvent.kt:17:44 'RCTEventEmitter' is deprecated. Deprecated in Java
+[RUN_GRADLEW] w: file:///tmp/jakubszamuk/eas-build-local-nodejs/b02b65a8-cc08-4b71-b4f4-9098b1384765/build/digitalis/node_modules/react-native-screens/android/src/main/java/com/swmansion/rnscreens/events/HeaderHeightChangeEvent.kt:20:25 'receiveEvent(Int, String!, WritableMap?): Unit' is deprecated. Deprecated in Java
+[RUN_GRADLEW] w: file:///tmp/jakubszamuk/eas-build-local-nodejs/b02b65a8-cc08-4b71-b4f4-9098b1384765/build/digitalis/node_modules/react-native-screens/android/src/paper/java/com/swmansion/rnscreens/FabricEnabledViewGroup.kt:5:37 'FabricViewStateManager' is deprecated. Deprecated in Java
+[RUN_GRADLEW] w: file:///tmp/jakubszamuk/eas-build-local-nodejs/b02b65a8-cc08-4b71-b4f4-9098b1384765/build/digitalis/node_modules/react-native-screens/android/src/paper/java/com/swmansion/rnscreens/FabricEnabledViewGroup.kt:9:48 'FabricViewStateManager' is deprecated. Deprecated in Java
+[RUN_GRADLEW] w: file:///tmp/jakubszamuk/eas-build-local-nodejs/b02b65a8-cc08-4b71-b4f4-9098b1384765/build/digitalis/node_modules/react-native-screens/android/src/paper/java/com/swmansion/rnscreens/FabricEnabledViewGroup.kt:11:42 Parameter 'width' is never used
+[RUN_GRADLEW] w: file:///tmp/jakubszamuk/eas-build-local-nodejs/b02b65a8-cc08-4b71-b4f4-9098b1384765/build/digitalis/node_modules/react-native-screens/android/src/paper/java/com/swmansion/rnscreens/FabricEnabledViewGroup.kt:11:54 Parameter 'height' is never used
+[RUN_GRADLEW] > Task :expo-modules-core:buildCMakeDebug[arm64-v8a]
+[RUN_GRADLEW] > Task :app:mergeExtDexDebug
+[RUN_GRADLEW] > Task :react-native-screens:compileDebugJavaWithJavac
+[RUN_GRADLEW] > Task :react-native-screens:processDebugJavaRes
+[RUN_GRADLEW] > Task :react-native-screens:bundleLibCompileToJarDebug
+[RUN_GRADLEW] > Task :react-native-screens:bundleLibRuntimeToJarDebug
+[RUN_GRADLEW] > Task :expo-modules-core:configureCMakeDebug[armeabi-v7a]
+[RUN_GRADLEW] > Task :expo-modules-core:buildCMakeDebug[armeabi-v7a]
+[RUN_GRADLEW] > Task :expo-modules-core:configureCMakeDebug[x86]
+[RUN_GRADLEW] > Task :expo-modules-core:compileDebugKotlin
+[RUN_GRADLEW] w: file:///tmp/jakubszamuk/eas-build-local-nodejs/b02b65a8-cc08-4b71-b4f4-9098b1384765/build/digitalis/node_modules/expo-modules-core/android/src/main/java/expo/modules/core/utilities/EmulatorUtilities.kt:30:13 'SERIAL: String!' is deprecated. Deprecated in Java
+[RUN_GRADLEW] w: file:///tmp/jakubszamuk/eas-build-local-nodejs/b02b65a8-cc08-4b71-b4f4-9098b1384765/build/digitalis/node_modules/expo-modules-core/android/src/main/java/expo/modules/kotlin/AppContext.kt:151:13 Variable 'catalystInstance' is never used
+[RUN_GRADLEW] w: file:///tmp/jakubszamuk/eas-build-local-nodejs/b02b65a8-cc08-4b71-b4f4-9098b1384765/build/digitalis/node_modules/expo-modules-core/android/src/main/java/expo/modules/kotlin/ExpoModulesHelper.kt:11:21 'newInstance(): T!' is deprecated. Deprecated in Java
+[RUN_GRADLEW] w: file:///tmp/jakubszamuk/eas-build-local-nodejs/b02b65a8-cc08-4b71-b4f4-9098b1384765/build/digitalis/node_modules/expo-modules-core/android/src/main/java/expo/modules/kotlin/Promise.kt:72:18 This declaration overrides deprecated member but not marked as deprecated itself. This deprecation won't be inherited in future releases. Please add @Deprecated annotation or suppress. See https://youtrack.jetbrains.com/issue/KT-47902 for details
+[RUN_GRADLEW] w: file:///tmp/jakubszamuk/eas-build-local-nodejs/b02b65a8-cc08-4b71-b4f4-9098b1384765/build/digitalis/node_modules/expo-modules-core/android/src/main/java/expo/modules/kotlin/Utils.kt:8:3 Expected performance impact from inlining is insignificant. Inlining works best for functions with parameters of functional types
+[RUN_GRADLEW] w: file:///tmp/jakubszamuk/eas-build-local-nodejs/b02b65a8-cc08-4b71-b4f4-9098b1384765/build/digitalis/node_modules/expo-modules-core/android/src/main/java/expo/modules/kotlin/activityresult/ActivityResultsManager.kt:51:24 Parameter 'activity' is never used
+[RUN_GRADLEW] w: file:///tmp/jakubszamuk/eas-build-local-nodejs/b02b65a8-cc08-4b71-b4f4-9098b1384765/build/digitalis/node_modules/expo-modules-core/android/src/main/java/expo/modules/kotlin/activityresult/AppContextActivityResultRegistry.kt:119:51 'getParcelableExtra(String!): T?' is deprecated. Deprecated in Java
+[RUN_GRADLEW] w: file:///tmp/jakubszamuk/eas-build-local-nodejs/b02b65a8-cc08-4b71-b4f4-9098b1384765/build/digitalis/node_modules/expo-modules-core/android/src/main/java/expo/modules/kotlin/activityresult/AppContextActivityResultRegistry.kt:186:26 'getParcelable(String?): T?' is deprecated. Deprecated in Java
+[RUN_GRADLEW] w: file:///tmp/jakubszamuk/eas-build-local-nodejs/b02b65a8-cc08-4b71-b4f4-9098b1384765/build/digitalis/node_modules/expo-modules-core/android/src/main/java/expo/modules/kotlin/activityresult/AppContextActivityResultRegistry.kt:277:83 'getParcelable(String?): T?' is deprecated. Deprecated in Java
+[RUN_GRADLEW] w: file:///tmp/jakubszamuk/eas-build-local-nodejs/b02b65a8-cc08-4b71-b4f4-9098b1384765/build/digitalis/node_modules/expo-modules-core/android/src/main/java/expo/modules/kotlin/activityresult/DataPersistor.kt:67:20 'getSerializable(String?): Serializable?' is deprecated. Deprecated in Java
+[RUN_GRADLEW] w: file:///tmp/jakubszamuk/eas-build-local-nodejs/b02b65a8-cc08-4b71-b4f4-9098b1384765/build/digitalis/node_modules/expo-modules-core/android/src/main/java/expo/modules/kotlin/activityresult/DataPersistor.kt:85:26 'getSerializable(String?): Serializable?' is deprecated. Deprecated in Java
+[RUN_GRADLEW] w: file:///tmp/jakubszamuk/eas-build-local-nodejs/b02b65a8-cc08-4b71-b4f4-9098b1384765/build/digitalis/node_modules/expo-modules-core/android/src/main/java/expo/modules/kotlin/devtools/cdp/CdpNetworkTypes.kt:186:54 Parameter 'request' is never used
+[RUN_GRADLEW] w: file:///tmp/jakubszamuk/eas-build-local-nodejs/b02b65a8-cc08-4b71-b4f4-9098b1384765/build/digitalis/node_modules/expo-modules-core/android/src/main/java/expo/modules/kotlin/devtools/cdp/CdpNetworkTypes.kt:210:54 Parameter 'request' is never used
+[RUN_GRADLEW] w: file:///tmp/jakubszamuk/eas-build-local-nodejs/b02b65a8-cc08-4b71-b4f4-9098b1384765/build/digitalis/node_modules/expo-modules-core/android/src/main/java/expo/modules/kotlin/devtools/cdp/CdpNetworkTypes.kt:230:15 Parameter 'now' is never used
+[RUN_GRADLEW] w: file:///tmp/jakubszamuk/eas-build-local-nodejs/b02b65a8-cc08-4b71-b4f4-9098b1384765/build/digitalis/node_modules/expo-modules-core/android/src/main/java/expo/modules/kotlin/devtools/cdp/CdpNetworkTypes.kt:230:54 Parameter 'request' is never used
+[RUN_GRADLEW] w: file:///tmp/jakubszamuk/eas-build-local-nodejs/b02b65a8-cc08-4b71-b4f4-9098b1384765/build/digitalis/node_modules/expo-modules-core/android/src/main/java/expo/modules/kotlin/events/KModuleEventEmitterWrapper.kt:90:7 'constructor Event<T : Event<(raw) Event<*>>!>(Int)' is deprecated. Deprecated in Java
+[RUN_GRADLEW] w: file:///tmp/jakubszamuk/eas-build-local-nodejs/b02b65a8-cc08-4b71-b4f4-9098b1384765/build/digitalis/node_modules/expo-modules-core/android/src/main/java/expo/modules/kotlin/jni/JavaScriptObject.kt:90:33 Parameter 'null' is never used
+[RUN_GRADLEW] w: file:///tmp/jakubszamuk/eas-build-local-nodejs/b02b65a8-cc08-4b71-b4f4-9098b1384765/build/digitalis/node_modules/expo-modules-core/android/src/main/java/expo/modules/kotlin/jni/JavaScriptObject.kt:91:34 Parameter 'null' is never used
+[RUN_GRADLEW] w: file:///tmp/jakubszamuk/eas-build-local-nodejs/b02b65a8-cc08-4b71-b4f4-9098b1384765/build/digitalis/node_modules/expo-modules-core/android/src/main/java/expo/modules/kotlin/jni/JavaScriptObject.kt:132:5 Parameter 'null' is never used
+[RUN_GRADLEW] w: file:///tmp/jakubszamuk/eas-build-local-nodejs/b02b65a8-cc08-4b71-b4f4-9098b1384765/build/digitalis/node_modules/expo-modules-core/android/src/main/java/expo/modules/kotlin/sharedobjects/SharedObjectRegistry.kt:54:35 Destructured parameter 'js' is never used
+[RUN_GRADLEW] w: file:///tmp/jakubszamuk/eas-build-local-nodejs/b02b65a8-cc08-4b71-b4f4-9098b1384765/build/digitalis/node_modules/expo-modules-core/android/src/main/java/expo/modules/kotlin/tracing/ExpoTrace.kt:33:1 Expected performance impact from inlining is insignificant. Inlining works best for functions with parameters of functional types
+[RUN_GRADLEW] w: file:///tmp/jakubszamuk/eas-build-local-nodejs/b02b65a8-cc08-4b71-b4f4-9098b1384765/build/digitalis/node_modules/expo-modules-core/android/src/main/java/expo/modules/kotlin/tracing/ExpoTrace.kt:40:1 Expected performance impact from inlining is insignificant. Inlining works best for functions with parameters of functional types
+[RUN_GRADLEW] w: file:///tmp/jakubszamuk/eas-build-local-nodejs/b02b65a8-cc08-4b71-b4f4-9098b1384765/build/digitalis/node_modules/expo-modules-core/android/src/main/java/expo/modules/kotlin/tracing/ExpoTrace.kt:50:1 Expected performance impact from inlining is insignificant. Inlining works best for functions with parameters of functional types
+[RUN_GRADLEW] w: file:///tmp/jakubszamuk/eas-build-local-nodejs/b02b65a8-cc08-4b71-b4f4-9098b1384765/build/digitalis/node_modules/expo-modules-core/android/src/main/java/expo/modules/kotlin/tracing/ExpoTrace.kt:56:1 Expected performance impact from inlining is insignificant. Inlining works best for functions with parameters of functional types
+[RUN_GRADLEW] w: file:///tmp/jakubszamuk/eas-build-local-nodejs/b02b65a8-cc08-4b71-b4f4-9098b1384765/build/digitalis/node_modules/expo-modules-core/android/src/main/java/expo/modules/kotlin/types/Either.kt:76:12 Parameter 'type' is never used
+[RUN_GRADLEW] w: file:///tmp/jakubszamuk/eas-build-local-nodejs/b02b65a8-cc08-4b71-b4f4-9098b1384765/build/digitalis/node_modules/expo-modules-core/android/src/main/java/expo/modules/kotlin/types/Either.kt:79:12 Parameter 'type' is never used
+[RUN_GRADLEW] w: file:///tmp/jakubszamuk/eas-build-local-nodejs/b02b65a8-cc08-4b71-b4f4-9098b1384765/build/digitalis/node_modules/expo-modules-core/android/src/main/java/expo/modules/kotlin/types/Either.kt:82:11 Parameter 'type' is never used
+[RUN_GRADLEW] w: file:///tmp/jakubszamuk/eas-build-local-nodejs/b02b65a8-cc08-4b71-b4f4-9098b1384765/build/digitalis/node_modules/expo-modules-core/android/src/main/java/expo/modules/kotlin/types/Either.kt:85:11 Parameter 'type' is never used
+[RUN_GRADLEW] w: file:///tmp/jakubszamuk/eas-build-local-nodejs/b02b65a8-cc08-4b71-b4f4-9098b1384765/build/digitalis/node_modules/expo-modules-core/android/src/main/java/expo/modules/kotlin/types/Either.kt:99:12 Parameter 'type' is never used
+[RUN_GRADLEW] w: file:///tmp/jakubszamuk/eas-build-local-nodejs/b02b65a8-cc08-4b71-b4f4-9098b1384765/build/digitalis/node_modules/expo-modules-core/android/src/main/java/expo/modules/kotlin/types/Either.kt:102:11 Parameter 'type' is never used
+[RUN_GRADLEW] w: file:///tmp/jakubszamuk/eas-build-local-nodejs/b02b65a8-cc08-4b71-b4f4-9098b1384765/build/digitalis/node_modules/expo-modules-core/android/src/main/java/expo/modules/kotlin/types/Either.kt:114:12 Parameter 'type' is never used
+[RUN_GRADLEW] w: file:///tmp/jakubszamuk/eas-build-local-nodejs/b02b65a8-cc08-4b71-b4f4-9098b1384765/build/digitalis/node_modules/expo-modules-core/android/src/main/java/expo/modules/kotlin/types/Either.kt:117:11 Parameter 'type' is never used
+[RUN_GRADLEW] w: file:///tmp/jakubszamuk/eas-build-local-nodejs/b02b65a8-cc08-4b71-b4f4-9098b1384765/build/digitalis/node_modules/expo-modules-core/android/src/main/java/expo/modules/kotlin/types/JSTypeConverterHelper.kt:44:17 'get(String!): Any?' is deprecated. Deprecated in Java
+[RUN_GRADLEW] w: file:///tmp/jakubszamuk/eas-build-local-nodejs/b02b65a8-cc08-4b71-b4f4-9098b1384765/build/digitalis/node_modules/expo-modules-core/android/src/main/java/expo/modules/kotlin/types/TypeConverterProvider.kt:175:46 'newInstance(): T!' is deprecated. Deprecated in Java
+[RUN_GRADLEW] > Task :expo-modules-core:buildCMakeDebug[x86]
+[RUN_GRADLEW] > Task :expo-modules-core:compileDebugJavaWithJavac
+[RUN_GRADLEW] > Task :expo-modules-core:processDebugJavaRes
+[RUN_GRADLEW] > Task :expo-modules-core:bundleLibCompileToJarDebug
+[RUN_GRADLEW] > Task :expo-modules-core:bundleLibRuntimeToJarDebug
+[RUN_GRADLEW] > Task :expo-modules-core:configureCMakeDebug[x86_64]
+[RUN_GRADLEW] > Task :digitalis-share:compileDebugKotlin FAILED
+[RUN_GRADLEW] > Task :expo-constants:compileDebugKotlin
+[RUN_GRADLEW] w: file:///tmp/jakubszamuk/eas-build-local-nodejs/b02b65a8-cc08-4b71-b4f4-9098b1384765/build/digitalis/node_modules/expo-constants/android/src/main/java/expo/modules/constants/ConstantsService.kt:127:14 'versionCode: Int' is deprecated. Deprecated in Java
+[RUN_GRADLEW] > Task :expo-crypto:compileDebugKotlin
+[RUN_GRADLEW] > Task :expo-font:compileDebugKotlin
+[RUN_GRADLEW] > Task :expo-linear-gradient:compileDebugKotlin
+[RUN_GRADLEW] > Task :expo-keep-awake:compileDebugKotlin
+[RUN_GRADLEW] > Task :expo-system-ui:compileDebugKotlin
+[RUN_GRADLEW] w: file:///tmp/jakubszamuk/eas-build-local-nodejs/b02b65a8-cc08-4b71-b4f4-9098b1384765/build/digitalis/node_modules/expo-system-ui/android/src/main/java/expo/modules/systemui/SystemUIReactActivityLifecycleListener.kt:11:46 Parameter 'activityContext' is never used
+[RUN_GRADLEW] > Task :expo-splash-screen:compileDebugKotlin
+[RUN_GRADLEW] w: file:///tmp/jakubszamuk/eas-build-local-nodejs/b02b65a8-cc08-4b71-b4f4-9098b1384765/build/digitalis/node_modules/expo-splash-screen/android/src/main/java/expo/modules/splashscreen/SplashScreenReactActivityLifecycleListener.kt:14:50 Parameter 'activityContext' is never used
+[RUN_GRADLEW] w: file:///tmp/jakubszamuk/eas-build-local-nodejs/b02b65a8-cc08-4b71-b4f4-9098b1384765/build/digitalis/node_modules/expo-splash-screen/android/src/main/java/expo/modules/splashscreen/SplashScreenViewController.kt:42:5 Parameter 'failureCallback' is never used
+[RUN_GRADLEW] w: file:///tmp/jakubszamuk/eas-build-local-nodejs/b02b65a8-cc08-4b71-b4f4-9098b1384765/build/digitalis/node_modules/expo-splash-screen/android/src/main/java/expo/modules/splashscreen/singletons/SplashScreenStatusBar.kt:16:27 'replaceSystemWindowInsets(Int, Int, Int, Int): WindowInsets' is deprecated. Deprecated in Java
+[RUN_GRADLEW] w: file:///tmp/jakubszamuk/eas-build-local-nodejs/b02b65a8-cc08-4b71-b4f4-9098b1384765/build/digitalis/node_modules/expo-splash-screen/android/src/main/java/expo/modules/splashscreen/singletons/SplashScreenStatusBar.kt:17:29 'getter for systemWindowInsetLeft: Int' is deprecated. Deprecated in Java
+[RUN_GRADLEW] w: file:///tmp/jakubszamuk/eas-build-local-nodejs/b02b65a8-cc08-4b71-b4f4-9098b1384765/build/digitalis/node_modules/expo-splash-screen/android/src/main/java/expo/modules/splashscreen/singletons/SplashScreenStatusBar.kt:19:29 'getter for systemWindowInsetRight: Int' is deprecated. Deprecated in Java
+[RUN_GRADLEW] w: file:///tmp/jakubszamuk/eas-build-local-nodejs/b02b65a8-cc08-4b71-b4f4-9098b1384765/build/digitalis/node_modules/expo-splash-screen/android/src/main/java/expo/modules/splashscreen/singletons/SplashScreenStatusBar.kt:20:29 'getter for systemWindowInsetBottom: Int' is deprecated. Deprecated in Java
+[RUN_GRADLEW] > Task :expo-secure-store:compileDebugKotlin
+[RUN_GRADLEW] w: file:///tmp/jakubszamuk/eas-build-local-nodejs/b02b65a8-cc08-4b71-b4f4-9098b1384765/build/digitalis/node_modules/expo-secure-store/android/src/main/java/expo/modules/securestore/SecureStoreModule.kt:5:27 'PreferenceManager' is deprecated. Deprecated in Java
+[RUN_GRADLEW] w: file:///tmp/jakubszamuk/eas-build-local-nodejs/b02b65a8-cc08-4b71-b4f4-9098b1384765/build/digitalis/node_modules/expo-secure-store/android/src/main/java/expo/modules/securestore/SecureStoreModule.kt:223:23 'PreferenceManager' is deprecated. Deprecated in Java
+[RUN_GRADLEW] w: file:///tmp/jakubszamuk/eas-build-local-nodejs/b02b65a8-cc08-4b71-b4f4-9098b1384765/build/digitalis/node_modules/expo-secure-store/android/src/main/java/expo/modules/securestore/SecureStoreModule.kt:223:41 'getDefaultSharedPreferences(Context!): SharedPreferences!' is deprecated. Deprecated in Java
+[RUN_GRADLEW] > Task :expo-file-system:compileDebugKotlin
+[RUN_GRADLEW] > Task :expo-dev-menu:compileDebugKotlin
+[RUN_GRADLEW] w: file:///tmp/jakubszamuk/eas-build-local-nodejs/b02b65a8-cc08-4b71-b4f4-9098b1384765/build/digitalis/node_modules/expo-dev-menu/android/src/debug/java/expo/modules/devmenu/DevMenuActivity.kt:107:5 'overridePendingTransition(Int, Int): Unit' is deprecated. Deprecated in Java
+[RUN_GRADLEW] w: file:///tmp/jakubszamuk/eas-build-local-nodejs/b02b65a8-cc08-4b71-b4f4-9098b1384765/build/digitalis/node_modules/expo-dev-menu/android/src/debug/java/expo/modules/devmenu/DevMenuAppInfo.kt:62:38 'get(String!): Any?' is deprecated. Deprecated in Java
+[RUN_GRADLEW] w: file:///tmp/jakubszamuk/eas-build-local-nodejs/b02b65a8-cc08-4b71-b4f4-9098b1384765/build/digitalis/node_modules/expo-dev-menu/android/src/debug/java/expo/modules/devmenu/DevMenuAppInfo.kt:71:9 Condition 'applicationInfo.icon != null' is always 'true'
+[RUN_GRADLEW] w: file:///tmp/jakubszamuk/eas-build-local-nodejs/b02b65a8-cc08-4b71-b4f4-9098b1384765/build/digitalis/node_modules/expo-dev-menu/android/src/debug/java/expo/modules/devmenu/DevMenuHost.kt:120:52 Unnecessary safe call on a non-null receiver of type ReactApplication
+[RUN_GRADLEW] w: file:///tmp/jakubszamuk/eas-build-local-nodejs/b02b65a8-cc08-4b71-b4f4-9098b1384765/build/digitalis/node_modules/expo-dev-menu/android/src/debug/java/expo/modules/devmenu/DevMenuHost.kt:120:70 Elvis operator (?:) always returns the left operand of non-nullable type ReactNativeHost
+[RUN_GRADLEW] w: file:///tmp/jakubszamuk/eas-build-local-nodejs/b02b65a8-cc08-4b71-b4f4-9098b1384765/build/digitalis/node_modules/expo-dev-menu/android/src/debug/java/expo/modules/devmenu/DevMenuManager.kt:17:38 'ReactFontManager' is deprecated. Deprecated in Java
+[RUN_GRADLEW] w: file:///tmp/jakubszamuk/eas-build-local-nodejs/b02b65a8-cc08-4b71-b4f4-9098b1384765/build/digitalis/node_modules/expo-dev-menu/android/src/debug/java/expo/modules/devmenu/DevMenuManager.kt:199:88 'ReactInstanceEventListener' is deprecated. Deprecated in Java
+[RUN_GRADLEW] w: file:///tmp/jakubszamuk/eas-build-local-nodejs/b02b65a8-cc08-4b71-b4f4-9098b1384765/build/digitalis/node_modules/expo-dev-menu/android/src/debug/java/expo/modules/devmenu/DevMenuManager.kt:282:7 'ReactFontManager' is deprecated. Deprecated in Java
+[RUN_GRADLEW] w: file:///tmp/jakubszamuk/eas-build-local-nodejs/b02b65a8-cc08-4b71-b4f4-9098b1384765/build/digitalis/node_modules/expo-dev-menu/android/src/debug/java/expo/modules/devmenu/DevMenuManager.kt:482:43 The corresponding parameter in the supertype 'DevMenuManagerInterface' is named 'shouldAutoLaunch'. This may cause problems when calling this function with named arguments.
+[RUN_GRADLEW] w: file:///tmp/jakubszamuk/eas-build-local-nodejs/b02b65a8-cc08-4b71-b4f4-9098b1384765/build/digitalis/node_modules/expo-dev-menu/android/src/main/java/expo/modules/devmenu/helpers/DevMenuOkHttpExtension.kt:58:19 'create(MediaType?, String): RequestBody' is deprecated. Moved to extension function. Put the 'content' argument first to fix Java
+[RUN_GRADLEW] Deprecated Gradle features were used in this build, making it incompatible with Gradle 9.0.
+[RUN_GRADLEW] You can use '--warning-mode all' to show the individual deprecation warnings and determine if they come from your own scripts or plugins.
+[RUN_GRADLEW] For more on this, please refer to https://docs.gradle.org/8.3/userguide/command_line_interface.html#sec:command_line_warnings in the Gradle documentation.
+[RUN_GRADLEW] 408 actionable tasks: 407 executed, 1 up-to-date
+npx exited with non-zero code: 1
