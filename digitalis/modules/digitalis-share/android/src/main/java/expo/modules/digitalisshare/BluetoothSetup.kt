@@ -78,7 +78,6 @@
      private val receiver = object : BroadcastReceiver() {
          override fun onReceive(context: Context, intent: Intent) {
              val action: String? = intent.action
-             println("onRecieve 79")
              when(action) {
                  BluetoothDevice.ACTION_FOUND -> {
                      // Discovery has found a device. Get the BluetoothDevice
@@ -88,8 +87,6 @@
                      val deviceName = device?.name
                      val deviceUUid = device?.uuids
                      val deviceHardwareAddress = device?.address // MAC address
-                     println(deviceHardwareAddress)
-                     println("Found device address 90")
                  }
              }
          }
@@ -108,44 +105,22 @@
          )
 
 
-         println("line 99")
 
          AppActivity = appContext.activityProvider?.currentActivity
-         println("line 102")
 
          val applicationContext = AppActivity?.applicationContext
-         println("line 105")
 
          val bluetoothManager: BluetoothManager? = applicationContext?.getSystemService(BluetoothManager::class.java)
-         println("line 108")
 
          bluetoothAdapter = bluetoothManager?.getAdapter();
-         println("line 111")
 
 
-         for (perm in perms) {
-             println("Checking permission: $perm")
-             val granted =
-                     AppActivity?.checkSelfPermission(perm) == android.content.pm.PackageManager.PERMISSION_GRANTED
-             if (!granted) {
-                 println("Requesting permission: $perm")
-                 AppActivity?.requestPermissions(perms.filter { item -> item == perm }.toTypedArray(), 1)
-                 while (!(AppActivity?.checkSelfPermission(perm) == android.content.pm.PackageManager.PERMISSION_GRANTED)) {};
-             }
-         }
+         AppActivity?.requestPermissions(perms.toTypedArray(), 1)
 
 
-
-
-
-         if (bluetoothAdapter == null) {
- //            return Error("No Bluetooth support On this device");
-         }
 
          if (bluetoothAdapter?.isEnabled == false) {
-             println("line 118")
              val enableBtIntent = Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
-             println("line 120")
              if (applicationContext?.let { ActivityCompat.checkSelfPermission(it, Manifest.permission.BLUETOOTH_CONNECT) } != PackageManager.PERMISSION_GRANTED) {
                  // TODO: Consider calling
                  //    ActivityCompat#requestPermissions
@@ -158,20 +133,16 @@
              }
 
              AppActivity?.startActivityForResult(enableBtIntent, this.ACTION_REQUEST_ENABLE);
-             println("line 133")
 
-         } else {
-             println("Hey, Bluetooth is enabled.")
          }
 
-         val pairedDevices: Set<BluetoothDevice>? = bluetoothAdapter?.bondedDevices
-
-         println("Paired devices: ${pairedDevices?.size}")
-         pairedDevices?.forEach { device ->
-             val deviceName = device.name
-             val deviceHardwareAddress = device.address // MAC address
-             println("Device: $deviceName, $deviceHardwareAddress")
-         }
+//         val pairedDevices: Set<BluetoothDevice>? = bluetoothAdapter?.bondedDevices
+//
+//         pairedDevices?.forEach { device ->
+//             val deviceName = device.name
+//             val deviceHardwareAddress = device.address // MAC address
+//
+//         }
 
 
      }
@@ -179,7 +150,6 @@
          val filter = IntentFilter(BluetoothDevice.ACTION_FOUND);
          AppActivity?.registerReceiver(receiver, filter);
          val started = bluetoothAdapter?.startDiscovery()
-         println("Started: $started")
      }
 
      fun stopDiscovery() {

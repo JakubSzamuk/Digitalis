@@ -5,13 +5,25 @@
 5    <uses-sdk android:minSdkVersion="23" />
 6
 7    <uses-permission android:name="android.permission.BLUETOOTH_CONNECT" />
-7-->/home/jakubszamuk/Documents/projects/web-projects/Digitalis/digitalis/modules/digitalis-share/android/src/main/AndroidManifest.xml:4:5-76
-7-->/home/jakubszamuk/Documents/projects/web-projects/Digitalis/digitalis/modules/digitalis-share/android/src/main/AndroidManifest.xml:4:22-73
+7-->/Users/parallax/Sites/Digitalis/digitalis/modules/digitalis-share/android/src/main/AndroidManifest.xml:4:5-76
+7-->/Users/parallax/Sites/Digitalis/digitalis/modules/digitalis-share/android/src/main/AndroidManifest.xml:4:22-73
 8    <uses-permission android:name="android.permission.BLUETOOTH" />
-8-->/home/jakubszamuk/Documents/projects/web-projects/Digitalis/digitalis/modules/digitalis-share/android/src/main/AndroidManifest.xml:5:5-68
-8-->/home/jakubszamuk/Documents/projects/web-projects/Digitalis/digitalis/modules/digitalis-share/android/src/main/AndroidManifest.xml:5:22-65
+8-->/Users/parallax/Sites/Digitalis/digitalis/modules/digitalis-share/android/src/main/AndroidManifest.xml:5:5-68
+8-->/Users/parallax/Sites/Digitalis/digitalis/modules/digitalis-share/android/src/main/AndroidManifest.xml:5:22-65
 9    <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
-9-->/home/jakubszamuk/Documents/projects/web-projects/Digitalis/digitalis/modules/digitalis-share/android/src/main/AndroidManifest.xml:6:5-74
-9-->/home/jakubszamuk/Documents/projects/web-projects/Digitalis/digitalis/modules/digitalis-share/android/src/main/AndroidManifest.xml:6:22-71
-10
-11</manifest>
+9-->/Users/parallax/Sites/Digitalis/digitalis/modules/digitalis-share/android/src/main/AndroidManifest.xml:6:5-74
+9-->/Users/parallax/Sites/Digitalis/digitalis/modules/digitalis-share/android/src/main/AndroidManifest.xml:6:22-71
+10    <uses-permission android:name="android.permission.BLUETOOTH_SCAN" />
+10-->/Users/parallax/Sites/Digitalis/digitalis/modules/digitalis-share/android/src/main/AndroidManifest.xml:8:5-73
+10-->/Users/parallax/Sites/Digitalis/digitalis/modules/digitalis-share/android/src/main/AndroidManifest.xml:8:22-70
+11    <uses-permission android:name="android.permission.BLUETOOTH_ADVERTISE" />
+11-->/Users/parallax/Sites/Digitalis/digitalis/modules/digitalis-share/android/src/main/AndroidManifest.xml:9:5-78
+11-->/Users/parallax/Sites/Digitalis/digitalis/modules/digitalis-share/android/src/main/AndroidManifest.xml:9:22-75
+12    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+12-->/Users/parallax/Sites/Digitalis/digitalis/modules/digitalis-share/android/src/main/AndroidManifest.xml:10:5-79
+12-->/Users/parallax/Sites/Digitalis/digitalis/modules/digitalis-share/android/src/main/AndroidManifest.xml:10:22-76
+13    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+13-->/Users/parallax/Sites/Digitalis/digitalis/modules/digitalis-share/android/src/main/AndroidManifest.xml:11:5-81
+13-->/Users/parallax/Sites/Digitalis/digitalis/modules/digitalis-share/android/src/main/AndroidManifest.xml:11:22-78
+14
+15</manifest>

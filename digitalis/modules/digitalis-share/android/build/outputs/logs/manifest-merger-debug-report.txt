@@ -1,28 +1,44 @@
 -- Merging decision tree log ---
 manifest
-ADDED from /home/jakubszamuk/Documents/projects/web-projects/Digitalis/digitalis/modules/digitalis-share/android/src/main/AndroidManifest.xml:2:1-8:12
-INJECTED from /home/jakubszamuk/Documents/projects/web-projects/Digitalis/digitalis/modules/digitalis-share/android/src/main/AndroidManifest.xml:2:1-8:12
+ADDED from /Users/parallax/Sites/Digitalis/digitalis/modules/digitalis-share/android/src/main/AndroidManifest.xml:2:1-13:12
+INJECTED from /Users/parallax/Sites/Digitalis/digitalis/modules/digitalis-share/android/src/main/AndroidManifest.xml:2:1-13:12
 	package
-		INJECTED from /home/jakubszamuk/Documents/projects/web-projects/Digitalis/digitalis/modules/digitalis-share/android/src/main/AndroidManifest.xml
+		INJECTED from /Users/parallax/Sites/Digitalis/digitalis/modules/digitalis-share/android/src/main/AndroidManifest.xml
 	xmlns:android
-		ADDED from /home/jakubszamuk/Documents/projects/web-projects/Digitalis/digitalis/modules/digitalis-share/android/src/main/AndroidManifest.xml:2:11-69
+		ADDED from /Users/parallax/Sites/Digitalis/digitalis/modules/digitalis-share/android/src/main/AndroidManifest.xml:2:11-69
 uses-permission#android.permission.BLUETOOTH_CONNECT
-ADDED from /home/jakubszamuk/Documents/projects/web-projects/Digitalis/digitalis/modules/digitalis-share/android/src/main/AndroidManifest.xml:4:5-76
+ADDED from /Users/parallax/Sites/Digitalis/digitalis/modules/digitalis-share/android/src/main/AndroidManifest.xml:4:5-76
 	android:name
-		ADDED from /home/jakubszamuk/Documents/projects/web-projects/Digitalis/digitalis/modules/digitalis-share/android/src/main/AndroidManifest.xml:4:22-73
+		ADDED from /Users/parallax/Sites/Digitalis/digitalis/modules/digitalis-share/android/src/main/AndroidManifest.xml:4:22-73
 uses-permission#android.permission.BLUETOOTH
-ADDED from /home/jakubszamuk/Documents/projects/web-projects/Digitalis/digitalis/modules/digitalis-share/android/src/main/AndroidManifest.xml:5:5-68
+ADDED from /Users/parallax/Sites/Digitalis/digitalis/modules/digitalis-share/android/src/main/AndroidManifest.xml:5:5-68
 	android:name
-		ADDED from /home/jakubszamuk/Documents/projects/web-projects/Digitalis/digitalis/modules/digitalis-share/android/src/main/AndroidManifest.xml:5:22-65
+		ADDED from /Users/parallax/Sites/Digitalis/digitalis/modules/digitalis-share/android/src/main/AndroidManifest.xml:5:22-65
 uses-permission#android.permission.BLUETOOTH_ADMIN
-ADDED from /home/jakubszamuk/Documents/projects/web-projects/Digitalis/digitalis/modules/digitalis-share/android/src/main/AndroidManifest.xml:6:5-74
+ADDED from /Users/parallax/Sites/Digitalis/digitalis/modules/digitalis-share/android/src/main/AndroidManifest.xml:6:5-74
 	android:name
-		ADDED from /home/jakubszamuk/Documents/projects/web-projects/Digitalis/digitalis/modules/digitalis-share/android/src/main/AndroidManifest.xml:6:22-71
+		ADDED from /Users/parallax/Sites/Digitalis/digitalis/modules/digitalis-share/android/src/main/AndroidManifest.xml:6:22-71
+uses-permission#android.permission.BLUETOOTH_SCAN
+ADDED from /Users/parallax/Sites/Digitalis/digitalis/modules/digitalis-share/android/src/main/AndroidManifest.xml:8:5-73
+	android:name
+		ADDED from /Users/parallax/Sites/Digitalis/digitalis/modules/digitalis-share/android/src/main/AndroidManifest.xml:8:22-70
+uses-permission#android.permission.BLUETOOTH_ADVERTISE
+ADDED from /Users/parallax/Sites/Digitalis/digitalis/modules/digitalis-share/android/src/main/AndroidManifest.xml:9:5-78
+	android:name
+		ADDED from /Users/parallax/Sites/Digitalis/digitalis/modules/digitalis-share/android/src/main/AndroidManifest.xml:9:22-75
+uses-permission#android.permission.ACCESS_FINE_LOCATION
+ADDED from /Users/parallax/Sites/Digitalis/digitalis/modules/digitalis-share/android/src/main/AndroidManifest.xml:10:5-79
+	android:name
+		ADDED from /Users/parallax/Sites/Digitalis/digitalis/modules/digitalis-share/android/src/main/AndroidManifest.xml:10:22-76
+uses-permission#android.permission.ACCESS_COARSE_LOCATION
+ADDED from /Users/parallax/Sites/Digitalis/digitalis/modules/digitalis-share/android/src/main/AndroidManifest.xml:11:5-81
+	android:name
+		ADDED from /Users/parallax/Sites/Digitalis/digitalis/modules/digitalis-share/android/src/main/AndroidManifest.xml:11:22-78
 uses-sdk
-INJECTED from /home/jakubszamuk/Documents/projects/web-projects/Digitalis/digitalis/modules/digitalis-share/android/src/main/AndroidManifest.xml reason: use-sdk injection requested
-INJECTED from /home/jakubszamuk/Documents/projects/web-projects/Digitalis/digitalis/modules/digitalis-share/android/src/main/AndroidManifest.xml
-INJECTED from /home/jakubszamuk/Documents/projects/web-projects/Digitalis/digitalis/modules/digitalis-share/android/src/main/AndroidManifest.xml
+INJECTED from /Users/parallax/Sites/Digitalis/digitalis/modules/digitalis-share/android/src/main/AndroidManifest.xml reason: use-sdk injection requested
+INJECTED from /Users/parallax/Sites/Digitalis/digitalis/modules/digitalis-share/android/src/main/AndroidManifest.xml
+INJECTED from /Users/parallax/Sites/Digitalis/digitalis/modules/digitalis-share/android/src/main/AndroidManifest.xml
 	android:targetSdkVersion
-		INJECTED from /home/jakubszamuk/Documents/projects/web-projects/Digitalis/digitalis/modules/digitalis-share/android/src/main/AndroidManifest.xml
+		INJECTED from /Users/parallax/Sites/Digitalis/digitalis/modules/digitalis-share/android/src/main/AndroidManifest.xml
 	android:minSdkVersion
-		INJECTED from /home/jakubszamuk/Documents/projects/web-projects/Digitalis/digitalis/modules/digitalis-share/android/src/main/AndroidManifest.xml
+		INJECTED from /Users/parallax/Sites/Digitalis/digitalis/modules/digitalis-share/android/src/main/AndroidManifest.xml
