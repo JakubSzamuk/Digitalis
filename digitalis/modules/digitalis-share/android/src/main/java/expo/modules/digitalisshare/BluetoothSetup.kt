@@ -88,7 +88,7 @@
                      val deviceUUid = device?.uuids
                      val deviceHardwareAddress = device?.address // MAC address
                      println(deviceHardwareAddress)
-
+                     DigitalisShareModule.instance.dispatch_mac_address(deviceHardwareAddress!!, deviceName!!);
                  }
              }
          }

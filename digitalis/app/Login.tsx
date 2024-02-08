@@ -22,6 +22,12 @@ const TEMP_APP_KEY = "7df175e08558c2916ec12e654ce790fe";
 const BACKEND_URL = "BACKEND_URL";
 
 import {
+  requireNativeModule,
+  EventEmitter,
+  Subscription,
+} from "expo-modules-core";
+
+import {
   connectTo,
   initialise,
   startDiscovery,
@@ -34,6 +40,13 @@ type loginCredentials = {
 
 const LoginScreen = ({ navigation }: any) => {
   const router = useRouter();
+
+  const DigitalisModule = requireNativeModule("DigitalisShare");
+  const emitter = new EventEmitter(DigitalisModule);
+
+  function addDiscoveryListener(listener: (event: any) => void): Subscription {
+    return emitter.addListener("onFoundDevice", listener);
+  }
 
   const [loginCredentials, setLoginCredentials] =
     useState<loginCredentials | null>(null);
@@ -121,7 +134,12 @@ const LoginScreen = ({ navigation }: any) => {
           <TouchableOpacity onPress={() => initialise()}>
             <Text>Initialise</Text>
           </TouchableOpacity>
-          <TouchableOpacity onPress={() => startDiscovery()}>
+          <TouchableOpacity
+            onPress={() => {
+              startDiscovery();
+              addDiscoveryListener((e) => console.log(e));
+            }}
+          >
             <Text>Start Discovery</Text>
           </TouchableOpacity>
           <TouchableOpacity

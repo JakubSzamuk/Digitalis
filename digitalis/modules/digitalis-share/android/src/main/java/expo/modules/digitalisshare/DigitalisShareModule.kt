@@ -11,7 +11,15 @@ class DigitalisShareModule : Module() {
   private var bluetooth_hook: BluetoothSetup? = null
   val DISCOVERY_EVENT_NAME = "onFoundDevice"
 
-  fun dispatch_mac_address(addr: String, name: String) {
+  companion object {
+    public lateinit var instance: DigitalisShareModule
+  }
+
+  init {
+      instance = this
+  }
+
+  public fun dispatch_mac_address(addr: String, name: String) {
     sendEvent(DISCOVERY_EVENT_NAME, mapOf(
             "mac_address" to addr,
             "device_name" to name

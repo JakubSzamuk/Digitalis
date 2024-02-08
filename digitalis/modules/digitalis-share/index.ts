@@ -37,7 +37,7 @@ const emitter = new EventEmitter(
 export function addChangeListener(
   listener: (event: ChangeEventPayload) => void
 ): Subscription {
-  return emitter.addListener<ChangeEventPayload>("onChange", listener);
+  return emitter.addListener<ChangeEventPayload>("onFoundDevice", listener);
 }
 
 export { DigitalisShareView, DigitalisShareViewProps, ChangeEventPayload };
