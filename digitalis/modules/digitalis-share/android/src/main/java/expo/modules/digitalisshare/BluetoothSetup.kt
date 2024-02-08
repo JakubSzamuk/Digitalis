@@ -25,7 +25,7 @@
      val NAME = "Digitalis"
      val MY_UUID = UUID.randomUUID();
 
-     var AppActivity: Activity? = null;
+     var appActivity: Activity? = null;
      var bluetoothAdapter: BluetoothAdapter? = null;
 
 
@@ -87,6 +87,8 @@
                      val deviceName = device?.name
                      val deviceUUid = device?.uuids
                      val deviceHardwareAddress = device?.address // MAC address
+                     println(deviceHardwareAddress)
+
                  }
              }
          }
@@ -106,16 +108,16 @@
 
 
 
-         AppActivity = appContext.activityProvider?.currentActivity
+         appActivity = appContext.activityProvider?.currentActivity
 
-         val applicationContext = AppActivity?.applicationContext
+         val applicationContext = appActivity?.applicationContext
 
          val bluetoothManager: BluetoothManager? = applicationContext?.getSystemService(BluetoothManager::class.java)
 
          bluetoothAdapter = bluetoothManager?.getAdapter();
 
 
-         AppActivity?.requestPermissions(perms.toTypedArray(), 1)
+         appActivity?.requestPermissions(perms.toTypedArray(), 1)
 
 
 
@@ -132,7 +134,7 @@
                  return
              }
 
-             AppActivity?.startActivityForResult(enableBtIntent, this.ACTION_REQUEST_ENABLE);
+             appActivity?.startActivityForResult(enableBtIntent, this.ACTION_REQUEST_ENABLE);
 
          }
 
@@ -148,12 +150,12 @@
      }
      fun startDiscovery() {
          val filter = IntentFilter(BluetoothDevice.ACTION_FOUND);
-         AppActivity?.registerReceiver(receiver, filter);
+         appActivity?.registerReceiver(receiver, filter);
          val started = bluetoothAdapter?.startDiscovery()
      }
 
      fun stopDiscovery() {
-         AppActivity?.unregisterReceiver(receiver);
+         appActivity?.unregisterReceiver(receiver);
      }
 
 
@@ -162,7 +164,7 @@
          val discoverableIntent: Intent = Intent(BluetoothAdapter.ACTION_REQUEST_DISCOVERABLE).apply {
              putExtra(BluetoothAdapter.EXTRA_DISCOVERABLE_DURATION, 300)
          }
-         AppActivity?.startActivityForResult(discoverableIntent, requestCode)
+         appActivity?.startActivityForResult(discoverableIntent, requestCode)
      }
      fun awaitConnection() {
          AcceptThread()

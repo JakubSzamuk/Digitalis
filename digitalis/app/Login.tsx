@@ -21,7 +21,11 @@ import { useRouter } from "expo-router";
 const TEMP_APP_KEY = "7df175e08558c2916ec12e654ce790fe";
 const BACKEND_URL = "BACKEND_URL";
 
-import { initialise } from "@/modules/digitalis-share";
+import {
+  connectTo,
+  initialise,
+  startDiscovery,
+} from "@/modules/digitalis-share";
 
 type loginCredentials = {
   email: String;
@@ -115,7 +119,15 @@ const LoginScreen = ({ navigation }: any) => {
             Sign in
           </Text>
           <TouchableOpacity onPress={() => initialise()}>
-            <Text>Start discovery</Text>
+            <Text>Initialise</Text>
+          </TouchableOpacity>
+          <TouchableOpacity onPress={() => startDiscovery()}>
+            <Text>Start Discovery</Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            onPress={() => connectTo("hello world testing one two")}
+          >
+            <Text>Connect to</Text>
           </TouchableOpacity>
           <TextInput
             placeholder="Username"

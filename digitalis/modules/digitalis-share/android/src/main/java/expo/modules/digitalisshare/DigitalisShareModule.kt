@@ -7,30 +7,39 @@ import expo.modules.kotlin.modules.Module
 import expo.modules.kotlin.modules.ModuleDefinition
 
 class DigitalisShareModule : Module() {
-  // Each module class must implement the definition function. The definition consists of components
-  // that describes the module's functionality and behavior.
-  // See https://docs.expo.dev/modules/module-api for more details about available components.
+
+  private var bluetooth_hook: BluetoothSetup? = null
+  val DISCOVERY_EVENT_NAME = "onFoundDevice"
+
+  fun dispatch_mac_address(addr: String, name: String) {
+    sendEvent(DISCOVERY_EVENT_NAME, mapOf(
+            "mac_address" to addr,
+            "device_name" to name
+    ))
+  }
   override fun definition() = ModuleDefinition {
-    // Sets the name of the module that JavaScript code will use to refer to the module. Takes a string as an argument.
-    // Can be inferred from module's class name, but it's recommended to set it explicitly for clarity.
-    // The module will be accessible from `requireNativeModule('DigitalisShare')` in JavaScript.
+
     Name("DigitalisShare")
 
-    // Sets constant properties on the module. Can take a dictionary or a closure that returns a dictionary.
-    Constants(
-      "PI" to Math.PI
-    )
 
-    // Defines event names that the module can send to JavaScript.
-    Events("onChange")
+    Events("discovery_event")
 
-    // Defines a JavaScript synchronous function that runs the native code on the JavaScript thread.
     Function("initialise") {
-       val bluetooth_hook = BluetoothSetup()
-       bluetooth_hook.onCreate(appContext);
-       bluetooth_hook.startDiscovery()
+      bluetooth_hook = BluetoothSetup()
+      bluetooth_hook!!.onCreate(appContext);
+    }
 
-      "hello world"
+    Function("startDiscovery") {
+      if (bluetooth_hook == null) {
+        "bluetooth_hook has not been initialised"
+      }
+      bluetooth_hook!!.startDiscovery();
+    }
+    AsyncFunction("connectTo") {mac_address: String ->
+      println("attempting to connect to $mac_address")
+      sendEvent(DISCOVERY_EVENT_NAME, mapOf(
+              "Hello world" to "test"
+      ))
     }
 
     // Defines a JavaScript function that always returns a Promise and whose native code
@@ -40,15 +49,6 @@ class DigitalisShareModule : Module() {
       sendEvent("onChange", mapOf(
         "value" to value
       ))
-    }
-
-    // Enables the module to be used as a native view. Definition components that are accepted as part of
-    // the view definition: Prop, Events.
-    View(DigitalisShareView::class) {
-      // Defines a setter for the `name` prop.
-      Prop("name") { view: DigitalisShareView, prop: String ->
-        println(prop)
-      }
     }
   }
 }

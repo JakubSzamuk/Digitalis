@@ -19,6 +19,12 @@ export const PI = DigitalisShareModule.PI;
 export function initialise(): string {
   return DigitalisShareModule.initialise();
 }
+export function startDiscovery() {
+  return DigitalisShareModule.startDiscovery();
+}
+export function connectTo(mac_address: String) {
+  return DigitalisShareModule.connectTo(mac_address);
+}
 
 export async function setValueAsync(value: string) {
   return await DigitalisShareModule.setValueAsync(value);
