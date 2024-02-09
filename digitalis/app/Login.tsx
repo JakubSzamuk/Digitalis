@@ -28,8 +28,10 @@ import {
 } from "expo-modules-core";
 
 import {
+  addDiscoveryListener,
   connectTo,
   initialise,
+  makeDiscoverable,
   startDiscovery,
 } from "@/modules/digitalis-share";
 
@@ -40,13 +42,6 @@ type loginCredentials = {
 
 const LoginScreen = ({ navigation }: any) => {
   const router = useRouter();
-
-  const DigitalisModule = requireNativeModule("DigitalisShare");
-  const emitter = new EventEmitter(DigitalisModule);
-
-  function addDiscoveryListener(listener: (event: any) => void): Subscription {
-    return emitter.addListener("onFoundDevice", listener);
-  }
 
   const [loginCredentials, setLoginCredentials] =
     useState<loginCredentials | null>(null);
@@ -136,11 +131,14 @@ const LoginScreen = ({ navigation }: any) => {
           </TouchableOpacity>
           <TouchableOpacity
             onPress={() => {
-              startDiscovery();
               addDiscoveryListener((e) => console.log(e));
+              startDiscovery();
             }}
           >
             <Text>Start Discovery</Text>
+          </TouchableOpacity>
+          <TouchableOpacity onPress={() => makeDiscoverable()}>
+            <Text>Make Discoverable</Text>
           </TouchableOpacity>
           <TouchableOpacity
             onPress={() => connectTo("hello world testing one two")}

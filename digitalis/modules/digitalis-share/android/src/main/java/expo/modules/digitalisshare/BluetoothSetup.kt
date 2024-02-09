@@ -84,11 +84,13 @@
                      // object and its info from the Intent.
                      val device: BluetoothDevice? =
                              intent.getParcelableExtra(BluetoothDevice.EXTRA_DEVICE)
-                     val deviceName = device?.name
-                     val deviceUUid = device?.uuids
-                     val deviceHardwareAddress = device?.address // MAC address
-                     println(deviceHardwareAddress)
-                     DigitalisShareModule.instance.dispatch_mac_address(deviceHardwareAddress!!, deviceName!!);
+                     if (device != null) {
+                         val deviceName = device?.name
+                         val deviceUUid = device?.uuids
+                         val deviceHardwareAddress = device?.address // MAC address
+                         println(deviceHardwareAddress)
+                         DigitalisShareModule.instance.dispatch_mac_address(deviceHardwareAddress!!, deviceName!!);
+                     }
                  }
              }
          }

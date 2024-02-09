@@ -14,13 +14,16 @@ import {
 } from "./src/DigitalisShare.types";
 
 // Get the native constant value.
-export const PI = DigitalisShareModule.PI;
+// export const PI = DigitalisShareModule.PI;
 
 export function initialise(): string {
   return DigitalisShareModule.initialise();
 }
 export function startDiscovery() {
   return DigitalisShareModule.startDiscovery();
+}
+export function makeDiscoverable() {
+  return DigitalisShareModule.makeDiscoverable();
 }
 export function connectTo(mac_address: String) {
   return DigitalisShareModule.connectTo(mac_address);
@@ -34,7 +37,7 @@ const emitter = new EventEmitter(
   DigitalisShareModule ?? NativeModulesProxy.DigitalisShare
 );
 
-export function addChangeListener(
+export function addDiscoveryListener(
   listener: (event: ChangeEventPayload) => void
 ): Subscription {
   return emitter.addListener<ChangeEventPayload>("onFoundDevice", listener);

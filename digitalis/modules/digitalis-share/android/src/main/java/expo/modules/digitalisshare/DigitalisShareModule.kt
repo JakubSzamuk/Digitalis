@@ -29,33 +29,31 @@ class DigitalisShareModule : Module() {
 
     Name("DigitalisShare")
 
-
-    Events("discovery_event")
+    Events(DISCOVERY_EVENT_NAME)
 
     Function("initialise") {
       bluetooth_hook = BluetoothSetup()
       bluetooth_hook!!.onCreate(appContext);
     }
-
     Function("startDiscovery") {
       if (bluetooth_hook == null) {
-        "bluetooth_hook has not been initialised"
+        println("bluetooth_hook has not been initialised")
+        "Unintialised"
       }
+
       bluetooth_hook!!.startDiscovery();
+    }
+    Function("makeDiscoverable") {
+      if (bluetooth_hook == null) {
+        println("Bluetooth hook has not been initialised")
+        "Unintialised"
+      }
+      bluetooth_hook!!.makeDiscoverable();
     }
     AsyncFunction("connectTo") {mac_address: String ->
       println("attempting to connect to $mac_address")
       sendEvent(DISCOVERY_EVENT_NAME, mapOf(
               "Hello world" to "test"
-      ))
-    }
-
-    // Defines a JavaScript function that always returns a Promise and whose native code
-    // is by default dispatched on the different thread than the JavaScript runtime runs on.
-    AsyncFunction("setValueAsync") { value: String ->
-      // Send an event to JavaScript.
-      sendEvent("onChange", mapOf(
-        "value" to value
       ))
     }
   }
