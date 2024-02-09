@@ -40,8 +40,14 @@ class DigitalisShareModule : Module() {
         println("bluetooth_hook has not been initialised")
         "Unintialised"
       }
-
+      instance = this@DigitalisShareModule;
       bluetooth_hook!!.startDiscovery();
+    }
+    Function("stopDiscovery") {
+      if (bluetooth_hook == null) {
+        "uninitialised"
+      }
+      bluetooth_hook!!.stopDiscovery();
     }
     Function("makeDiscoverable") {
       if (bluetooth_hook == null) {
@@ -49,6 +55,7 @@ class DigitalisShareModule : Module() {
         "Unintialised"
       }
       bluetooth_hook!!.makeDiscoverable();
+      bluetooth_hook!!.awaitConnection();
     }
     AsyncFunction("connectTo") {mac_address: String ->
       println("attempting to connect to $mac_address")
