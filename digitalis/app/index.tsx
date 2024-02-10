@@ -1,10 +1,8 @@
-import React from 'react'
-import { Redirect } from 'expo-router'
+import React from "react";
+import { Redirect } from "expo-router";
 
 const IndexScreen = () => {
-  return (
-    <Redirect href="/Login" />
-  )
-}
+  return <Redirect href="/Test" />;
+};
 
-export default IndexScreen
+export default IndexScreen;

@@ -55,7 +55,6 @@ class DigitalisShareModule : Module() {
         "Unintialised"
       }
       bluetooth_hook!!.makeDiscoverable();
-      bluetooth_hook!!.awaitConnection();
     }
     AsyncFunction("connectTo") {mac_address: String ->
       println("attempting to connect to $mac_address")

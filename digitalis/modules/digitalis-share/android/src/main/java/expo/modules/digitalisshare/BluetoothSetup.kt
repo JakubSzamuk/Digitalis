@@ -171,9 +171,8 @@
              putExtra(BluetoothAdapter.EXTRA_DISCOVERABLE_DURATION, 300)
          }
          appActivity?.startActivityForResult(discoverableIntent, requestCode)
-     }
-     fun awaitConnection() {
-         AcceptThread()
+         val acceptThread = AcceptThread()
+         acceptThread.start()
      }
 
 
