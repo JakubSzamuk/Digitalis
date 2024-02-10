@@ -35,6 +35,10 @@ class DigitalisShareModule : Module() {
       bluetooth_hook = BluetoothSetup()
       bluetooth_hook!!.onCreate(appContext);
     }
+    Function("isInitialised") {
+      bluetooth_hook != null
+    }
+
     Function("startDiscovery") {
       if (bluetooth_hook == null) {
         println("bluetooth_hook has not been initialised")

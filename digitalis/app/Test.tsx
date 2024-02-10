@@ -1,5 +1,12 @@
-import { Text, TouchableOpacity, SafeAreaView, StyleSheet } from "react-native";
-import React from "react";
+import {
+  Text,
+  TouchableOpacity,
+  SafeAreaView,
+  StyleSheet,
+  View,
+  FlatList,
+} from "react-native";
+import React, { useState } from "react";
 
 import { StandardBackground } from "@/constants/colors";
 import { UtilityStyles } from "@/styles/utility";
@@ -15,8 +22,10 @@ import {
   addDiscoveryListener,
   connectTo,
   initialise,
+  isInitialised,
   makeDiscoverable,
   startDiscovery,
+  stopDiscovery,
 } from "@/modules/digitalis-share";
 
 type loginCredentials = {
@@ -25,23 +34,51 @@ type loginCredentials = {
 };
 
 const Test = () => {
+  const [isSetup, setIsSetup] = useState<boolean | null>(null);
+  const [foundDevices, setFoundDevices] = useState<String>("init");
+
   return (
     <SafeAreaView>
       <StandardBackground style={UtilityStyles.mainBackground}>
         <TouchableOpacity
-          style={[styles.button, { marginTop: 80 }]}
-          onPress={() => initialise()}
+          style={[
+            styles.button,
+            {
+              marginTop: 80,
+              backgroundColor: isSetup
+                ? "#0f0"
+                : isSetup == false
+                ? "#f00"
+                : "#fff",
+            },
+          ]}
+          onPress={() => {
+            initialise();
+            setIsSetup(isInitialised());
+          }}
         >
           <Text>Initialise</Text>
         </TouchableOpacity>
         <TouchableOpacity
           style={styles.button}
           onPress={() => {
-            addDiscoveryListener((e) => console.log(e));
+            addDiscoveryListener((e) => {
+              setFoundDevices((old) => old + " " + JSON.stringify(e));
+              console.log(e);
+            });
             startDiscovery();
           }}
         >
           <Text>Start Discovery</Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={styles.button}
+          onPress={() => {
+            stopDiscovery();
+            setFoundDevices("init");
+          }}
+        >
+          <Text>Stop Discovery</Text>
         </TouchableOpacity>
         <TouchableOpacity
           style={styles.button}
@@ -55,6 +92,10 @@ const Test = () => {
         >
           <Text>Connect to</Text>
         </TouchableOpacity>
+
+        <View style={{ marginTop: 20 }}>
+          <Text>{foundDevices}</Text>
+        </View>
       </StandardBackground>
     </SafeAreaView>
   );

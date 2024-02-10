@@ -12,6 +12,7 @@
  import android.content.Intent
  import android.content.IntentFilter
  import android.content.pm.PackageManager
+ import android.os.ParcelUuid
  import android.util.Log
  import androidx.core.app.ActivityCompat
  import expo.modules.kotlin.AppContext
@@ -23,7 +24,8 @@
      val ACTION_REQUEST_ENABLE = 1;
      val ACTION_FOUND = 4;
      val NAME = "Digitalis"
-     val MY_UUID = UUID.randomUUID();
+     private val MY_UUID: UUID = ParcelUuid.fromString("0000112f-0000-1000-8000-00805f9b34fb").uuid
+
 
      var appActivity: Activity? = null;
      var bluetoothAdapter: BluetoothAdapter? = null;
@@ -162,6 +164,7 @@
 
      fun stopDiscovery() {
          appActivity?.unregisterReceiver(receiver);
+         bluetoothAdapter!!.cancelDiscovery();
      }
 
 

@@ -19,9 +19,17 @@ import {
 export function initialise(): string {
   return DigitalisShareModule.initialise();
 }
+export function isInitialised(): boolean {
+  return DigitalisShareModule.isInitialised();
+}
+
 export function startDiscovery() {
   return DigitalisShareModule.startDiscovery();
 }
+export function stopDiscovery() {
+  return DigitalisShareModule.stopDiscovery();
+}
+
 export function makeDiscoverable() {
   return DigitalisShareModule.makeDiscoverable();
 }
