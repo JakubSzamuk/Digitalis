@@ -40,7 +40,7 @@ type loginCredentials = {
   password: String;
 };
 
-const LoginScreen = ({ navigation }: any) => {
+const LoginScreen = () => {
   const router = useRouter();
 
   const [loginCredentials, setLoginCredentials] =
@@ -52,17 +52,17 @@ const LoginScreen = ({ navigation }: any) => {
   const [loggingIn, setLoggingIn] = useState(false);
 
   socket.onclose = () => {
-    navigation.navigate("connection_lost");
+    router.navigate("/Lost-Connection");
   };
   if (socket.readyState == 3) {
-    navigation.navigate("connection_lost");
+    router.navigate("/Lost-Connection");
   }
   const { app_key, setCredentialStore, setLockedOut, isLockedOut } = useAppKey(
     (state) => state
   );
 
   if (isLockedOut) {
-    navigation.navigate("locked_out");
+    router.navigate("/Locked");
   }
 
   const handle_message = (event: any) => {
@@ -82,7 +82,7 @@ const LoginScreen = ({ navigation }: any) => {
     }
 
     if (socket.readyState == 3) {
-      navigation.navigate("connection_lost");
+      router.navigate("/Lost-Connection");
       return;
     }
     setLoggingIn(true);
@@ -126,25 +126,7 @@ const LoginScreen = ({ navigation }: any) => {
           >
             Sign in
           </Text>
-          <TouchableOpacity onPress={() => initialise()}>
-            <Text>Initialise</Text>
-          </TouchableOpacity>
-          <TouchableOpacity
-            onPress={() => {
-              addDiscoveryListener((e) => console.log(e));
-              startDiscovery();
-            }}
-          >
-            <Text>Start Discovery</Text>
-          </TouchableOpacity>
-          <TouchableOpacity onPress={() => makeDiscoverable()}>
-            <Text>Make Discoverable</Text>
-          </TouchableOpacity>
-          <TouchableOpacity
-            onPress={() => connectTo("hello world testing one two")}
-          >
-            <Text>Connect to</Text>
-          </TouchableOpacity>
+
           <TextInput
             placeholder="Username"
             onChangeText={(text: String) =>

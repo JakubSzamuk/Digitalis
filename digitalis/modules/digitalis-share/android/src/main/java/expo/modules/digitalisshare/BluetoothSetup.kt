@@ -39,26 +39,51 @@
              bluetoothAdapter?.listenUsingRfcommWithServiceRecord(NAME, MY_UUID)
          }
 
+         var serverSocket: BluetoothServerSocket? = null;
+         var lookforConnections = true
          override fun run() {
              // Keep listening until exception occurs or a socket is returned.
-             var shouldLoop = true
-             while (shouldLoop) {
-                 val socket: BluetoothSocket? = try {
-                     mmServerSocket?.accept()
-                 } catch (e: IOException) {
-                     Log.e("ERROR", "Socket's accept() method failed", e)
-                     shouldLoop = false
-                     null
-                 }
-                 println("Connection request")
+//             var shouldLoop = true
+//             while (shouldLoop) {
+//                 val socket: BluetoothSocket? = try {
+//                     mmServerSocket?.accept()
+//                 } catch (e: IOException) {
+//                     Log.e("ERROR", "Socket's accept() method failed", e)
+//                     shouldLoop = false
+//                     null
+//                 }
+//                 println("Connection request")
+//
+//                 socket?.also {
+// //                    manageMyConnectedSocket(it)
+//                     mmServerSocket?.close()
+//                     shouldLoop = false
+//                 }
+//             }
 
-                 socket?.also {
- //                    manageMyConnectedSocket(it)
-                     mmServerSocket?.close()
-                     shouldLoop = false
-                 }
+             serverSocket = try {
+                 bluetoothAdapter!!.listenUsingRfcommWithServiceRecord(NAME, MY_UUID)
+             } catch (e: IOException) {
+                 Log.e("com.digitalis.digitalis", "Exception", e)
+                 return
+             } catch (e: SecurityException) {
+                 Log.e("com.digitalis.digitalis", "Missing permission for Connect", e)
+                 return
              }
+//             try {
+//                 while (lookforConnections) {
+//                     val socket = serverSocket!!.accept()
+//                     connect(socket)
+//                 } catch (e: Exception) {
+//
+//                 }
+//             }
          }
+
+         private fun connect(socket: BluetoothSocket) {
+//             synchronized(sockets)
+         }
+
 
          // Closes the connect socket and causes the thread to finish.
          fun cancel() {
