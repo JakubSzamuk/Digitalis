@@ -51,7 +51,7 @@ class DigitalisShareModule : Module() {
       if (bluetooth_hook == null) {
         "uninitialised"
       }
-      bluetooth_hook!!.stopDiscovery();
+      bluetooth_hook!!.connect_to_device();
     }
     Function("makeDiscoverable") {
       if (bluetooth_hook == null) {

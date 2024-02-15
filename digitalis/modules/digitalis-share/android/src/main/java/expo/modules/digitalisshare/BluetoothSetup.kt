@@ -16,8 +16,10 @@
  import android.util.Log
  import androidx.core.app.ActivityCompat
  import expo.modules.kotlin.AppContext
+ import kotlinx.coroutines.delay
  import java.io.IOException
  import java.util.UUID
+ import kotlin.time.Duration
 
  @SuppressLint("MissingPermission")
  class BluetoothSetup {
@@ -61,15 +63,37 @@
 //                 }
 //             }
 
-             serverSocket = try {
-                 bluetoothAdapter!!.listenUsingRfcommWithServiceRecord(NAME, MY_UUID)
-             } catch (e: IOException) {
-                 Log.e("com.digitalis.digitalis", "Exception", e)
-                 return
-             } catch (e: SecurityException) {
-                 Log.e("com.digitalis.digitalis", "Missing permission for Connect", e)
-                 return
+             var shouldLoop = true;
+             while (shouldLoop) {
+                 println("About to try accept")
+                 println("before")
+                 val bluetooth_socket = try {
+                     var socket = mmServerSocket!!.accept()
+                     println("accept")
+                     socket
+                 } catch (e: IOException) {
+                     println("error ")
+                     shouldLoop = false;
+                     break
+                 }
+
+                 if (bluetooth_socket.isConnected) {
+                    println("CONNECTION HERE")
+                    shouldLoop = false;
+                }
+                 println(bluetooth_socket)
              }
+
+
+//             serverSocket = try {
+//                 bluetoothAdapter!!.listenUsingRfcommWithServiceRecord(NAME, MY_UUID)
+//             } catch (e: IOException) {
+//                 Log.e("com.digitalis.digitalis", "Exception", e)
+//                 return
+//             } catch (e: SecurityException) {
+//                 Log.e("com.digitalis.digitalis", "Missing permission for Connect", e)
+//                 return
+//             }
 //             try {
 //                 while (lookforConnections) {
 //                     val socket = serverSocket!!.accept()
@@ -97,7 +121,45 @@
 
 
 
+     private inner class ConnectThread(device: BluetoothDevice) : Thread() {
 
+         private val mmSocket: BluetoothSocket? by lazy(LazyThreadSafetyMode.NONE) {
+             device.createRfcommSocketToServiceRecord(MY_UUID)
+         }
+
+         public override fun run() {
+             // Cancel discovery because it otherwise slows down the connection.
+             bluetoothAdapter?.cancelDiscovery()
+
+             mmSocket?.let { socket ->
+                 // Connect to the remote device through the socket. This call blocks
+                 // until it succeeds or throws an exception.
+                 println("ABOUT TO TRY TO CONNECT")
+                 socket.connect()
+
+                 // The connection attempt succeeded. Perform work associated with
+                 // the connection in a separate thread.
+                 println("CONNECTED")
+                 Thread.sleep(10000)
+             }
+         }
+
+         // Closes the client socket and causes the thread to finish.
+         fun cancel() {
+             try {
+                 println("Trying to close socket")
+                 mmSocket?.close()
+             } catch (e: IOException) {
+                 Log.e("no", "Could not close the client socket", e)
+             }
+         }
+     }
+     var foundDevice: BluetoothDevice? = null
+
+    fun connect_to_device() {
+        val connectThread = ConnectThread(foundDevice!!)
+        connectThread.start()
+    }
 
 
 
@@ -114,13 +176,23 @@
                      val device: BluetoothDevice? =
                              intent.getParcelableExtra(BluetoothDevice.EXTRA_DEVICE)
                      if (device != null) {
-                         val deviceName = device?.name
-                         val deviceUUid = device?.uuids
-                         val deviceHardwareAddress = device?.address // MAC address
-                         println(deviceHardwareAddress)
+                         if (device.name == "Pixel 8 Pro") {
+                             this@BluetoothSetup.foundDevice = device
+                             println("FOUND THE PIXEL")
+                             this@BluetoothSetup.stopDiscovery();
+                             return
+                         }
+                         if (device.name != null && device.uuids != null && device.address != null) {
+                             val deviceName = device.name
+                             val deviceUUid = device.uuids
+                             val deviceHardwareAddress = device.address // MAC address
+                             println("$deviceHardwareAddress, $deviceName, $deviceUUid")
 
 
-                         DigitalisShareModule.instance.dispatch_mac_address(deviceHardwareAddress!!, deviceName!!);
+                             DigitalisShareModule.instance.dispatch_mac_address(deviceHardwareAddress!!, deviceName!!);
+                         } else {
+                             println("BAD DEVICE")
+                         }
                      }
                  }
              }
