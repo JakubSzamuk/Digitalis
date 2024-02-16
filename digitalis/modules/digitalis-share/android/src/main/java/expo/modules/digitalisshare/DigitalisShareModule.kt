@@ -61,10 +61,7 @@ class DigitalisShareModule : Module() {
       bluetooth_hook!!.makeDiscoverable();
     }
     AsyncFunction("connectTo") {mac_address: String ->
-      println("attempting to connect to $mac_address")
-      sendEvent(DISCOVERY_EVENT_NAME, mapOf(
-              "Hello world" to "test"
-      ))
+      bluetooth_hook.
     }
   }
 }

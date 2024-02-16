@@ -26,13 +26,13 @@
      val ACTION_REQUEST_ENABLE = 1;
      val ACTION_FOUND = 4;
      val NAME = "Digitalis"
-     private val MY_UUID: UUID = ParcelUuid.fromString("0000112f-0000-1000-8000-00805f9b34fb").uuid
+     private val MY_UUID: UUID = ParcelUuid.fromString("0000112f-1000-1a40-8500-01205f9b34fb").uuid
 
 
      var appActivity: Activity? = null;
      var bluetoothAdapter: BluetoothAdapter? = null;
 
-
+    var found_devices = arrayListOf<BluetoothDevice>()
 
 
      private inner class AcceptThread : Thread() {
@@ -41,73 +41,29 @@
              bluetoothAdapter?.listenUsingRfcommWithServiceRecord(NAME, MY_UUID)
          }
 
-         var serverSocket: BluetoothServerSocket? = null;
-         var lookforConnections = true
          override fun run() {
-             // Keep listening until exception occurs or a socket is returned.
-//             var shouldLoop = true
-//             while (shouldLoop) {
-//                 val socket: BluetoothSocket? = try {
-//                     mmServerSocket?.accept()
-//                 } catch (e: IOException) {
-//                     Log.e("ERROR", "Socket's accept() method failed", e)
-//                     shouldLoop = false
-//                     null
-//                 }
-//                 println("Connection request")
-//
-//                 socket?.also {
-// //                    manageMyConnectedSocket(it)
-//                     mmServerSocket?.close()
-//                     shouldLoop = false
-//                 }
-//             }
-
              var shouldLoop = true;
              while (shouldLoop) {
                  println("About to try accept")
-                 println("before")
-                 val bluetooth_socket = try {
-                     var socket = mmServerSocket!!.accept()
-                     println("accept")
-                     socket
-                 } catch (e: IOException) {
-                     println("error ")
-                     shouldLoop = false;
-                     break
-                 }
+                 println("before $MY_UUID")
+//                 val bluetooth_socket = try {
+//                     mmServerSocket?.accept()
+//                 } catch (e: IOException) {
+//                     println("error ")
+//                     shouldLoop = false;
+//                     break
+//                 }
+                 val bluetooth_socket = mmServerSocket!!.accept(10000000)
+                 println("77")
 
-                 if (bluetooth_socket.isConnected) {
+                 if (bluetooth_socket!!.isConnected) {
                     println("CONNECTION HERE")
+                     bluetooth_socket.close()
                     shouldLoop = false;
-                }
+                 }
                  println(bluetooth_socket)
              }
-
-
-//             serverSocket = try {
-//                 bluetoothAdapter!!.listenUsingRfcommWithServiceRecord(NAME, MY_UUID)
-//             } catch (e: IOException) {
-//                 Log.e("com.digitalis.digitalis", "Exception", e)
-//                 return
-//             } catch (e: SecurityException) {
-//                 Log.e("com.digitalis.digitalis", "Missing permission for Connect", e)
-//                 return
-//             }
-//             try {
-//                 while (lookforConnections) {
-//                     val socket = serverSocket!!.accept()
-//                     connect(socket)
-//                 } catch (e: Exception) {
-//
-//                 }
-//             }
          }
-
-         private fun connect(socket: BluetoothSocket) {
-//             synchronized(sockets)
-         }
-
 
          // Closes the connect socket and causes the thread to finish.
          fun cancel() {
@@ -182,13 +138,14 @@
                              this@BluetoothSetup.stopDiscovery();
                              return
                          }
+
+
                          if (device.name != null && device.uuids != null && device.address != null) {
                              val deviceName = device.name
                              val deviceUUid = device.uuids
                              val deviceHardwareAddress = device.address // MAC address
-                             println("$deviceHardwareAddress, $deviceName, $deviceUUid")
-
-
+                             found_devices.add(device)
+                             println(deviceName)
                              DigitalisShareModule.instance.dispatch_mac_address(deviceHardwareAddress!!, deviceName!!);
                          } else {
                              println("BAD DEVICE")
@@ -274,8 +231,6 @@
          val acceptThread = AcceptThread()
          acceptThread.start()
      }
-
-
 
 
  }
